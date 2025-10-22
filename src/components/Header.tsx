@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Search, ShoppingBag, User } from "lucide-react";
+import { Menu, X, Search, ShoppingBag, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import rivaajLogo from "@/assets/rivaaj-logo.png";
 
@@ -7,13 +7,25 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
 
   const navLinks = [
-    { label: "Collections", href: "#collections" },
+    { label: "Collections", href: "#collections", hasDropdown: true },
     { label: "Women", href: "#women" },
     { label: "Men", href: "#men" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
+  ];
+
+  const dropdownItems = [
+    { label: "Bridal 2025/26", href: "#bridal" },
+    { label: "Couture 2025", href: "#couture" },
+    { label: "Lost In Time", href: "#lost-in-time" },
+    { label: "Bride & Groom", href: "#bride-groom" },
+    { label: "Heritage Pret", href: "#heritage" },
+    { label: "Tales of Masai", href: "#tales" },
+    { label: "Vintage Bridal", href: "#vintage" },
   ];
 
   // Handle scroll for sticky header behavior
@@ -50,20 +62,49 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-12">
             {navLinks.map((link) => (
-              <a
+              <div
                 key={link.label}
-                href={link.href}
-                className="font-darker-grotesque text-sm font-medium tracking-wide uppercase text-foreground relative group"
-                onMouseEnter={() => setActiveLink(link.label)}
-                onMouseLeave={() => setActiveLink(null)}
+                className="relative group"
+                onMouseEnter={() => {
+                  setActiveLink(link.label);
+                  if (link.hasDropdown) setIsDropdownOpen(true);
+                }}
+                onMouseLeave={() => {
+                  setActiveLink(null);
+                  setIsDropdownOpen(false);
+                }}
               >
-                {link.label}
-                <span
-                  className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                    activeLink === link.label ? "w-full" : "w-0"
-                  }`}
-                />
-              </a>
+                <a
+                  href={link.href}
+                  className="font-darker-grotesque text-sm font-medium tracking-wide uppercase text-foreground relative"
+                >
+                  {link.label}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                      activeLink === link.label ? "w-full" : "w-0"
+                    }`}
+                  />
+                </a>
+
+                {/* Dropdown Menu */}
+                {link.hasDropdown && (
+                  <div
+                    className={`absolute left-0 mt-0 w-48 bg-white shadow-lg rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 ${
+                      isDropdownOpen ? "opacity-100 visible" : ""
+                    }`}
+                  >
+                    {dropdownItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="block px-4 py-3 font-darker-grotesque text-sm font-medium text-foreground hover:bg-gray-50 hover:text-primary transition-colors first:rounded-t-sm last:rounded-b-sm"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
@@ -117,14 +158,48 @@ const Header = () => {
           <nav className="lg:hidden py-6 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
+                <div key={link.label}>
+                  {link.hasDropdown ? (
+                    <>
+                      <button
+                        onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+                        className="w-full flex items-center justify-between font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
+                      >
+                        {link.label}
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform ${
+                            isMobileDropdownOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      {isMobileDropdownOpen && (
+                        <div className="pl-4 flex flex-col gap-2 mt-2 border-l border-gray-200">
+                          {dropdownItems.map((item) => (
+                            <a
+                              key={item.label}
+                              href={item.href}
+                              className="font-darker-grotesque text-sm font-medium text-gray-600 hover:text-primary transition-colors py-1"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setIsMobileDropdownOpen(false);
+                              }}
+                            >
+                              {item.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  )}
+                </div>
               ))}
 
               {/* Mobile Icons */}
