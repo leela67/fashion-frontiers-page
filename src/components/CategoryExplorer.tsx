@@ -1,67 +1,85 @@
-import categoryWomen from "@/assets/category-women.jpg";
-import categoryMen from "@/assets/category-men.jpg";
-import categoryCollection from "@/assets/category-collection.jpg";
+import collection1 from "@/assets/collection-1.jpg";
+import collection2 from "@/assets/collection-2.jpg";
+import collection3 from "@/assets/collection-3.jpg";
+import collection4 from "@/assets/collection-4.jpg";
+import hero1 from "@/assets/hero-1.jpg";
+import hero2 from "@/assets/hero-2.jpg";
 
-const categories = [
+const collections = [
   {
-    id: "women",
-    title: "Women",
-    image: categoryWomen,
-    description: "Elegant gowns & sophisticated dresses",
+    id: "kashmir",
+    title: "A Poème By The Lake: Kashmir",
+    image: collection1,
   },
   {
-    id: "men",
-    title: "Men",
-    image: categoryMen,
-    description: "Tailored suits & formal wear",
+    id: "couture-2024",
+    title: "India Couture Week 2024",
+    image: collection2,
   },
   {
-    id: "collection",
-    title: "Collection",
-    image: categoryCollection,
-    description: "Exclusive designer pieces",
+    id: "love-always",
+    title: "Love Always",
+    image: collection3,
+  },
+  {
+    id: "love-is",
+    title: "Love Is",
+    image: collection4,
+  },
+  {
+    id: "mon-amour",
+    title: "Mon Amour Jag Niwas",
+    image: hero1,
+  },
+  {
+    id: "rang-mahal",
+    title: "Rang Mahal",
+    image: hero2,
   },
 ];
 
-const CategoryExplorer = () => {
+const CollectionExplorer = () => {
   return (
-    <section id="categories" className="py-20 lg:py-32 bg-background">
+    <section id="collections-explore" className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold mb-4 text-primary">
-            Explore by Categories
+        <div className="text-center mb-16 lg:mb-20">
+          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold mb-4 text-primary tracking-tight">
+            Explore by Collection
           </h2>
-          <p className="font-darker-grotesque text-muted-foreground text-lg max-w-2xl mx-auto">
-            Browse our curated collections designed for every occasion
+          <p className="font-darker-grotesque text-muted-foreground text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+            Discover our curated collections, each telling a unique story of elegance and craftsmanship
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {categories.map((category) => (
+        {/* Collections Grid - Responsive layout matching reference design */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {collections.map((collection) => (
             <div
-              key={category.id}
-              className="group relative overflow-hidden cursor-pointer shadow-elegant hover:shadow-hover transition-elegant"
+              key={collection.id}
+              className="group relative overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-hover"
             >
-              {/* Image */}
-              <div className="aspect-[3/4] overflow-hidden">
+              {/* Image Container */}
+              <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
                 <img
-                  src={category.image}
-                  alt={category.title}
-                  className="w-full h-full object-cover transition-elegant group-hover:scale-110"
+                  src={collection.image}
+                  alt={collection.title}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                {/* Subtle overlay on hover */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500" />
               </div>
 
-              {/* Overlay Content */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 lg:p-8">
-                <h3 className="font-black-mango text-3xl lg:text-4xl font-bold text-white mb-2">
-                  {category.title}
+              {/* Collection Name - Positioned at bottom */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
+                <h3 className="font-black-mango text-xl lg:text-2xl font-bold text-white leading-tight tracking-wide">
+                  {collection.title}
                 </h3>
-                <p className="font-darker-grotesque text-white/90 text-sm lg:text-base mb-4">
-                  {category.description}
-                </p>
-                <button className="self-start px-6 py-2 border-2 border-white text-white hover:bg-white hover:text-primary font-darker-grotesque font-medium tracking-wider uppercase text-sm transition-smooth">
+              </div>
+
+              {/* Explore Button - Appears on hover */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
+                <button className="px-8 py-3 border-2 border-white text-white font-darker-grotesque font-medium tracking-widest uppercase text-sm hover:bg-white hover:text-primary transition-all duration-300">
                   Explore
                 </button>
               </div>
@@ -73,4 +91,4 @@ const CategoryExplorer = () => {
   );
 };
 
-export default CategoryExplorer;
+export default CollectionExplorer;
