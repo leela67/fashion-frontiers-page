@@ -44,10 +44,10 @@ const ImageGallery = () => {
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold mb-4 text-primary">
             Collection Moodboard
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="font-darker-grotesque text-muted-foreground text-lg max-w-2xl mx-auto">
             A glimpse into our creative vision and artistic inspiration
           </p>
         </div>

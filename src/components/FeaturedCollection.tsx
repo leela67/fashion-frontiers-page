@@ -1,129 +1,179 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import collection1 from "@/assets/collection-1.jpg";
 import collection2 from "@/assets/collection-2.jpg";
 import collection3 from "@/assets/collection-3.jpg";
 import collection4 from "@/assets/collection-4.jpg";
 
-const collections = [
+const carouselItems = [
   {
     id: 1,
-    title: "Evening Elegance",
-    price: "$2,450",
-    mainImage: collection1,
-    hoverImage: collection2,
+    type: "image",
+    src: collection1,
+    alt: "Rang Mahal Collection - Image 1",
   },
   {
     id: 2,
-    title: "Modern Couture",
-    price: "$3,200",
-    mainImage: collection2,
-    hoverImage: collection3,
+    type: "image",
+    src: collection2,
+    alt: "Rang Mahal Collection - Image 2",
   },
   {
     id: 3,
-    title: "Luxury Accessories",
-    price: "$890",
-    mainImage: collection3,
-    hoverImage: collection4,
+    type: "image",
+    src: collection3,
+    alt: "Rang Mahal Collection - Image 3",
   },
   {
     id: 4,
-    title: "Bridal Collection",
-    price: "$5,800",
-    mainImage: collection4,
-    hoverImage: collection1,
+    type: "image",
+    src: collection4,
+    alt: "Rang Mahal Collection - Image 4",
   },
 ];
 
 const FeaturedCollection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
 
-  const itemsPerView = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 4,
-  };
+  // Auto-play carousel every 5 seconds
+  useEffect(() => {
+    if (!isAutoPlay) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % carouselItems.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlay]);
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex((prev) => (prev - 1 + carouselItems.length) % carouselItems.length);
+    setIsAutoPlay(false);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => Math.min(collections.length - itemsPerView.desktop, prev + 1));
+    setCurrentIndex((prev) => (prev + 1) % carouselItems.length);
+    setIsAutoPlay(false);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+    setIsAutoPlay(false);
   };
 
   return (
-    <section id="collections" className="py-20 lg:py-32 bg-pearl">
+    <section id="collections" className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-2">
-              New Arrivals
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Discover our latest curated collection
-            </p>
-          </div>
-
-          {/* Navigation Arrows */}
-          <div className="hidden lg:flex gap-2">
-            <button
-              onClick={goToPrevious}
-              disabled={currentIndex === 0}
-              className="p-3 border border-border hover:border-primary hover:bg-primary hover:text-primary-foreground transition-smooth disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Previous items"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={goToNext}
-              disabled={currentIndex >= collections.length - itemsPerView.desktop}
-              className="p-3 border border-border hover:border-primary hover:bg-primary hover:text-primary-foreground transition-smooth disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Next items"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+        {/* Section Title */}
+        <div className="mb-16 lg:mb-20">
+          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold tracking-tight text-primary text-center lg:text-left mb-4">
+            Latest Collection
+          </h2>
         </div>
 
-        {/* Collection Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {collections.map((item) => (
-            <div
-              key={item.id}
-              className="group cursor-pointer"
-              onMouseEnter={() => setHoveredItem(item.id)}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              {/* Image Container */}
-              <div className="relative aspect-square overflow-hidden mb-4 shadow-elegant hover:shadow-hover transition-elegant">
-                <img
-                  src={hoveredItem === item.id ? item.hoverImage : item.mainImage}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-elegant group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-elegant" />
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Column - Text Content */}
+          <div className="flex flex-col justify-center order-2 lg:order-1">
+            <div className="mb-8">
+              <h3 className="font-black-mango text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-6">
+                Rang Mahal
+              </h3>
+              <p className="font-darker-grotesque text-base lg:text-lg font-normal leading-relaxed text-gray-700 mb-6">
+                Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful. Elevate your wedding day with ensembles that add a touch of regal and that echoes the beauty of your shared journey.
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div>
+              <button className="font-darker-grotesque px-8 py-4 bg-primary text-white hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg font-semibold tracking-wider uppercase text-sm">
+                Explore Now
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column - Carousel */}
+          <div className="order-1 lg:order-2">
+            <div className="relative w-full">
+              {/* Main Carousel Container */}
+              <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg">
+                {/* Carousel Items */}
+                {carouselItems.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                      index === currentIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    {item.type === "image" ? (
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <video
+                        src={item.src}
+                        className="w-full h-full object-cover"
+                        onMouseEnter={(e) => e.currentTarget.play()}
+                        onMouseLeave={(e) => e.currentTarget.pause()}
+                      />
+                    )}
+                  </div>
+                ))}
+
+                {/* Play Button Overlay for Videos */}
+                {carouselItems[currentIndex]?.type === "video" && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/40 transition-colors cursor-pointer">
+                    <Play className="w-16 h-16 text-white fill-white" />
+                  </div>
+                )}
               </div>
 
-              {/* Item Info */}
-              <div className="text-center">
-                <h3 className="font-serif text-xl font-semibold mb-1 group-hover:text-accent transition-smooth">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground">{item.price}</p>
+              {/* Navigation Arrows */}
+              <button
+                onClick={goToPrevious}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 hover:bg-white text-black rounded-full transition-all duration-300 hover:shadow-lg"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={goToNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 hover:bg-white text-black rounded-full transition-all duration-300 hover:shadow-lg"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+
+              {/* Carousel Indicators (Dots) */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {carouselItems.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      index === currentIndex
+                        ? "bg-white w-8"
+                        : "bg-white/50 hover:bg-white/75"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <button className="px-8 py-3 border-2 border-primary hover:bg-primary hover:text-primary-foreground font-medium tracking-wider uppercase transition-smooth">
-            View All Collection
-          </button>
+            {/* Auto-play Toggle */}
+            <div className="mt-6 flex items-center justify-center gap-2">
+              <button
+                onClick={() => setIsAutoPlay(!isAutoPlay)}
+                className="text-sm font-darker-grotesque tracking-wider uppercase text-gray-600 hover:text-primary transition-colors"
+              >
+                {isAutoPlay ? "Pause" : "Play"}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

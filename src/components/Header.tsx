@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Search, ShoppingBag, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import rivaajLogo from "@/assets/rivaaj-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState<string | null>(null);
 
   const navLinks = [
     { label: "Collections", href: "#collections" },
@@ -13,39 +16,95 @@ const Header = () => {
     { label: "Contact", href: "#contact" },
   ];
 
+  // Handle scroll for sticky header behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white shadow-md"
+          : "bg-white/95 backdrop-blur-sm"
+      }`}
+    >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24 lg:h-28">
           {/* Logo */}
-          <a href="/" className="font-serif text-2xl lg:text-3xl font-bold tracking-tight transition-smooth hover:text-accent">
-            Atelier Luxe
+          <a
+            href="/"
+            className="transition-all duration-300 hover:opacity-80"
+          >
+            <img
+              src={rivaajLogo}
+              alt="Rivaaj Couture"
+              className="h-12 lg:h-16 w-auto object-contain"
+            />
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-12">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium tracking-wider uppercase transition-smooth hover:text-accent"
+                className="font-darker-grotesque text-sm font-medium tracking-wide uppercase text-foreground relative group"
+                onMouseEnter={() => setActiveLink(link.label)}
+                onMouseLeave={() => setActiveLink(null)}
               >
                 {link.label}
+                <span
+                  className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                    activeLink === link.label ? "w-full" : "w-0"
+                  }`}
+                />
               </a>
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <Button
-            variant="outline"
-            className="hidden md:inline-flex border-primary hover:bg-primary hover:text-primary-foreground transition-smooth"
-          >
-            Book Appointment
-          </Button>
+          {/* Right Side Icons & CTA */}
+          <div className="hidden lg:flex items-center gap-6">
+            {/* Search Icon */}
+            <button
+              className="p-2 hover:text-accent transition-colors duration-300"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+
+            {/* User Account Icon */}
+            <button
+              className="p-2 hover:text-accent transition-colors duration-300"
+              aria-label="Account"
+            >
+              <User className="w-5 h-5" />
+            </button>
+
+            {/* Shopping Bag Icon */}
+            <button
+              className="p-2 hover:text-accent transition-colors duration-300 relative"
+              aria-label="Shopping bag"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
+            </button>
+
+            {/* CTA Button */}
+            <Button
+              className="ml-4 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase text-sm transition-all duration-300"
+            >
+              Book Appointment
+            </Button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="lg:hidden p-2 hover:text-accent transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -55,21 +114,35 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden py-6 border-t border-border">
+          <nav className="lg:hidden py-6 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-base font-medium tracking-wider uppercase transition-smooth hover:text-accent py-2"
+                  className="font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
+
+              {/* Mobile Icons */}
+              <div className="flex gap-4 pt-4 border-t border-border">
+                <button className="p-2 hover:text-accent transition-colors">
+                  <Search className="w-5 h-5" />
+                </button>
+                <button className="p-2 hover:text-accent transition-colors">
+                  <User className="w-5 h-5" />
+                </button>
+                <button className="p-2 hover:text-accent transition-colors relative">
+                  <ShoppingBag className="w-5 h-5" />
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
+                </button>
+              </div>
+
               <Button
-                variant="outline"
-                className="mt-4 border-primary hover:bg-primary hover:text-primary-foreground"
+                className="mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase"
               >
                 Book Appointment
               </Button>

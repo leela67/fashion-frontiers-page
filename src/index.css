@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
 All colors MUST be HSL.
 */
 
@@ -17,17 +19,18 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    /* Rivaaj Couture Brand Colors */
+    --primary: 359 66% 25%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 15% 92%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 38 60% 79%;
+    --secondary-foreground: 359 66% 25%;
 
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 38 65% 55%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 359 66% 25%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
@@ -37,12 +40,19 @@ All colors MUST be HSL.
     --ring: 0 0% 20%;
 
     --radius: 0.25rem;
-    
-    /* Luxury Design Tokens */
-    --gold: 38 65% 55%;
-    --gold-muted: 40 35% 75%;
+
+    /* Rivaaj Couture Design Tokens */
+    --rivaaj-primary: 359 66% 25%;
+    --rivaaj-secondary: 38 60% 79%;
+    --rivaaj-neutral: 0 0% 100%;
     --charcoal: 0 0% 15%;
     --pearl: 0 0% 96%;
+
+    /* Font Family Tokens */
+    --font-black-mango: 'Playfair Display', serif;
+    --font-darker-grotesque: 'Roboto', sans-serif;
+    --font-playfair: 'Playfair Display', serif;
+    --font-inter: 'Roboto', sans-serif;
     
     /* Gradients */
     --gradient-luxury: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--charcoal)) 100%);
@@ -135,34 +145,108 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
+  /* Font Family Utilities */
   .font-serif {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-playfair);
   }
-  
+
   .font-sans {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-inter);
   }
-  
+
+  .font-jost {
+    font-family: var(--font-jost);
+  }
+
+  .font-josefin {
+    font-family: var(--font-josefin);
+  }
+
+  /* Typography Styles - Header Navigation */
+  .nav-text {
+    font-family: var(--font-jost);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .nav-text-hover {
+    transition: all 0.3s ease;
+  }
+
+  .nav-text-hover:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  /* Typography Styles - Headings */
+  .heading-luxury {
+    font-family: var(--font-playfair);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  .heading-lg {
+    font-size: 48px;
+  }
+
+  .heading-md {
+    font-size: 32px;
+  }
+
+  .heading-sm {
+    font-size: 24px;
+  }
+
+  /* Typography Styles - Body Text */
+  .body-text {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+
+  .body-text-sm {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Typography Styles - CTA/Button Text */
+  .cta-text {
+    font-family: var(--font-jost);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Transition Utilities */
   .transition-elegant {
     transition: var(--transition-elegant);
   }
-  
+
   .transition-smooth {
     transition: var(--transition-smooth);
   }
-  
+
+  /* Shadow Utilities */
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
-  
+
   .shadow-hover {
     box-shadow: var(--shadow-hover);
   }
-  
+
+  /* Gradient Utilities */
   .gradient-luxury {
     background: var(--gradient-luxury);
   }
-  
+
   .gradient-gold {
     background: var(--gradient-gold);
   }

@@ -38,8 +38,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div>
-            <h3 className="font-serif text-3xl font-bold mb-4">Atelier Luxe</h3>
-            <p className="text-white/70 mb-6">
+            <h3 className="font-black-mango text-3xl font-bold mb-4 text-secondary">Rivaaj Couture</h3>
+            <p className="font-darker-grotesque text-white/70 mb-6">
               Timeless elegance meets contemporary luxury. Crafting exceptional pieces since 2020.
             </p>
             {/* Newsletter */}
@@ -62,7 +62,7 @@ const Footer = () => {
 
           {/* Shop Links */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4">Shop</h4>
+            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Shop</h4>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.label}>
@@ -79,13 +79,13 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4">Company</h4>
+            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Company</h4>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-gold transition-smooth text-sm"
+                    className="font-darker-grotesque text-white/70 hover:text-secondary transition-smooth text-sm"
                   >
                     {link.label}
                   </a>
@@ -96,13 +96,13 @@ const Footer = () => {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4">Support</h4>
+            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Support</h4>
             <ul className="space-y-2">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-gold transition-smooth text-sm"
+                    className="font-darker-grotesque text-white/70 hover:text-secondary transition-smooth text-sm"
                   >
                     {link.label}
                   </a>
@@ -116,8 +116,8 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
-            <p className="text-white/60 text-sm">
-              © {currentYear} Atelier Luxe. All rights reserved.
+            <p className="font-darker-grotesque text-white/60 text-sm">
+              © {currentYear} Rivaaj Couture. All rights reserved.
             </p>
 
             {/* Social Links */}
@@ -138,10 +138,10 @@ const Footer = () => {
 
             {/* Legal Links */}
             <div className="flex gap-6 text-sm text-white/60">
-              <a href="#privacy" className="hover:text-gold transition-smooth">
+              <a href="#privacy" className="font-darker-grotesque hover:text-secondary transition-smooth">
                 Privacy Policy
               </a>
-              <a href="#terms" className="hover:text-gold transition-smooth">
+              <a href="#terms" className="font-darker-grotesque hover:text-secondary transition-smooth">
                 Terms of Service
               </a>
             </div>

@@ -15,7 +15,9 @@ export default {
     extend: {
       fontFamily: {
         serif: ['Playfair Display', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Roboto', 'sans-serif'],
+        'black-mango': ['Playfair Display', 'serif'],
+        'darker-grotesque': ['Roboto', 'sans-serif'],
       },
       colors: {
         gold: "hsl(var(--gold))",

@@ -55,10 +55,10 @@ const ContactSection = () => {
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold mb-4 text-primary">
             Get in Touch
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="font-darker-grotesque text-muted-foreground text-lg max-w-2xl mx-auto">
             Book an appointment or inquire about our collections
           </p>
         </div>
@@ -145,7 +145,7 @@ const ContactSection = () => {
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-xl font-semibold mb-2">
+                  <h3 className="font-black-mango text-xl font-semibold mb-2 text-primary">
                     {item.title}
                   </h3>
                   {item.details.map((detail, idx) => (
