@@ -7,12 +7,12 @@ import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 
 const images = [
-  { src: collection1, delay: 0 },
-  { src: collection2, delay: 100 },
-  { src: hero1, delay: 200 },
-  { src: collection3, delay: 300 },
-  { src: hero2, delay: 400 },
-  { src: collection4, delay: 500 },
+  { src: collection1, size: "large", delay: 0 },
+  { src: collection2, size: "small", delay: 100 },
+  { src: hero1, size: "medium", delay: 200 },
+  { src: collection3, size: "small", delay: 300 },
+  { src: hero2, size: "large", delay: 400 },
+  { src: collection4, size: "medium", delay: 500 },
 ];
 
 const ImageGallery = () => {
@@ -39,6 +39,32 @@ const ImageGallery = () => {
     return () => observer.disconnect();
   }, []);
 
+  const getImageClasses = (size: string) => {
+    switch (size) {
+      case "large":
+        return "col-span-1 sm:col-span-2 lg:col-span-2 row-span-2";
+      case "medium":
+        return "col-span-1 sm:col-span-1 lg:col-span-1 row-span-2";
+      case "small":
+        return "col-span-1 sm:col-span-1 lg:col-span-1 row-span-1";
+      default:
+        return "col-span-1 row-span-1";
+    }
+  };
+
+  const getAspectRatio = (size: string) => {
+    switch (size) {
+      case "large":
+        return "aspect-[3/4]";
+      case "medium":
+        return "aspect-[3/4]";
+      case "small":
+        return "aspect-[3/4]";
+      default:
+        return "aspect-[3/4]";
+    }
+  };
+
   return (
     <section id="media-coverage" className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
@@ -52,25 +78,27 @@ const ImageGallery = () => {
           </p>
         </div>
 
-        {/* Professional Grid Layout - Matching reference design */}
+        {/* Masonry Grid Layout - Matching reference design */}
         <div
           ref={galleryRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-max"
         >
           {images.map((image, index) => (
             <div
               key={index}
-              className="gallery-item opacity-0 overflow-hidden cursor-pointer group"
+              className={`gallery-item opacity-0 overflow-hidden cursor-pointer group shadow-elegant hover:shadow-hover transition-all duration-500 ${getImageClasses(
+                image.size
+              )}`}
               style={{ animationDelay: `${image.delay}ms` }}
             >
-              <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+              <div className={`relative ${getAspectRatio(image.size)} overflow-hidden bg-gray-100 h-full`}>
                 <img
                   src={image.src}
                   alt={`Gallery item ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
                 {/* Subtle overlay on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-500" />
               </div>
             </div>
           ))}

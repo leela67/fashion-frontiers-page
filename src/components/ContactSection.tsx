@@ -1,173 +1,76 @@
-import { useState } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import hero1 from "@/assets/hero-1.jpg";
 
 const ContactSection = () => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", phone: "", message: "" });
+  const storeInfo = {
+    name: "Rivaaj Flagship Store",
+    address: "Regency One",
+    addressLine2: "D-59 Chattarpur Enclave",
+    addressLine3: "S N N Marg",
+    city: "New Delhi 110047",
+    hours: "7 Days Open | 11AM - 7PM",
+    phone: "+91 93112 21098",
   };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      details: ["123 Fashion Avenue", "New York, NY 10001"],
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      details: ["+1 (555) 123-4567"],
-    },
-    {
-      icon: Mail,
-      title: "Email Us",
-      details: ["hello@atelierluxe.com"],
-    },
-    {
-      icon: Clock,
-      title: "Hours",
-      details: ["Mon-Sat: 10AM - 7PM", "Sunday: By Appointment"],
-    },
-  ];
 
   return (
-    <section id="contact" className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold mb-4 text-primary">
-            Get in Touch
-          </h2>
-          <p className="font-darker-grotesque text-muted-foreground text-lg max-w-2xl mx-auto">
-            Book an appointment or inquire about our collections
-          </p>
+    <section id="contact" className="bg-background">
+      {/* Store Image & Info Section - Pixel Perfect Match */}
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        {/* Store Image - Left Side */}
+        <div className="relative w-full h-96 sm:h-[500px] lg:h-[600px] overflow-hidden bg-gray-100">
+          <img
+            src={hero1}
+            alt="Rivaaj Flagship Store"
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Contact Form */}
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Full Name *
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                  placeholder="John Doe"
-                />
-              </div>
+        {/* Store Information - Right Side */}
+        <div className="flex flex-col justify-center px-8 sm:px-10 lg:px-16 py-16 sm:py-20 lg:py-24 bg-white">
+          <div className="max-w-sm">
+            {/* Title */}
+            <h2 className="font-black-mango text-3xl sm:text-4xl lg:text-5xl font-bold mb-10 text-primary tracking-tight leading-tight">
+              {storeInfo.name}
+            </h2>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email Address *
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                  placeholder="john@example.com"
-                />
-              </div>
+            {/* Store Details - Matching Reference Formatting */}
+            <div className="space-y-6 mb-10">
+              {/* Address */}
+              <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed tracking-wide">
+                {storeInfo.address}
+                <br />
+                {storeInfo.addressLine2}
+                <br />
+                {storeInfo.addressLine3}
+                <br />
+                {storeInfo.city}
+              </p>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                  Phone Number
-                </label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full"
-                  placeholder="+1 (555) 000-0000"
-                />
-              </div>
+              {/* Hours */}
+              <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground tracking-wide">
+                {storeInfo.hours}
+              </p>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message *
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  className="w-full min-h-[150px]"
-                  placeholder="Tell us about your requirements..."
-                />
-              </div>
+              {/* Phone */}
+              <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground tracking-wide">
+                Tel: <a href={`tel:${storeInfo.phone}`} className="hover:text-primary transition-colors">{storeInfo.phone}</a>
+              </p>
+            </div>
 
-              <Button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-medium tracking-wider uppercase"
+            {/* Action Buttons - Matching Reference Style */}
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <a
+                href={`https://www.google.com/maps/search/${encodeURIComponent(storeInfo.address + ' ' + storeInfo.city)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                Send Message
-              </Button>
-            </form>
-          </div>
-
-          {/* Contact Information */}
-          <div className="space-y-8">
-            {contactInfo.map((item, index) => (
-              <div key={index} className="flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-pearl flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-black-mango text-xl font-semibold mb-2 text-primary">
-                    {item.title}
-                  </h3>
-                  {item.details.map((detail, idx) => (
-                    <p key={idx} className="text-muted-foreground">
-                      {detail}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ))}
-
-            {/* Map Placeholder */}
-            <div className="mt-8 h-64 bg-muted rounded-lg overflow-hidden shadow-elegant">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                title="Location map"
-              />
+                <button className="w-full bg-primary hover:bg-primary/90 text-white px-6 sm:px-8 py-3 sm:py-4 font-darker-grotesque font-bold tracking-widest uppercase text-xs sm:text-sm transition-colors duration-300">
+                  Get Directions
+                </button>
+              </a>
+              <button className="w-full bg-white border-2 border-primary text-primary hover:bg-primary/5 px-6 sm:px-8 py-3 sm:py-4 font-darker-grotesque font-bold tracking-widest uppercase text-xs sm:text-sm transition-colors duration-300">
+                Explore
+              </button>
             </div>
           </div>
         </div>
