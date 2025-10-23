@@ -26,7 +26,7 @@ const MegaMenu = ({ navLinks }: MegaMenuProps) => {
       {navLinks.map((link) => (
         <div
           key={link.label}
-          className="relative group"
+          className="group"
           onMouseEnter={() => handleMouseEnter(link.label)}
           onMouseLeave={handleMouseLeave}
         >
@@ -50,14 +50,13 @@ const MegaMenu = ({ navLinks }: MegaMenuProps) => {
             />
           </a>
 
-          {/* Mega Menu Dropdown */}
+          {/* Mega Menu Dropdown - Fixed positioning relative to viewport */}
           {link.hasDropdown && (
             <div
-              className={`absolute left-0 mt-0 w-screen max-w-7xl bg-white shadow-lg rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 ${
+              className={`fixed left-1/2 top-24 lg:top-28 w-screen max-w-7xl bg-white shadow-lg rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 ${
                 isDropdownOpen ? "opacity-100 visible" : ""
               }`}
               style={{
-                left: "50%",
                 transform: "translateX(-50%)",
               }}
             >
