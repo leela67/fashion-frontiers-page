@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import collection1 from "@/assets/collection-1.jpg";
 import collection2 from "@/assets/collection-2.jpg";
@@ -38,6 +38,45 @@ const videoSrc = "https://videos.pexels.com/video-files/3045163/3045163-sd_640_3
 const FeaturedCollection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [videoAutoplay, setVideoAutoplay] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Intersection Observer for video autoplay on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Section is in viewport - autoplay video
+            setVideoAutoplay(true);
+            if (videoRef.current) {
+              videoRef.current.play().catch(() => {
+                // Autoplay may be blocked, user can click play
+              });
+            }
+          } else {
+            // Section is out of viewport - pause video
+            setVideoAutoplay(false);
+            if (videoRef.current) {
+              videoRef.current.pause();
+            }
+          }
+        });
+      },
+      { threshold: 0.5 } // Trigger when 50% of section is visible
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   // Auto-play carousel every 5 seconds
   useEffect(() => {
@@ -66,7 +105,7 @@ const FeaturedCollection = () => {
   };
 
   return (
-    <section id="collections" className="py-20 lg:py-32 bg-white">
+    <section id="collections" className="py-20 lg:py-32 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Title - Centered */}
         <div className="mb-16 lg:mb-20 text-center">
@@ -76,9 +115,9 @@ const FeaturedCollection = () => {
         </div>
 
         {/* Main Layout - Text Left, Image and Video Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-          {/* Left Column - Text Content */}
-          <div className="flex flex-col justify-start lg:col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+          {/* Left Column - Text Content (Vertically Centered) */}
+          <div className="flex flex-col justify-center lg:col-span-1 h-full">
             <div className="mb-8">
               <h3 className="font-black-mango text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-6">
                 Rang Mahal
@@ -100,15 +139,17 @@ const FeaturedCollection = () => {
           <div className="lg:col-span-2">
             <div className="relative w-full">
               {/* Main Carousel Container - Image Larger, Video Smaller */}
-              <div className="flex gap-4 lg:gap-6">
-                {/* Image Carousel - Larger (60% width) */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg flex-1">
-                  {/* Carousel Items */}
+              <div className="flex gap-4 lg:gap-6 items-start">
+                {/* Image Carousel - Larger (65% width on desktop) */}
+                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg w-full lg:w-2/3">
+                  {/* Carousel Items with Animation */}
                   {carouselItems.map((item, index) => (
                     <div
                       key={item.id}
-                      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                        index === currentIndex ? "opacity-100" : "opacity-0"
+                      className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                        index === currentIndex
+                          ? "opacity-100 scale-100"
+                          : "opacity-0 scale-95"
                       }`}
                     >
                       {item.type === "image" ? (
@@ -129,13 +170,15 @@ const FeaturedCollection = () => {
                   ))}
                 </div>
 
-                {/* Video Element - Smaller (40% width) */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[9/16] rounded-lg shadow-lg flex-1">
+                {/* Video Element - Smaller (35% width on desktop) */}
+                <div className="relative overflow-hidden bg-gray-100 aspect-[9/16] rounded-lg shadow-lg w-full lg:w-1/3">
                   <video
+                    ref={videoRef}
                     src={videoSrc}
                     className="w-full h-full object-cover"
                     controls
                     controlsList="nodownload"
+                    muted
                   />
                 </div>
               </div>
