@@ -57,9 +57,9 @@ const ImageGallery = () => {
       case "large":
         return "aspect-[3/4]";
       case "medium":
-        return "aspect-[3/4]";
+        return "aspect-[4/5]";
       case "small":
-        return "aspect-[3/4]";
+        return "aspect-[2/3]";
       default:
         return "aspect-[3/4]";
     }
@@ -86,19 +86,19 @@ const ImageGallery = () => {
           {images.map((image, index) => (
             <div
               key={index}
-              className={`gallery-item opacity-0 overflow-hidden cursor-pointer group shadow-elegant hover:shadow-hover transition-all duration-500 ${getImageClasses(
+              className={`gallery-item opacity-0 overflow-hidden cursor-pointer group transition-all duration-500 ${getImageClasses(
                 image.size
               )}`}
               style={{ animationDelay: `${image.delay}ms` }}
             >
-              <div className={`relative ${getAspectRatio(image.size)} overflow-hidden bg-gray-100 h-full`}>
+              <div className={`relative ${getAspectRatio(image.size)} overflow-hidden bg-gray-100 h-full shadow-elegant hover:shadow-hover transition-shadow duration-500`}>
                 <img
                   src={image.src}
                   alt={`Gallery item ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 {/* Subtle overlay on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
               </div>
             </div>
           ))}

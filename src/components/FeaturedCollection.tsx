@@ -32,6 +32,9 @@ const carouselItems = [
   },
 ];
 
+// Single video to display alongside images
+const videoSrc = "https://videos.pexels.com/video-files/3045163/3045163-sd_640_360_25fps.mp4";
+
 const FeaturedCollection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -93,70 +96,78 @@ const FeaturedCollection = () => {
             </div>
           </div>
 
-          {/* Right Column - Carousel */}
+          {/* Right Column - Carousel with Image and Video */}
           <div className="order-1 lg:order-2">
             <div className="relative w-full">
-              {/* Main Carousel Container */}
-              <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg">
-                {/* Carousel Items */}
-                {carouselItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                      index === currentIndex ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    {item.type === "image" ? (
-                      <img
-                        src={item.src}
-                        alt={item.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <video
-                        src={item.src}
-                        className="w-full h-full object-cover"
-                        onMouseEnter={(e) => e.currentTarget.play()}
-                        onMouseLeave={(e) => e.currentTarget.pause()}
-                      />
-                    )}
-                  </div>
-                ))}
+              {/* Main Carousel Container - Two Column Layout */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                {/* Image Carousel */}
+                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg">
+                  {/* Carousel Items */}
+                  {carouselItems.map((item, index) => (
+                    <div
+                      key={item.id}
+                      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                        index === currentIndex ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      {item.type === "image" ? (
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <video
+                          src={item.src}
+                          className="w-full h-full object-cover"
+                          onMouseEnter={(e) => e.currentTarget.play()}
+                          onMouseLeave={(e) => e.currentTarget.pause()}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
 
-                {/* Play Button Overlay for Videos */}
-                {carouselItems[currentIndex]?.type === "video" && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/40 transition-colors cursor-pointer">
-                    <Play className="w-16 h-16 text-white fill-white" />
-                  </div>
-                )}
+                {/* Video Element - Single Video with Controls */}
+                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg">
+                  <video
+                    src={videoSrc}
+                    className="w-full h-full object-cover"
+                    controls
+                    controlsList="nodownload"
+                  />
+                </div>
               </div>
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={goToPrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 hover:bg-white text-black rounded-full transition-all duration-300 hover:shadow-lg"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                onClick={goToNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 hover:bg-white text-black rounded-full transition-all duration-300 hover:shadow-lg"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
+              {/* Navigation Arrows - Centered Below */}
+              <div className="flex justify-center gap-4 mt-6">
+                <button
+                  onClick={goToPrevious}
+                  className="p-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all duration-300 hover:shadow-lg"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={goToNext}
+                  className="p-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all duration-300 hover:shadow-lg"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
 
               {/* Carousel Indicators (Dots) */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              <div className="flex gap-2 justify-center mt-4">
                 {carouselItems.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
                     className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                       index === currentIndex
-                        ? "bg-white w-8"
-                        : "bg-white/50 hover:bg-white/75"
+                        ? "bg-primary w-8"
+                        : "bg-gray-300 hover:bg-gray-400"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
