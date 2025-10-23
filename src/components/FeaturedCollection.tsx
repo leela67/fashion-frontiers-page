@@ -115,20 +115,20 @@ const FeaturedCollection = () => {
         </div>
 
         {/* Main Layout - Text Left, Image and Video Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-          {/* Left Column - Text Content (Vertically Centered) */}
-          <div className="flex flex-col justify-center lg:col-span-1 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+          {/* Left Column - Text Content (Top-Aligned, Left-Aligned) */}
+          <div className="flex flex-col justify-start lg:col-span-1 text-left">
             <div className="mb-8">
-              <h3 className="font-black-mango text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-6">
+              <h3 className="font-black-mango text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-6 text-left">
                 Rang Mahal
               </h3>
-              <p className="font-darker-grotesque text-base lg:text-lg font-normal leading-relaxed text-gray-700 mb-6">
+              <p className="font-darker-grotesque text-base lg:text-lg font-normal leading-relaxed text-gray-700 mb-6 text-left">
                 Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful. Elevate your wedding day with ensembles that add a touch of regal and that echoes the beauty of your shared journey.
               </p>
             </div>
 
             {/* CTA Button */}
-            <div>
+            <div className="text-left">
               <button className="font-darker-grotesque px-8 py-4 bg-primary text-white hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg font-semibold tracking-wider uppercase text-sm">
                 Explore Now
               </button>
@@ -139,9 +139,9 @@ const FeaturedCollection = () => {
           <div className="lg:col-span-2">
             <div className="relative w-full">
               {/* Main Carousel Container - Image Larger, Video Smaller */}
-              <div className="flex gap-4 lg:gap-6 items-start">
+              <div className="flex gap-4 lg:gap-6 items-center">
                 {/* Image Carousel - Larger (65% width on desktop) */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg w-full lg:w-2/3">
+                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg w-full lg:w-2/3 group">
                   {/* Carousel Items with Animation */}
                   {carouselItems.map((item, index) => (
                     <div
@@ -168,10 +168,27 @@ const FeaturedCollection = () => {
                       )}
                     </div>
                   ))}
+
+                  {/* Navigation Arrows - Overlaid on Image */}
+                  <button
+                    onClick={goToPrevious}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/30 hover:bg-white/50 text-white rounded-full transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 z-10"
+                    aria-label="Previous slide"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+
+                  <button
+                    onClick={goToNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/30 hover:bg-white/50 text-white rounded-full transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 z-10"
+                    aria-label="Next slide"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
                 </div>
 
                 {/* Video Element - Smaller (35% width on desktop) */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[9/16] rounded-lg shadow-lg w-full lg:w-1/3">
+                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg w-full lg:w-1/3">
                   <video
                     ref={videoRef}
                     src={videoSrc}
@@ -181,24 +198,6 @@ const FeaturedCollection = () => {
                     muted
                   />
                 </div>
-              </div>
-
-              {/* Navigation Arrows - Centered Below */}
-              <div className="flex justify-center gap-4 mt-6">
-                <button
-                  onClick={goToPrevious}
-                  className="p-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all duration-300 hover:shadow-lg"
-                  aria-label="Previous slide"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={goToNext}
-                  className="p-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all duration-300 hover:shadow-lg"
-                  aria-label="Next slide"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
               </div>
 
               {/* Carousel Indicators (Dots) */}
