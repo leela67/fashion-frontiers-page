@@ -55,7 +55,7 @@ const VideoSection = () => {
         loop
         muted
         playsInline
-        poster="https://images.unsplash.com/photo-1558769132-cb1aea6c0a0f?w=1920&h=1080&fit=crop"
+        poster="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1920&h=1080&fit=crop"
       >
         <source
           src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-runway-in-slow-motion-43683-large.mp4"
@@ -63,22 +63,22 @@ const VideoSection = () => {
         />
       </video>
 
-      {/* Cinematic Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+      {/* Cinematic Gradient Overlay - Deeper for luxury feel */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       {/* Content */}
       <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
-        <div className="max-w-5xl animate-fade-in">
-          {/* Luxury Typography */}
-          <div className="mb-8">
-            <p className="font-darker-grotesque text-sm md:text-base text-white/80 tracking-[0.3em] uppercase mb-4 font-light">
+        <div className="max-w-6xl animate-fade-in">
+          {/* Luxury Typography - Enhanced elegance */}
+          <div className="mb-12">
+            <p className="font-darker-grotesque text-xs md:text-sm text-white/70 tracking-[0.35em] uppercase mb-6 font-light">
               Rivaaj Couture Presents
             </p>
-            <h1 className="font-black-mango text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-[0.95]">
+            <h1 className="font-black-mango text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-8 tracking-tight leading-[0.9]">
               Fashion Film
             </h1>
-            <div className="w-24 h-[1px] bg-white/60 mx-auto mb-8" />
-            <p className="font-darker-grotesque text-base md:text-lg lg:text-xl text-white/90 tracking-[0.2em] uppercase font-light max-w-2xl mx-auto leading-relaxed">
+            <div className="w-32 h-[1px] bg-white/50 mx-auto mb-10" />
+            <p className="font-darker-grotesque text-lg md:text-xl lg:text-2xl text-white/85 tracking-[0.25em] uppercase font-light max-w-3xl mx-auto leading-relaxed">
               Experience the art of luxury couture
             </p>
           </div>

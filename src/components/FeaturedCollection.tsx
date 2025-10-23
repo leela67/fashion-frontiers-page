@@ -152,9 +152,9 @@ const FeaturedCollection = () => {
           <div className="lg:col-span-2">
             <div className="relative w-full">
               {/* Main Carousel Container - Elegant Proportions */}
-              <div className="flex gap-6 lg:gap-8 items-stretch">
+              <div className="flex gap-6 lg:gap-8 items-center">
                 {/* Image Carousel - Primary (65% width on desktop) */}
-                <div className="relative overflow-hidden bg-muted aspect-[3/4] shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-2/3 group">
+                <div className="relative overflow-hidden bg-muted aspect-[3/4] shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-[65%] group">
                   {/* Carousel Items with Smooth Transitions */}
                   {carouselItems.map((item, index) => (
                     <div
@@ -204,17 +204,19 @@ const FeaturedCollection = () => {
                   </button>
                 </div>
 
-                {/* Video Element - Secondary (35% width on desktop) */}
-                <div className="relative overflow-hidden bg-muted aspect-[3/4] shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-1/3">
-                  <video
-                    ref={videoRef}
-                    src={videoSrc}
-                    className="w-full h-full object-cover"
-                    controls
-                    controlsList="nodownload"
-                    muted
-                    loop
-                  />
+                {/* Video Element - Secondary (35% width, 75% height of image, vertically centered) */}
+                <div className="relative w-full lg:w-[35%] flex items-center">
+                  <div className="relative overflow-hidden bg-muted shadow-elegant hover:shadow-hover transition-elegant w-full" style={{ aspectRatio: '3/4', height: '75%' }}>
+                    <video
+                      ref={videoRef}
+                      src={videoSrc}
+                      className="w-full h-full object-cover"
+                      controls
+                      controlsList="nodownload"
+                      muted
+                      loop
+                    />
+                  </div>
                 </div>
               </div>
 
