@@ -68,17 +68,17 @@ const FeaturedCollection = () => {
   return (
     <section id="collections" className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Title */}
-        <div className="mb-16 lg:mb-20">
-          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold tracking-tight text-primary text-center lg:text-left mb-4">
+        {/* Section Title - Centered */}
+        <div className="mb-16 lg:mb-20 text-center">
+          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold tracking-tight text-primary mb-4">
             Latest Collection
           </h2>
         </div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Main Layout - Text Left, Image and Video Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
           {/* Left Column - Text Content */}
-          <div className="flex flex-col justify-center order-2 lg:order-1">
+          <div className="flex flex-col justify-start lg:col-span-1">
             <div className="mb-8">
               <h3 className="font-black-mango text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-6">
                 Rang Mahal
@@ -96,13 +96,13 @@ const FeaturedCollection = () => {
             </div>
           </div>
 
-          {/* Right Column - Carousel with Image and Video */}
-          <div className="order-1 lg:order-2">
+          {/* Right Column - Image and Video Side by Side */}
+          <div className="lg:col-span-2">
             <div className="relative w-full">
-              {/* Main Carousel Container - Two Column Layout */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                {/* Image Carousel */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg">
+              {/* Main Carousel Container - Image Larger, Video Smaller */}
+              <div className="flex gap-4 lg:gap-6">
+                {/* Image Carousel - Larger (60% width) */}
+                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg flex-1">
                   {/* Carousel Items */}
                   {carouselItems.map((item, index) => (
                     <div
@@ -129,8 +129,8 @@ const FeaturedCollection = () => {
                   ))}
                 </div>
 
-                {/* Video Element - Single Video with Controls */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg">
+                {/* Video Element - Smaller (40% width) */}
+                <div className="relative overflow-hidden bg-gray-100 aspect-[9/16] rounded-lg shadow-lg flex-1">
                   <video
                     src={videoSrc}
                     className="w-full h-full object-cover"

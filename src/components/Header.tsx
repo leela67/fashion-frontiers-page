@@ -1,32 +1,14 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Search, ShoppingBag, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MegaMenu from "@/components/MegaMenu";
+import { megaMenuData } from "@/data/megaMenuData";
 import rivaajLogo from "@/assets/rivaaj-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState<string | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
-
-  const navLinks = [
-    { label: "Collections", href: "#collections", hasDropdown: true },
-    { label: "Women", href: "#women" },
-    { label: "Men", href: "#men" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
-  ];
-
-  const dropdownItems = [
-    { label: "Bridal 2025/26", href: "#bridal" },
-    { label: "Couture 2025", href: "#couture" },
-    { label: "Lost In Time", href: "#lost-in-time" },
-    { label: "Bride & Groom", href: "#bride-groom" },
-    { label: "Heritage Pret", href: "#heritage" },
-    { label: "Tales of Masai", href: "#tales" },
-    { label: "Vintage Bridal", href: "#vintage" },
-  ];
 
   // Handle scroll for sticky header behavior
   useEffect(() => {
@@ -59,54 +41,8 @@ const Header = () => {
             />
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-12">
-            {navLinks.map((link) => (
-              <div
-                key={link.label}
-                className="relative group"
-                onMouseEnter={() => {
-                  setActiveLink(link.label);
-                  if (link.hasDropdown) setIsDropdownOpen(true);
-                }}
-                onMouseLeave={() => {
-                  setActiveLink(null);
-                  setIsDropdownOpen(false);
-                }}
-              >
-                <a
-                  href={link.href}
-                  className="font-darker-grotesque text-sm font-medium tracking-wide uppercase text-foreground relative"
-                >
-                  {link.label}
-                  <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                      activeLink === link.label ? "w-full" : "w-0"
-                    }`}
-                  />
-                </a>
-
-                {/* Dropdown Menu */}
-                {link.hasDropdown && (
-                  <div
-                    className={`absolute left-0 mt-0 w-48 bg-white shadow-lg rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 ${
-                      isDropdownOpen ? "opacity-100 visible" : ""
-                    }`}
-                  >
-                    {dropdownItems.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className="block px-4 py-3 font-darker-grotesque text-sm font-medium text-foreground hover:bg-gray-50 hover:text-primary transition-colors first:rounded-t-sm last:rounded-b-sm"
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+          {/* Desktop Navigation with Mega Menu */}
+          <MegaMenu navLinks={megaMenuData} />
 
           {/* Right Side Icons & CTA */}
           <div className="hidden lg:flex items-center gap-6">
@@ -157,7 +93,7 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="lg:hidden py-6 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {megaMenuData.map((link) => (
                 <div key={link.label}>
                   {link.hasDropdown ? (
                     <>
@@ -174,7 +110,7 @@ const Header = () => {
                       </button>
                       {isMobileDropdownOpen && (
                         <div className="pl-4 flex flex-col gap-2 mt-2 border-l border-gray-200">
-                          {dropdownItems.map((item) => (
+                          {link.categories.map((item) => (
                             <a
                               key={item.label}
                               href={item.href}
