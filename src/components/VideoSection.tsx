@@ -63,27 +63,46 @@ const VideoSection = () => {
         />
       </video>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+      {/* Cinematic Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
       {/* Content */}
-      <div className="relative h-full flex items-center justify-center text-center px-4">
-        <div className="max-w-4xl">
-          <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
-            Fashion Film
-          </h2>
-          <p className="text-lg md:text-xl text-white/90 tracking-widest uppercase mb-8 drop-shadow-md">
-            Experience the art of luxury
-          </p>
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+        <div className="max-w-5xl animate-fade-in">
+          {/* Luxury Typography */}
+          <div className="mb-8">
+            <p className="font-darker-grotesque text-sm md:text-base text-white/80 tracking-[0.3em] uppercase mb-4 font-light">
+              Rivaaj Couture Presents
+            </p>
+            <h1 className="font-black-mango text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-[0.95]">
+              Fashion Film
+            </h1>
+            <div className="w-24 h-[1px] bg-white/60 mx-auto mb-8" />
+            <p className="font-darker-grotesque text-base md:text-lg lg:text-xl text-white/90 tracking-[0.2em] uppercase font-light max-w-2xl mx-auto leading-relaxed">
+              Experience the art of luxury couture
+            </p>
+          </div>
 
-          {/* Play/Pause Button */}
+          {/* Elegant Play/Pause Button */}
           <button
             onClick={togglePlay}
-            className="mx-auto w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-smooth flex items-center justify-center text-white"
+            className="group mx-auto w-20 h-20 rounded-full border-2 border-white/40 backdrop-blur-md hover:border-white hover:bg-white/10 transition-elegant flex items-center justify-center text-white shadow-elegant"
             aria-label={isPlaying ? "Pause video" : "Play video"}
           >
-            {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
+            {isPlaying ? (
+              <Pause className="w-9 h-9 transition-transform group-hover:scale-110" />
+            ) : (
+              <Play className="w-9 h-9 ml-1 transition-transform group-hover:scale-110" />
+            )}
           </button>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-80 animate-fade-in">
+          <p className="font-darker-grotesque text-xs text-white/70 tracking-[0.2em] uppercase">
+            Scroll to explore
+          </p>
+          <div className="w-[1px] h-16 bg-gradient-to-b from-white/60 to-transparent" />
         </div>
       </div>
     </section>

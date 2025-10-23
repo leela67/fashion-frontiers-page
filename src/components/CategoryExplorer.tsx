@@ -40,47 +40,59 @@ const collections = [
 
 const CollectionExplorer = () => {
   return (
-    <section id="collections-explore" className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16 lg:mb-20">
-          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold mb-4 text-primary tracking-tight">
+    <section id="collections-explore" className="py-24 lg:py-40 bg-pearl">
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+        {/* Luxury Section Header */}
+        <div className="text-center mb-20 lg:mb-28 animate-fade-in">
+          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.3em] uppercase mb-4 font-light">
+            Our Collections
+          </p>
+          <h2 className="font-black-mango text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-primary tracking-tight leading-tight">
             Explore by Collection
           </h2>
-          <p className="font-darker-grotesque text-muted-foreground text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
-            Discover our curated collections, each telling a unique story of elegance and craftsmanship
+          <div className="w-24 h-[2px] bg-primary/40 mx-auto mb-8" />
+          <p className="font-darker-grotesque text-muted-foreground text-base lg:text-lg max-w-3xl mx-auto leading-[1.8] font-light">
+            Discover our curated collections, each telling a unique story of elegance, craftsmanship, and timeless beauty
           </p>
         </div>
 
-        {/* Collections Grid - Responsive layout matching reference design */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {collections.map((collection) => (
+        {/* Refined Collections Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          {collections.map((collection, idx) => (
             <div
               key={collection.id}
-              className="group relative overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-hover"
+              className="group relative overflow-hidden cursor-pointer transition-elegant hover:shadow-hover"
+              style={{ animationDelay: `${idx * 100}ms` }}
             >
-              {/* Image Container */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+              {/* Image Container with Refined Overlay */}
+              <div className="relative aspect-[3/4] overflow-hidden bg-muted">
                 <img
                   src={collection.image}
                   alt={collection.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
+                  loading="lazy"
                 />
-                {/* Subtle overlay on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500" />
+                {/* Elegant gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+                
+                {/* Decorative border on hover */}
+                <div className="absolute inset-4 border border-white/0 group-hover:border-white/30 transition-all duration-700 pointer-events-none" />
               </div>
 
-              {/* Collection Name - Positioned at bottom */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
-                <h3 className="font-black-mango text-xl lg:text-2xl font-bold text-white leading-tight tracking-wide">
-                  {collection.title}
-                </h3>
+              {/* Collection Title - Always visible, refined positioning */}
+              <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
+                <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
+                  <h3 className="font-black-mango text-2xl lg:text-3xl font-bold text-white leading-tight tracking-tight mb-3">
+                    {collection.title}
+                  </h3>
+                  <div className="w-12 h-[2px] bg-white/60 group-hover:w-20 transition-all duration-500" />
+                </div>
               </div>
 
-              {/* Explore Button - Appears on hover */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
-                <button className="px-8 py-3 border-2 border-white text-white font-darker-grotesque font-medium tracking-widest uppercase text-sm hover:bg-white hover:text-primary transition-all duration-300">
-                  Explore
+              {/* Luxury Explore Button - Sophisticated hover state */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/30 backdrop-blur-[2px]">
+                <button className="relative px-10 py-4 border border-white text-white font-darker-grotesque font-light tracking-[0.2em] uppercase text-xs hover:bg-white hover:text-charcoal transition-elegant overflow-hidden group/btn">
+                  <span className="relative z-10">Explore Collection</span>
                 </button>
               </div>
             </div>

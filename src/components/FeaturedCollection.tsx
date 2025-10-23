@@ -105,51 +105,64 @@ const FeaturedCollection = () => {
   };
 
   return (
-    <section id="collections" className="py-20 lg:py-32 bg-white" ref={sectionRef}>
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Title - Centered */}
-        <div className="mb-16 lg:mb-20 text-center">
-          <h2 className="font-black-mango text-4xl lg:text-5xl font-bold tracking-tight text-primary mb-4">
+    <section id="collections" className="py-24 lg:py-40 bg-background" ref={sectionRef}>
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+        {/* Section Title - Luxury Centered */}
+        <div className="mb-20 lg:mb-28 text-center animate-fade-in">
+          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.3em] uppercase mb-4 font-light">
+            New Arrivals
+          </p>
+          <h2 className="font-black-mango text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-primary mb-6 leading-tight">
             Latest Collection
           </h2>
+          <div className="w-24 h-[2px] bg-primary/40 mx-auto" />
         </div>
 
         {/* Main Layout - Text Left, Image and Video Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-          {/* Left Column - Text Content (Top-Aligned, Left-Aligned) */}
-          <div className="flex flex-col justify-start lg:col-span-1 text-left">
-            <div className="mb-8">
-              <h3 className="font-black-mango text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-6 text-left">
-                Rang Mahal
-              </h3>
-              <p className="font-darker-grotesque text-base lg:text-lg font-normal leading-relaxed text-gray-700 mb-6 text-left">
-                Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful. Elevate your wedding day with ensembles that add a touch of regal and that echoes the beauty of your shared journey.
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
+          {/* Left Column - Elegant Text Content */}
+          <div className="flex flex-col justify-start lg:col-span-1 lg:sticky lg:top-32">
+            <div className="space-y-8">
+              <div>
+                <h3 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-primary mb-8 leading-tight">
+                  Rang Mahal
+                </h3>
+                <div className="w-16 h-[2px] bg-primary/60 mb-8" />
+              </div>
+              
+              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.8] text-foreground/80 mb-8">
+                Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful.
+              </p>
+              
+              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.8] text-foreground/80 mb-10">
+                Elevate your wedding day with ensembles that add a touch of regal elegance and echo the beauty of your shared journey.
               </p>
             </div>
 
-            {/* CTA Button */}
-            <div className="text-left">
-              <button className="font-darker-grotesque px-8 py-4 bg-primary text-white hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg font-semibold tracking-wider uppercase text-sm">
-                Explore Now
+            {/* Luxury CTA Button */}
+            <div>
+              <button className="group relative font-darker-grotesque px-10 py-5 bg-primary text-primary-foreground overflow-hidden transition-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm">
+                <span className="relative z-10">Explore Collection</span>
+                <div className="absolute inset-0 bg-charcoal transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
               </button>
             </div>
           </div>
 
-          {/* Right Column - Image and Video Side by Side */}
+          {/* Right Column - Refined Media Layout */}
           <div className="lg:col-span-2">
             <div className="relative w-full">
-              {/* Main Carousel Container - Image Larger, Video Smaller */}
-              <div className="flex gap-4 lg:gap-6 items-center">
-                {/* Image Carousel - Larger (65% width on desktop) */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg w-full lg:w-2/3 group">
-                  {/* Carousel Items with Animation */}
+              {/* Main Carousel Container - Elegant Proportions */}
+              <div className="flex gap-6 lg:gap-8 items-stretch">
+                {/* Image Carousel - Primary (65% width on desktop) */}
+                <div className="relative overflow-hidden bg-muted aspect-[3/4] shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-2/3 group">
+                  {/* Carousel Items with Smooth Transitions */}
                   {carouselItems.map((item, index) => (
                     <div
                       key={item.id}
-                      className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                      className={`absolute inset-0 transition-all duration-[800ms] ease-out ${
                         index === currentIndex
                           ? "opacity-100 scale-100"
-                          : "opacity-0 scale-95"
+                          : "opacity-0 scale-[0.98]"
                       }`}
                     >
                       {item.type === "image" ? (
@@ -157,6 +170,7 @@ const FeaturedCollection = () => {
                           src={item.src}
                           alt={item.alt}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       ) : (
                         <video
@@ -168,27 +182,30 @@ const FeaturedCollection = () => {
                       )}
                     </div>
                   ))}
+                  
+                  {/* Subtle Vignette Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 pointer-events-none" />
 
-                  {/* Navigation Arrows - Overlaid on Image */}
+                  {/* Refined Navigation Arrows */}
                   <button
                     onClick={goToPrevious}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/30 hover:bg-white/50 text-white rounded-full transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 z-10"
+                    className="absolute left-6 top-1/2 -translate-y-1/2 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-elegant hover:shadow-elegant opacity-0 group-hover:opacity-100 z-10 border border-white/30"
                     aria-label="Previous slide"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-5 h-5" />
                   </button>
 
                   <button
                     onClick={goToNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/30 hover:bg-white/50 text-white rounded-full transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 z-10"
+                    className="absolute right-6 top-1/2 -translate-y-1/2 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-elegant hover:shadow-elegant opacity-0 group-hover:opacity-100 z-10 border border-white/30"
                     aria-label="Next slide"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
 
-                {/* Video Element - Smaller (35% width on desktop) */}
-                <div className="relative overflow-hidden bg-gray-100 aspect-[3/4] rounded-lg shadow-lg w-full lg:w-1/3">
+                {/* Video Element - Secondary (35% width on desktop) */}
+                <div className="relative overflow-hidden bg-muted aspect-[3/4] shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-1/3">
                   <video
                     ref={videoRef}
                     src={videoSrc}
@@ -196,20 +213,21 @@ const FeaturedCollection = () => {
                     controls
                     controlsList="nodownload"
                     muted
+                    loop
                   />
                 </div>
               </div>
 
-              {/* Carousel Indicators (Dots) */}
-              <div className="flex gap-2 justify-center mt-4">
+              {/* Elegant Carousel Indicators */}
+              <div className="flex gap-3 justify-center mt-8">
                 {carouselItems.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    className={`h-[2px] rounded-full transition-all duration-500 ${
                       index === currentIndex
-                        ? "bg-primary w-8"
-                        : "bg-gray-300 hover:bg-gray-400"
+                        ? "bg-primary w-12"
+                        : "bg-border w-8 hover:bg-primary/40 hover:w-10"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -217,14 +235,16 @@ const FeaturedCollection = () => {
               </div>
             </div>
 
-            {/* Auto-play Toggle */}
-            <div className="mt-6 flex items-center justify-center gap-2">
+            {/* Refined Auto-play Toggle */}
+            <div className="mt-10 flex items-center justify-center gap-3">
+              <div className="w-8 h-[1px] bg-border" />
               <button
                 onClick={() => setIsAutoPlay(!isAutoPlay)}
-                className="text-sm font-darker-grotesque tracking-wider uppercase text-gray-600 hover:text-primary transition-colors"
+                className="font-darker-grotesque text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-colors duration-300"
               >
-                {isAutoPlay ? "Pause" : "Play"}
+                {isAutoPlay ? "Pause Carousel" : "Play Carousel"}
               </button>
+              <div className="w-8 h-[1px] bg-border" />
             </div>
           </div>
         </div>
