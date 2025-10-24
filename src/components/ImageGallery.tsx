@@ -1,33 +1,28 @@
 import { useEffect, useRef } from "react";
-import collection1 from "@/assets/collection-1.jpg";
-import collection2 from "@/assets/collection-2.jpg";
-import collection3 from "@/assets/collection-3.jpg";
-import collection4 from "@/assets/collection-4.jpg";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
+import { collectionImages, heroImages } from "@/data/oneDriveImages";
 
 const moodboardItems = [
-  { type: "image", src: collection1, size: "large", delay: 0 },
-  { type: "image", src: collection2, size: "medium", delay: 100 },
-  { 
-    type: "quote", 
+  { type: "image", src: collectionImages.collection1, size: "large", delay: 0 },
+  { type: "image", src: collectionImages.collection2, size: "medium", delay: 100 },
+  {
+    type: "quote",
     text: "With every stitch, I see infinite possibilities of elegance, grace and timeless beauty.",
     size: "small",
     delay: 150
   },
-  { type: "image", src: hero1, size: "medium", delay: 200 },
-  { type: "image", src: collection3, size: "large", delay: 300 },
-  { 
-    type: "quote", 
+  { type: "image", src: heroImages.hero1, size: "medium", delay: 200 },
+  { type: "image", src: collectionImages.collection3, size: "large", delay: 300 },
+  {
+    type: "quote",
     text: "You have magic in your creativity.",
     author: "— Fashion Connoisseur",
     size: "small",
     delay: 350
   },
-  { type: "image", src: hero2, size: "medium", delay: 400 },
-  { type: "image", src: collection4, size: "large", delay: 500 },
-  { 
-    type: "quote", 
+  { type: "image", src: heroImages.hero2, size: "medium", delay: 400 },
+  { type: "image", src: collectionImages.collection4, size: "large", delay: 500 },
+  {
+    type: "quote",
     text: "There's a design for every personality, every occasion and every mood.",
     size: "medium",
     delay: 550

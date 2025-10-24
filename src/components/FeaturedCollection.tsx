@@ -1,33 +1,30 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
-import collection1 from "@/assets/collection-1.jpg";
-import collection2 from "@/assets/collection-2.jpg";
-import collection3 from "@/assets/collection-3.jpg";
-import collection4 from "@/assets/collection-4.jpg";
+import { collectionImages } from "@/data/oneDriveImages";
 
 const carouselItems = [
   {
     id: 1,
     type: "image",
-    src: collection1,
+    src: collectionImages.collection1,
     alt: "Rang Mahal Collection - Image 1",
   },
   {
     id: 2,
     type: "image",
-    src: collection2,
+    src: collectionImages.collection2,
     alt: "Rang Mahal Collection - Image 2",
   },
   {
     id: 3,
     type: "image",
-    src: collection3,
+    src: collectionImages.collection3,
     alt: "Rang Mahal Collection - Image 3",
   },
   {
     id: 4,
     type: "image",
-    src: collection4,
+    src: collectionImages.collection4,
     alt: "Rang Mahal Collection - Image 4",
   },
 ];

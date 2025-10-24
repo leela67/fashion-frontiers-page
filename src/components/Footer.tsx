@@ -3,6 +3,16 @@ import { Instagram, Facebook, Twitter, Youtube } from "lucide-react";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const storeInfo = {
+    address: "Third Floor, Arafat Complex",
+    addressLine2: "Plot No.63 and 66, Banjara Hills Main Rd",
+    addressLine3: "nearby Landmark Star Hospital",
+    addressLine4: "Gaffar Khan Colony, Banjara Hills",
+    city: "Hyderabad, Telangana 500034",
+    phone1: "9949060029",
+    phone2: "7673987673",
+  };
+
   const footerLinks = {
     shop: [
       { label: "Women's Collection", href: "#women" },
@@ -35,7 +45,7 @@ const Footer = () => {
     <footer className="bg-charcoal text-white">
       <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand Column */}
           <div>
             <h3 className="font-black-mango text-3xl font-bold mb-4 text-secondary">Rivaaj Couture</h3>
@@ -109,6 +119,33 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Contact Us */}
+          <div>
+            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Contact Us</h4>
+            <div className="space-y-4">
+              <div>
+                <p className="font-darker-grotesque text-white/70 text-sm leading-relaxed">
+                  {storeInfo.address}
+                  <br />
+                  {storeInfo.addressLine2}
+                  <br />
+                  {storeInfo.addressLine3}
+                  <br />
+                  {storeInfo.addressLine4}
+                  <br />
+                  {storeInfo.city}
+                </p>
+              </div>
+              <div>
+                <p className="font-darker-grotesque text-white/70 text-sm">
+                  Tel: <a href={`tel:${storeInfo.phone1}`} className="hover:text-secondary transition-smooth">{storeInfo.phone1}</a>
+                  <br />
+                  <a href={`tel:${storeInfo.phone2}`} className="hover:text-secondary transition-smooth">{storeInfo.phone2}</a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

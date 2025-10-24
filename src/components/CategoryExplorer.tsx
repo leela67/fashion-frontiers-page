@@ -1,40 +1,35 @@
-import collection1 from "@/assets/collection-1.jpg";
-import collection2 from "@/assets/collection-2.jpg";
-import collection3 from "@/assets/collection-3.jpg";
-import collection4 from "@/assets/collection-4.jpg";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
+import { collectionImages, heroImages } from "@/data/oneDriveImages";
 
 const collections = [
   {
     id: "kashmir",
     title: "A Poème By The Lake: Kashmir",
-    image: collection1,
+    image: collectionImages.collection1,
   },
   {
     id: "couture-2024",
     title: "India Couture Week 2024",
-    image: collection2,
+    image: collectionImages.collection2,
   },
   {
     id: "love-always",
     title: "Love Always",
-    image: collection3,
+    image: collectionImages.collection3,
   },
   {
     id: "love-is",
     title: "Love Is",
-    image: collection4,
+    image: collectionImages.collection4,
   },
   {
     id: "mon-amour",
     title: "Mon Amour Jag Niwas",
-    image: hero1,
+    image: heroImages.hero1,
   },
   {
     id: "rang-mahal",
     title: "Rang Mahal",
-    image: hero2,
+    image: heroImages.hero2,
   },
 ];
 

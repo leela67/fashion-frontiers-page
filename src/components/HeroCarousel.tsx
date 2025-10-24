@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import hero3 from "@/assets/hero-3.jpg";
+import { heroImages } from "@/data/oneDriveImages";
 
 const slides = [
   {
-    image: hero1,
+    image: heroImages.hero1,
     title: "Timeless Elegance",
     subtitle: "Spring/Summer Collection 2025",
   },
   {
-    image: hero2,
+    image: heroImages.hero2,
     title: "Contemporary Luxury",
     subtitle: "Minimalist Sophistication",
   },
   {
-    image: hero3,
+    image: heroImages.hero3,
     title: "Haute Couture",
     subtitle: "Exclusive Designer Pieces",
   },

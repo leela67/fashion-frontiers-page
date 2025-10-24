@@ -3,7 +3,7 @@ import { Menu, X, Search, ShoppingBag, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MegaMenu from "@/components/MegaMenu";
 import { megaMenuData } from "@/data/megaMenuData";
-import rivaajLogo from "@/assets/rivaaj-logo.png";
+import { logoImage } from "@/data/oneDriveImages";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,7 +35,7 @@ const Header = () => {
             className="transition-all duration-300 hover:opacity-80"
           >
             <img
-              src={rivaajLogo}
+              src={logoImage}
               alt="Rivaaj Couture"
               className="h-12 lg:h-16 w-auto object-contain"
             />
