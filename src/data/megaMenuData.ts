@@ -10,6 +10,10 @@ export interface MegaMenuCategory {
     label: string;
     href: string;
   }>;
+  occasions: Array<{
+    label: string;
+    href: string;
+  }>;
   collections: Array<{
     label: string;
     href: string;
@@ -32,12 +36,14 @@ export const megaMenuData: MegaMenuCategory[] = [
       { label: "Jodhpuri", href: "#jodhpuri" },
       { label: "Kurta sets", href: "#kurta-sets" },
     ],
-    collections: [
+    occasions: [
       { label: "Cocktail/Sangeet", href: "#cocktail-sangeet" },
       { label: "Haldi", href: "#haldi" },
       { label: "Carnival", href: "#carnival" },
       { label: "Mehendi", href: "#mehendi" },
       { label: "Family and Pooja", href: "#family-pooja" },
+    ],
+    collections: [
       { label: "Raasleela", href: "#raasleela" },
       { label: "Aaina", href: "#aaina" },
     ],
@@ -54,12 +60,14 @@ export const megaMenuData: MegaMenuCategory[] = [
       { label: "Suit sets", href: "#women-suit-sets" },
       { label: "Drape sarees", href: "#women-drape-sarees" },
     ],
-    collections: [
+    occasions: [
       { label: "Cocktail/Sangeet", href: "#women-cocktail-sangeet" },
       { label: "Haldi", href: "#women-haldi" },
       { label: "Carnival", href: "#women-carnival" },
       { label: "Mehendi", href: "#women-mehendi" },
       { label: "Family and Pooja", href: "#women-family-pooja" },
+    ],
+    collections: [
       { label: "Raasleela", href: "#women-raasleela" },
       { label: "Aaina", href: "#women-aaina" },
     ],
@@ -79,12 +87,14 @@ export const megaMenuData: MegaMenuCategory[] = [
       { label: "Jodhpuri", href: "#men-jodhpuri" },
       { label: "Kurta sets", href: "#men-kurta-sets" },
     ],
-    collections: [
+    occasions: [
       { label: "Cocktail/Sangeet", href: "#men-cocktail-sangeet" },
       { label: "Haldi", href: "#men-haldi" },
       { label: "Carnival", href: "#men-carnival" },
       { label: "Mehendi", href: "#men-mehendi" },
       { label: "Family and Pooja", href: "#men-family-pooja" },
+    ],
+    collections: [
       { label: "Raasleela", href: "#men-raasleela" },
       { label: "Aaina", href: "#men-aaina" },
     ],
@@ -95,6 +105,7 @@ export const megaMenuData: MegaMenuCategory[] = [
     hasDropdown: false,
     carouselImages: [],
     categories: [],
+    occasions: [],
     collections: [],
   },
   {
@@ -103,6 +114,7 @@ export const megaMenuData: MegaMenuCategory[] = [
     hasDropdown: false,
     carouselImages: [],
     categories: [],
+    occasions: [],
     collections: [],
   },
 ];

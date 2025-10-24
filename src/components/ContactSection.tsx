@@ -2,7 +2,7 @@ import { storeImages } from "@/data/oneDriveImages";
 
 const ContactSection = () => {
   const storeInfo = {
-    name: "Abhinav Mishra Flagship Store",
+    name: "Rivaaj Couture Flagship Store",
     address: "Third Floor, Arafat Complex",
     addressLine2: "Plot No.63 and 66, Banjara Hills Main Rd",
     addressLine3: "nearby Landmark Star Hospital",
