@@ -3,12 +3,13 @@ import hero1 from "@/assets/hero-1.jpg";
 const ContactSection = () => {
   const storeInfo = {
     name: "Rivaaj Flagship Store",
-    address: "Regency One",
-    addressLine2: "D-59 Chattarpur Enclave",
-    addressLine3: "S N N Marg",
-    city: "New Delhi 110047",
-    hours: "7 Days Open | 11AM - 7PM",
-    phone: "+91 93112 21098",
+    address: "Third Floor, Arafat Complex",
+    addressLine2: "Plot No.63 and 66, Banjara Hills Main Rd",
+    addressLine3: "nearby Landmark Star Hospital, Gaffar Khan Colony",
+    city: "Banjara Hills, Hyderabad, Telangana 500034",
+    hours: "11:00 am to 6:00 pm",
+    phone1: "9949060029",
+    phone2: "7673987673",
   };
 
   return (
@@ -52,14 +53,14 @@ const ContactSection = () => {
 
               {/* Phone */}
               <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground tracking-wide">
-                Tel: <a href={`tel:${storeInfo.phone}`} className="hover:text-primary transition-colors">{storeInfo.phone}</a>
+                Tel: <a href={`tel:${storeInfo.phone1}`} className="hover:text-primary transition-colors">{storeInfo.phone1}</a> / <a href={`tel:${storeInfo.phone2}`} className="hover:text-primary transition-colors">{storeInfo.phone2}</a>
               </p>
             </div>
 
             {/* Action Buttons - Matching Reference Style */}
             <div className="flex flex-col gap-3 sm:gap-4">
               <a
-                href={`https://www.google.com/maps/search/${encodeURIComponent(storeInfo.address + ' ' + storeInfo.city)}`}
+                href={`https://www.google.com/maps/search/${encodeURIComponent(storeInfo.address + ' ' + storeInfo.addressLine2 + ' ' + storeInfo.city)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block"

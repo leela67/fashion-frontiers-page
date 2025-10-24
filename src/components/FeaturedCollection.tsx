@@ -122,18 +122,18 @@ const FeaturedCollection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           {/* Left Column - Elegant Text Content */}
           <div className="flex flex-col justify-start lg:col-span-1 lg:sticky lg:top-32">
-            <div className="space-y-8">
+            <div className="space-y-8 mb-16">
               <div>
                 <h3 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-primary mb-8 leading-tight">
                   Rang Mahal
                 </h3>
                 <div className="w-16 h-[2px] bg-primary/60 mb-8" />
               </div>
-              
+
               <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.8] text-foreground/80 mb-8">
                 Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful.
               </p>
-              
+
               <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.8] text-foreground/80 mb-10">
                 Elevate your wedding day with ensembles that add a touch of regal elegance and echo the beauty of your shared journey.
               </p>

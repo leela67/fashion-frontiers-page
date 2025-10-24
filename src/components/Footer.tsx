@@ -35,7 +35,7 @@ const Footer = () => {
     <footer className="bg-charcoal text-white">
       <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand Column */}
           <div>
             <h3 className="font-black-mango text-3xl font-bold mb-4 text-secondary">Rivaaj Couture</h3>
@@ -56,6 +56,28 @@ const Footer = () => {
                 <button className="px-4 py-2 bg-gold hover:bg-gold-muted text-white font-medium text-sm transition-smooth">
                   Join
                 </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Store Location Column */}
+          <div>
+            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Store Location</h4>
+            <div className="space-y-4">
+              <div>
+                <p className="font-darker-grotesque text-white/70 text-sm leading-relaxed">
+                  Third Floor, Arafat Complex, Plot No.63 and 66, Banjara Hills Main Rd, nearby Landmark Star Hospital, Gaffar Khan Colony, Banjara Hills, Hyderabad, Telangana 500034
+                </p>
+              </div>
+              <div>
+                <p className="font-darker-grotesque text-white/70 text-sm">
+                  <span className="font-semibold text-white">Phone:</span> <a href="tel:9949060029" className="hover:text-gold transition-smooth">9949060029</a> / <a href="tel:7673987673" className="hover:text-gold transition-smooth">7673987673</a>
+                </p>
+              </div>
+              <div>
+                <p className="font-darker-grotesque text-white/70 text-sm">
+                  <span className="font-semibold text-white">Hours:</span> 11:00 am to 6:00 pm
+                </p>
               </div>
             </div>
           </div>
