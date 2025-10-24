@@ -16,6 +16,10 @@ export interface MegaMenuCategory {
     label: string;
     href: string;
   }>;
+  occasions?: Array<{
+    label: string;
+    href: string;
+  }>;
   collections: Array<{
     label: string;
     href: string;
@@ -37,6 +41,13 @@ export const megaMenuData: MegaMenuCategory[] = [
       { label: "Tales of Masai", href: "#tales" },
       { label: "Vintage Bridal", href: "#vintage" },
     ],
+    occasions: [
+      { label: "Cocktail/Sangeet", href: "#cocktail-sangeet" },
+      { label: "Haldi", href: "#haldi" },
+      { label: "Carnival", href: "#carnival" },
+      { label: "Mehendi", href: "#mehendi" },
+      { label: "Family and pooja", href: "#family-pooja" },
+    ],
     collections: [
       { label: "Rang Mahal", href: "#rang-mahal" },
       { label: "Rêver D'Udaipur", href: "#rever-udaipur" },
@@ -48,48 +59,54 @@ export const megaMenuData: MegaMenuCategory[] = [
     ],
   },
   {
-    label: "Women",
+    label: "Shop Women",
     href: "#women",
     hasDropdown: true,
     carouselImages: [categoryWomen, collectionImg1, collectionImg2, collectionImg3],
     categories: [
-      { label: "Lehengas", href: "#lehengas" },
-      { label: "Gowns", href: "#gowns" },
+      { label: "Lehenga", href: "#lehengas" },
       { label: "Sarees", href: "#sarees" },
-      { label: "Kurta Sets", href: "#kurta-sets" },
-      { label: "Sharara Sets", href: "#sharara-sets" },
-      { label: "Party Wear", href: "#party-wear" },
-      { label: "Festive Wear", href: "#festive-wear" },
+      { label: "Shararas", href: "#shararas" },
+      { label: "Suit sets", href: "#suit-sets" },
+      { label: "Drape sarees", href: "#drape-sarees" },
+    ],
+    occasions: [
+      { label: "cocktail/Sangeet", href: "#cocktail-sangeet" },
+      { label: "Haldi", href: "#haldi" },
+      { label: "Carnival", href: "#carnival" },
+      { label: "Mehendi", href: "#mehendi" },
+      { label: "Family and pooja", href: "#family-pooja" },
     ],
     collections: [
-      { label: "Bridal Collection", href: "#bridal-collection" },
-      { label: "Engagement Collection", href: "#engagement-collection" },
-      { label: "Reception Collection", href: "#reception-collection" },
-      { label: "Mehendi Collection", href: "#mehendi-collection" },
-      { label: "Sangeet Collection", href: "#sangeet-collection" },
-      { label: "Haldi Collection", href: "#haldi-collection" },
+      { label: "Raasleela", href: "#raasleela" },
+      { label: "Aaina", href: "#aaina" },
     ],
   },
   {
-    label: "Men",
+    label: "Shop Mens",
     href: "#men",
     hasDropdown: true,
     carouselImages: [categoryMen, collectionImg4, collectionImg3, collectionImg2],
     categories: [
-      { label: "Sherwani Sets", href: "#sherwani-sets" },
-      { label: "Bandi Sets", href: "#bandi-sets" },
-      { label: "Kurta Sets", href: "#men-kurta-sets" },
-      { label: "Engagement Wear", href: "#engagement-wear" },
-      { label: "Wedding Wear", href: "#wedding-wear" },
-      { label: "Reception Wear", href: "#reception-wear" },
-      { label: "Party Wear", href: "#men-party-wear" },
+      { label: "Lehenga", href: "#lehengas" },
+      { label: "Sarees", href: "#sarees" },
+      { label: "Shararas", href: "#shararas" },
+      { label: "Suit sets", href: "#suit-sets" },
+      { label: "Drape sarees", href: "#drape-sarees" },
+      { label: "Blazers", href: "#blazers" },
+      { label: "Jodhpuri", href: "#jodhpuri" },
+      { label: "Kurta sets", href: "#kurta-sets" },
+    ],
+    occasions: [
+      { label: "cocktail/Sangeet", href: "#cocktail-sangeet" },
+      { label: "Haldi", href: "#haldi" },
+      { label: "Carnival", href: "#carnival" },
+      { label: "Mehendi", href: "#mehendi" },
+      { label: "Family and pooja", href: "#family-pooja" },
     ],
     collections: [
-      { label: "Rang Mahal", href: "#men-rang-mahal" },
-      { label: "A Poème By The Lake: Kashmir", href: "#men-poeme-kashmir" },
-      { label: "Love Always", href: "#men-love-always" },
-      { label: "Love Is", href: "#men-love-is" },
-      { label: "Mon Amour Jag Niwas", href: "#men-mon-amour" },
+      { label: "Raasleela", href: "#raasleela" },
+      { label: "Aaina", href: "#aaina" },
     ],
   },
   {

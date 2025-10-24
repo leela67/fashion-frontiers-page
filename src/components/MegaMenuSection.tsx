@@ -15,18 +15,18 @@ const MegaMenuSection = ({
   viewAllHref = "#",
 }: MegaMenuSectionProps) => {
   return (
-    <div className="flex flex-col gap-3">
-      <h3 className="font-darker-grotesque text-xs font-bold tracking-widest uppercase text-foreground">
+    <div className="flex flex-col gap-4">
+      <h3 className="font-darker-grotesque text-sm font-semibold tracking-wide uppercase text-foreground">
         {title}
       </h3>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-3">
         {items.map((item) => (
           <li key={item.label}>
             <a
               href={item.href}
-              className="font-darker-grotesque text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300 hover:underline"
+              className="font-darker-grotesque text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300"
             >
-              {item.label}
+              - {item.label}
             </a>
           </li>
         ))}

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import MegaMenuSection from "./MegaMenuSection";
 import MegaMenuCarousel from "./MegaMenuCarousel";
 import { MegaMenuCategory } from "@/data/megaMenuData";
@@ -9,33 +8,44 @@ interface MegaMenuContentProps {
 
 const MegaMenuContent = ({ menuItem }: MegaMenuContentProps) => {
   return (
-    <div className="w-full max-w-6xl mx-auto px-6 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="w-full max-w-7xl mx-auto px-8 py-8">
+      {/* Menu Title - Centered with Divider */}
+      <div className="text-center mb-8">
+        <h2 className="font-darker-grotesque text-lg font-semibold tracking-wide uppercase text-foreground mb-4">
+          {menuItem.label}
+        </h2>
+        <div className="w-full h-px bg-gray-300" />
+      </div>
+
+      {/* Main Layout: Carousel Left, Three Columns Right */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Left Column: Carousel */}
         <div className="lg:col-span-1">
           <MegaMenuCarousel images={menuItem.carouselImages} autoPlayInterval={4000} />
-          <Button className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase text-sm transition-all duration-300">
-            Discover Now
-          </Button>
         </div>
 
-        {/* Right Column: Categories and Collections */}
-        <div className="lg:col-span-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Categories Section */}
+        {/* Right Columns: Three Column Layout */}
+        <div className="lg:col-span-3">
+          <div className="grid grid-cols-3 gap-12">
+            {/* Column 1: By Clothing */}
             <MegaMenuSection
-              title="Category"
+              title="By clothing"
               items={menuItem.categories}
-              showViewAll={true}
-              viewAllHref={`${menuItem.href}/all`}
+              showViewAll={false}
             />
 
-            {/* Collections Section */}
+            {/* Column 2: By Occasion */}
             <MegaMenuSection
-              title="Collections"
+              title="by occasion"
+              items={menuItem.occasions || []}
+              showViewAll={false}
+            />
+
+            {/* Column 3: By Collection */}
+            <MegaMenuSection
+              title="by collection"
               items={menuItem.collections}
-              showViewAll={true}
-              viewAllHref={`${menuItem.href}/collections`}
+              showViewAll={false}
             />
           </div>
         </div>
