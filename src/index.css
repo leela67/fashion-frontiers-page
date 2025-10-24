@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,10 +19,12 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    /* Rivaaj Couture Brand Colors */
+    /* Rivaaj Couture Brand Colors - Official Guidelines */
+    /* Primary: #691516 (RGB: 105, 21, 22) - Deep maroon/burgundy */
     --primary: 359 66% 25%;
     --primary-foreground: 0 0% 100%;
 
+    /* Secondary: #E6D7AF (RGB: 229, 213, 174) - Champagne gold */
     --secondary: 38 60% 79%;
     --secondary-foreground: 359 66% 25%;
 
@@ -48,8 +50,10 @@ All colors MUST be HSL.
     --charcoal: 0 0% 15%;
     --pearl: 0 0% 96%;
 
-    /* Font Family Tokens */
-    --font-black-mango: 'Playfair Display', serif;
+    /* Font Family Tokens - Official Brand Fonts */
+    /* Black Mango: High-contrast editorial serif for headings */
+    --font-black-mango: 'Crimson Text', serif;
+    /* Darker Grotesque: Clean sans-serif for body and subheadings */
     --font-darker-grotesque: 'Roboto', sans-serif;
     --font-playfair: 'Playfair Display', serif;
     --font-inter: 'Roboto', sans-serif;
@@ -180,28 +184,18 @@ All colors MUST be HSL.
     font-family: var(--font-josefin);
   }
 
-  /* Typography Styles - Header Navigation */
-  .nav-text {
-    font-family: var(--font-jost);
-    font-size: 14px;
-    font-weight: 400;
+  /* Typography Styles - Official Brand Guidelines */
+
+  /* LOGO: Black Mango + Darker Grotesque Bold (Serif + Clean Sans) */
+  .logo-text {
+    font-family: var(--font-black-mango);
+    font-weight: 700;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
-    line-height: 1.5;
   }
 
-  .nav-text-hover {
-    transition: all 0.3s ease;
-  }
-
-  .nav-text-hover:hover {
-    color: var(--accent);
-    text-decoration: underline;
-  }
-
-  /* Typography Styles - Headings */
+  /* HEADINGS: Black Mango Regular/Bold */
   .heading-luxury {
-    font-family: var(--font-playfair);
+    font-family: var(--font-black-mango);
     font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1.2;
@@ -219,9 +213,32 @@ All colors MUST be HSL.
     font-size: 24px;
   }
 
-  /* Typography Styles - Body Text */
+  /* SUBHEADINGS: Darker Grotesque Bold/Medium */
+  .subheading {
+    font-family: var(--font-darker-grotesque);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .subheading-lg {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .subheading-md {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .subheading-sm {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* BODY TEXT: Darker Grotesque Medium/Regular */
   .body-text {
-    font-family: var(--font-inter);
+    font-family: var(--font-darker-grotesque);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.6;
@@ -233,9 +250,33 @@ All colors MUST be HSL.
     line-height: 1.5;
   }
 
+  .body-text-lg {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* Typography Styles - Header Navigation */
+  .nav-text {
+    font-family: var(--font-darker-grotesque);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .nav-text-hover {
+    transition: all 0.3s ease;
+  }
+
+  .nav-text-hover:hover {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+  }
+
   /* Typography Styles - CTA/Button Text */
   .cta-text {
-    font-family: var(--font-jost);
+    font-family: var(--font-darker-grotesque);
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.1em;
