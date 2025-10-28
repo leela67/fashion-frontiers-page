@@ -1,0 +1,151 @@
+/* ============================================================================
+   MIDNIGHT OPULENCE THEME
+   ============================================================================
+   
+   Deep Sapphire Blue & Antique Gold - Sophisticated, mysterious, regal
+   
+   PERSONALITY:
+   - Sophisticated, exclusive, dramatic
+   - Inspired by night sky over Taj Mahal and royal Indian palaces
+   - Perfect for premium evening wear, bridal collections, VIP experiences
+   
+   FONTS:
+   - Headings: Playfair Display (elegant, sophisticated serif)
+   - Body: Inter (modern, clean sans-serif)
+   
+   ============================================================================ */
+
+:root {
+  /* ===== Core Colors ===== */
+  --background: 215 50% 8%;      /* Deep Navy Background */
+  --foreground: 0 0% 95%;        /* Off-White text */
+
+  --card: 215 45% 12%;
+  --card-foreground: 0 0% 95%;
+
+  --popover: 215 45% 12%;
+  --popover-foreground: 0 0% 95%;
+
+  /* Primary: Deep Sapphire #0A1628 */
+  --primary: 215 60% 10%;
+  --primary-foreground: 0 0% 100%;
+  --primary-hover: 215 60% 15%;
+
+  /* Secondary: Antique Gold #D4AF37 */
+  --secondary: 45 70% 53%;
+  --secondary-foreground: 0 0% 10%;
+  --secondary-hover: 45 70% 48%;
+
+  /* Accent: Royal Blue */
+  --accent: 220 80% 45%;
+  --accent-foreground: 0 0% 100%;
+  --accent-hover: 220 80% 40%;
+
+  /* Neutral Colors */
+  --muted: 215 25% 25%;          /* Muted Navy */
+  --muted-foreground: 0 0% 75%;
+  --charcoal: 215 40% 15%;       /* Deep Navy Charcoal */
+  --pearl: 215 20% 18%;          /* Dark Pearl */
+
+  /* UI Elements */
+  --border: 215 30% 20%;
+  --input: 215 30% 20%;
+  --ring: 45 70% 53%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* ===== Overlay Colors ===== */
+  --overlay-light: 0 0% 100%;
+  --overlay-dark: 215 60% 5%;    /* Deep sapphire for overlays */
+  --overlay-primary: 215 60% 10%;
+
+  /* ===== Header Colors ===== */
+  --header-bg: 215 50% 8%;
+  --header-bg-transparent: 215 50% 8%;
+  --header-bg-scrolled: 215 50% 10%;
+  --header-text: 0 0% 95%;
+
+  /* ===== Hero Colors ===== */
+  --hero-overlay: 215 60% 5%;
+  --hero-text: 0 0% 100%;
+
+  /* ===== Button Colors ===== */
+  --button-primary-bg: 45 70% 53%;       /* Antique Gold */
+  --button-primary-text: 0 0% 10%;       /* Dark text */
+  --button-primary-hover: 45 70% 48%;
+  --button-secondary-bg: 215 60% 15%;    /* Deep Sapphire */
+  --button-secondary-text: 0 0% 100%;    /* White text */
+  --button-secondary-hover: 215 60% 20%;
+
+  /* ===== Font Family Tokens ===== */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-accent: 'Inter', sans-serif;
+
+  /* Legacy font names for backward compatibility */
+  --font-black-mango: 'Playfair Display', serif;
+  --font-darker-grotesque: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* ===== Typography Scale ===== */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+  --font-size-8xl: 6rem;        /* 96px */
+  --font-size-9xl: 8rem;        /* 128px */
+
+  /* ===== Gradients ===== */
+  --gradient-luxury: linear-gradient(135deg, hsl(215 60% 10%) 0%, hsl(220 80% 15%) 100%);
+  --gradient-gold: linear-gradient(135deg, hsl(45 70% 53%) 0%, hsl(45 60% 45%) 100%);
+  --gradient-hero: linear-gradient(to bottom, hsl(215 60% 5% / 0.7), hsl(215 60% 5% / 0.5), hsl(215 60% 5% / 0.8));
+  --gradient-overlay-light: linear-gradient(to top, hsl(215 60% 5% / 0.85), hsl(215 60% 5% / 0.45), transparent);
+  --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(215 60% 5% / 0.2));
+
+  /* ===== Shadows ===== */
+  --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.4);
+  --shadow-hover: 0 20px 60px -15px hsl(45 70% 53% / 0.3);
+  --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
+
+  /* ===== Transitions ===== */
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== Spacing System ===== */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+
+  /* ===== Border Radius ===== */
+  --radius: 0.25rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* ===== Sidebar (for UI components) ===== */
+  --sidebar-background: 215 45% 10%;
+  --sidebar-foreground: 0 0% 95%;
+  --sidebar-primary: 45 70% 53%;
+  --sidebar-primary-foreground: 0 0% 10%;
+  --sidebar-accent: 215 40% 15%;
+  --sidebar-accent-foreground: 0 0% 95%;
+  --sidebar-border: 215 30% 20%;
+  --sidebar-ring: 45 70% 53%;
+}
+

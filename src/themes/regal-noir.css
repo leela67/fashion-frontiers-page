@@ -1,0 +1,151 @@
+/* ============================================================================
+   REGAL NOIR THEME
+   ============================================================================
+   
+   Rich Charcoal & Rose Gold - Bold, dramatic, ultra-luxurious
+   
+   PERSONALITY:
+   - Dramatic, powerful, sophisticated, editorial
+   - Inspired by black diamonds, haute couture runways, metropolitan luxury
+   - Perfect for exclusive collections, high-fashion editorials, statement pieces
+   
+   FONTS:
+   - Headings: Cinzel (classical Roman serif, ultra-luxurious)
+   - Body: Raleway (elegant, refined sans-serif)
+   
+   ============================================================================ */
+
+:root {
+  /* ===== Core Colors ===== */
+  --background: 0 0% 10%;        /* Rich Charcoal/Black */
+  --foreground: 0 0% 95%;        /* Off-White text */
+
+  --card: 0 0% 14%;
+  --card-foreground: 0 0% 95%;
+
+  --popover: 0 0% 14%;
+  --popover-foreground: 0 0% 95%;
+
+  /* Primary: Deep Burgundy #6B1B29 */
+  --primary: 350 60% 26%;
+  --primary-foreground: 0 0% 100%;
+  --primary-hover: 350 60% 22%;
+
+  /* Secondary: Rose Gold #B76E79 */
+  --secondary: 350 35% 58%;
+  --secondary-foreground: 0 0% 10%;
+  --secondary-hover: 350 35% 53%;
+
+  /* Accent: Champagne Rose */
+  --accent: 15 45% 70%;
+  --accent-foreground: 0 0% 10%;
+  --accent-hover: 15 45% 65%;
+
+  /* Neutral Colors */
+  --muted: 0 0% 22%;             /* Muted Charcoal */
+  --muted-foreground: 0 0% 70%;
+  --charcoal: 0 0% 10%;          /* Rich Charcoal */
+  --pearl: 0 0% 18%;             /* Dark Pearl */
+
+  /* UI Elements */
+  --border: 0 0% 25%;
+  --input: 0 0% 25%;
+  --ring: 350 35% 58%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* ===== Overlay Colors ===== */
+  --overlay-light: 0 0% 100%;
+  --overlay-dark: 0 0% 5%;       /* Deep black for overlays */
+  --overlay-primary: 350 60% 26%;
+
+  /* ===== Header Colors ===== */
+  --header-bg: 0 0% 10%;
+  --header-bg-transparent: 0 0% 10%;
+  --header-bg-scrolled: 0 0% 12%;
+  --header-text: 0 0% 95%;
+
+  /* ===== Hero Colors ===== */
+  --hero-overlay: 0 0% 5%;
+  --hero-text: 0 0% 100%;
+
+  /* ===== Button Colors ===== */
+  --button-primary-bg: 350 35% 58%;      /* Rose Gold */
+  --button-primary-text: 0 0% 10%;       /* Dark text */
+  --button-primary-hover: 350 35% 53%;
+  --button-secondary-bg: 350 60% 26%;    /* Deep Burgundy */
+  --button-secondary-text: 0 0% 100%;    /* White text */
+  --button-secondary-hover: 350 60% 22%;
+
+  /* ===== Font Family Tokens ===== */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Raleway', sans-serif;
+  --font-display: 'Cinzel', serif;
+  --font-accent: 'Raleway', sans-serif;
+
+  /* Legacy font names for backward compatibility */
+  --font-black-mango: 'Cinzel', serif;
+  --font-darker-grotesque: 'Raleway', sans-serif;
+  --font-playfair: 'Cinzel', serif;
+  --font-inter: 'Raleway', sans-serif;
+
+  /* ===== Typography Scale ===== */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+  --font-size-8xl: 6rem;        /* 96px */
+  --font-size-9xl: 8rem;        /* 128px */
+
+  /* ===== Gradients ===== */
+  --gradient-luxury: linear-gradient(135deg, hsl(350 60% 26%) 0%, hsl(0 0% 10%) 100%);
+  --gradient-gold: linear-gradient(135deg, hsl(350 35% 58%) 0%, hsl(350 30% 50%) 100%);
+  --gradient-hero: linear-gradient(to bottom, hsl(0 0% 5% / 0.8), hsl(0 0% 5% / 0.6), hsl(0 0% 5% / 0.9));
+  --gradient-overlay-light: linear-gradient(to top, hsl(0 0% 5% / 0.9), hsl(0 0% 5% / 0.5), transparent);
+  --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(0 0% 5% / 0.3));
+
+  /* ===== Shadows ===== */
+  --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.5);
+  --shadow-hover: 0 20px 60px -15px hsl(350 35% 58% / 0.4);
+  --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.4);
+
+  /* ===== Transitions ===== */
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== Spacing System ===== */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+
+  /* ===== Border Radius ===== */
+  --radius: 0.25rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* ===== Sidebar (for UI components) ===== */
+  --sidebar-background: 0 0% 12%;
+  --sidebar-foreground: 0 0% 95%;
+  --sidebar-primary: 350 35% 58%;
+  --sidebar-primary-foreground: 0 0% 10%;
+  --sidebar-accent: 0 0% 18%;
+  --sidebar-accent-foreground: 0 0% 95%;
+  --sidebar-border: 0 0% 25%;
+  --sidebar-ring: 350 35% 58%;
+}
+

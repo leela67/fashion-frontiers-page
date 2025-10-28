@@ -1,0 +1,151 @@
+/* ============================================================================
+   SAFFRON LUXE THEME
+   ============================================================================
+   
+   Warm Ivory & Saffron Gold - Vibrant, celebratory, culturally rich
+   
+   PERSONALITY:
+   - Warm, inviting, joyful, culturally authentic
+   - Inspired by Indian weddings, marigold garlands, golden hour
+   - Perfect for festive collections, wedding season, daytime browsing
+   
+   FONTS:
+   - Headings: Cormorant Garamond (refined, elegant serif)
+   - Body: Outfit (geometric, modern sans-serif)
+   
+   ============================================================================ */
+
+:root {
+  /* ===== Core Colors ===== */
+  --background: 40 40% 96%;      /* Warm Ivory */
+  --foreground: 25 35% 15%;      /* Deep Terracotta Brown */
+
+  --card: 40 35% 98%;
+  --card-foreground: 25 35% 15%;
+
+  --popover: 40 35% 98%;
+  --popover-foreground: 25 35% 15%;
+
+  /* Primary: Saffron Gold #E6A23C */
+  --primary: 38 75% 57%;
+  --primary-foreground: 0 0% 100%;
+  --primary-hover: 38 75% 52%;
+
+  /* Secondary: Deep Terracotta #A0522D */
+  --secondary: 19 55% 40%;
+  --secondary-foreground: 0 0% 100%;
+  --secondary-hover: 19 55% 35%;
+
+  /* Accent: Marigold Orange */
+  --accent: 35 85% 55%;
+  --accent-foreground: 0 0% 100%;
+  --accent-hover: 35 85% 50%;
+
+  /* Neutral Colors */
+  --muted: 40 25% 90%;           /* Soft Cream */
+  --muted-foreground: 25 20% 40%;
+  --charcoal: 25 35% 15%;        /* Deep Terracotta Brown */
+  --pearl: 40 30% 94%;           /* Warm Pearl */
+
+  /* UI Elements */
+  --border: 40 20% 85%;
+  --input: 40 20% 85%;
+  --ring: 38 75% 57%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* ===== Overlay Colors ===== */
+  --overlay-light: 40 40% 96%;
+  --overlay-dark: 25 35% 15%;
+  --overlay-primary: 38 75% 57%;
+
+  /* ===== Header Colors ===== */
+  --header-bg: 40 40% 96%;
+  --header-bg-transparent: 40 40% 96%;
+  --header-bg-scrolled: 40 35% 94%;
+  --header-text: 25 35% 15%;
+
+  /* ===== Hero Colors ===== */
+  --hero-overlay: 25 35% 15%;
+  --hero-text: 0 0% 100%;
+
+  /* ===== Button Colors ===== */
+  --button-primary-bg: 38 75% 57%;       /* Saffron Gold */
+  --button-primary-text: 0 0% 100%;      /* White text */
+  --button-primary-hover: 38 75% 52%;
+  --button-secondary-bg: 19 55% 40%;     /* Deep Terracotta */
+  --button-secondary-text: 0 0% 100%;    /* White text */
+  --button-secondary-hover: 19 55% 35%;
+
+  /* ===== Font Family Tokens ===== */
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-accent: 'Outfit', sans-serif;
+
+  /* Legacy font names for backward compatibility */
+  --font-black-mango: 'Cormorant Garamond', serif;
+  --font-darker-grotesque: 'Outfit', sans-serif;
+  --font-playfair: 'Cormorant Garamond', serif;
+  --font-inter: 'Outfit', sans-serif;
+
+  /* ===== Typography Scale ===== */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+  --font-size-8xl: 6rem;        /* 96px */
+  --font-size-9xl: 8rem;        /* 128px */
+
+  /* ===== Gradients ===== */
+  --gradient-luxury: linear-gradient(135deg, hsl(38 75% 57%) 0%, hsl(35 85% 55%) 100%);
+  --gradient-gold: linear-gradient(135deg, hsl(38 75% 57%) 0%, hsl(38 65% 50%) 100%);
+  --gradient-hero: linear-gradient(to bottom, hsl(25 35% 15% / 0.6), hsl(25 35% 15% / 0.4), hsl(25 35% 15% / 0.7));
+  --gradient-overlay-light: linear-gradient(to top, hsl(25 35% 15% / 0.75), hsl(25 35% 15% / 0.35), transparent);
+  --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(25 35% 15% / 0.1));
+
+  /* ===== Shadows ===== */
+  --shadow-elegant: 0 10px 40px -10px hsl(38 75% 57% / 0.25);
+  --shadow-hover: 0 20px 60px -15px hsl(38 75% 57% / 0.35);
+  --shadow-soft: 0 4px 20px -4px hsl(25 35% 15% / 0.1);
+
+  /* ===== Transitions ===== */
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== Spacing System ===== */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+
+  /* ===== Border Radius ===== */
+  --radius: 0.25rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* ===== Sidebar (for UI components) ===== */
+  --sidebar-background: 40 35% 98%;
+  --sidebar-foreground: 25 35% 15%;
+  --sidebar-primary: 38 75% 57%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 40 25% 90%;
+  --sidebar-accent-foreground: 25 35% 15%;
+  --sidebar-border: 40 20% 85%;
+  --sidebar-ring: 38 75% 57%;
+}
+
