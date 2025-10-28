@@ -1,0 +1,163 @@
+/* ============================================================================
+   RIVAAJ HERITAGE - OFFICIAL BRAND THEME
+   ============================================================================
+   
+   Based on official Rivaaj Couture brand guidelines
+   
+   PRIMARY COLORS:
+   - Deep Burgundy (#691516) - Signature Rivaaj brand color
+   - Champagne Gold (#E6D7AF) - Luxury accent color
+   
+   PERSONALITY:
+   - Authentic, heritage-focused, timeless
+   - Represents the rich cultural legacy of South Asian couture
+   - Sophisticated elegance with traditional roots
+   
+   BEST FOR:
+   - Official brand representation
+   - Signature collections
+   - Heritage and bridal lines
+   - Year-round primary theme
+   
+   TYPOGRAPHY:
+   - Headings: Cormorant Garamond (refined elegance with heritage feel)
+   - Body: Lora (readable serif with warmth and sophistication)
+   
+   ============================================================================ */
+
+@layer base {
+  :root {
+    /* ===== Core Colors ===== */
+    --background: 25 20% 12%;        /* Deep Warm Charcoal #1F1815 */
+    --foreground: 40 25% 95%;        /* Warm Ivory #F7F3ED */
+
+    --card: 25 18% 16%;              /* Elevated Warm Surface #2A2420 */
+    --card-foreground: 40 25% 95%;   /* Warm Ivory */
+
+    --popover: 25 18% 16%;           /* Elevated Warm Surface */
+    --popover-foreground: 40 25% 95%; /* Warm Ivory */
+
+    /* Primary: Deep Burgundy #691516 (Official Rivaaj Brand Color) */
+    --primary: 359 66% 25%;
+    --primary-foreground: 40 25% 95%;
+    --primary-hover: 359 66% 30%;
+
+    /* Secondary: Champagne Gold #E6D7AF (Official Luxury Accent) */
+    --secondary: 38 60% 79%;
+    --secondary-foreground: 25 20% 12%;
+    --secondary-hover: 38 60% 85%;
+
+    /* Accent: Rich Copper (Complementary to brand colors) */
+    --accent: 25 65% 50%;            /* Rich Copper #C86A3C */
+    --accent-foreground: 40 25% 95%;
+    --accent-hover: 25 65% 45%;
+
+    /* Neutral Colors */
+    --muted: 25 15% 22%;             /* Warm Muted Surface #3A342E */
+    --muted-foreground: 40 15% 70%;  /* Warm Muted Text #B8AFA3 */
+    --charcoal: 25 20% 12%;          /* Deep Warm Charcoal */
+    --pearl: 40 20% 88%;             /* Warm Pearl #E8E1D5 */
+
+    /* UI Elements */
+    --border: 25 15% 25%;            /* Warm Borders #423A32 */
+    --input: 25 15% 25%;             /* Input Backgrounds */
+    --ring: 38 60% 79%;              /* Focus Ring - Champagne Gold */
+    --destructive: 0 70% 45%;        /* Error Red */
+    --destructive-foreground: 40 25% 95%;
+
+    /* ===== Overlay Colors ===== */
+    --overlay-light: 40 25% 95%;     /* Warm Ivory */
+    --overlay-dark: 25 20% 8%;       /* Deep Warm Black */
+    --overlay-primary: 359 66% 25%;  /* Deep Burgundy */
+
+    /* ===== Header Colors ===== */
+    --header-bg: 25 20% 12%;         /* Deep Warm Charcoal */
+    --header-bg-transparent: 25 20% 12%;
+    --header-bg-scrolled: 25 20% 14%;
+    --header-text: 40 25% 95%;       /* Warm Ivory */
+
+    /* ===== Hero Colors ===== */
+    --hero-overlay: 25 20% 8%;       /* Deep Warm Black */
+    --hero-text: 40 25% 95%;         /* Warm Ivory */
+
+    /* ===== Button Colors ===== */
+    --button-primary-bg: 359 66% 25%;      /* Deep Burgundy */
+    --button-primary-text: 40 25% 95%;     /* Warm Ivory */
+    --button-primary-hover: 359 66% 30%;
+    --button-secondary-bg: 38 60% 79%;     /* Champagne Gold */
+    --button-secondary-text: 25 20% 12%;   /* Deep Warm Charcoal */
+    --button-secondary-hover: 38 60% 85%;
+
+    /* ===== Font Family Tokens ===== */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Lora', serif;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-accent: 'Lora', serif;
+
+    /* Legacy font names for backward compatibility */
+    --font-black-mango: 'Cormorant Garamond', serif;
+    --font-darker-grotesque: 'Lora', serif;
+    --font-playfair: 'Cormorant Garamond', serif;
+    --font-inter: 'Lora', serif;
+
+    /* ===== Typography Scale ===== */
+    --font-size-xs: 0.75rem;      /* 12px */
+    --font-size-sm: 0.875rem;     /* 14px */
+    --font-size-base: 1rem;       /* 16px */
+    --font-size-lg: 1.125rem;     /* 18px */
+    --font-size-xl: 1.25rem;      /* 20px */
+    --font-size-2xl: 1.5rem;      /* 24px */
+    --font-size-3xl: 1.875rem;    /* 30px */
+    --font-size-4xl: 2.25rem;     /* 36px */
+    --font-size-5xl: 3rem;        /* 48px */
+    --font-size-6xl: 3.75rem;     /* 60px */
+    --font-size-7xl: 4.5rem;      /* 72px */
+    --font-size-8xl: 6rem;        /* 96px */
+    --font-size-9xl: 8rem;        /* 128px */
+
+    /* ===== Gradients ===== */
+    --gradient-luxury: linear-gradient(135deg, hsl(359 66% 25%) 0%, hsl(25 20% 12%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 60% 79%) 0%, hsl(38 50% 70%) 100%);
+    --gradient-hero: linear-gradient(to bottom, hsl(25 20% 8% / 0.75), hsl(25 20% 8% / 0.55), hsl(25 20% 8% / 0.85));
+    --gradient-overlay-light: linear-gradient(to top, hsl(25 20% 8% / 0.9), hsl(25 20% 8% / 0.5), transparent);
+    --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(25 20% 8% / 0.25));
+
+    /* ===== Shadows ===== */
+    --shadow-elegant: 0 10px 40px -10px hsl(359 66% 15% / 0.4);
+    --shadow-hover: 0 20px 60px -15px hsl(359 66% 25% / 0.5);
+    --shadow-soft: 0 4px 20px -4px hsl(25 20% 8% / 0.35);
+
+    /* ===== Transitions ===== */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ===== Spacing System ===== */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 4rem;     /* 64px */
+
+    /* ===== Border Radius ===== */
+    --radius: 0.25rem;
+    --radius-sm: 0.125rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-full: 9999px;
+
+    /* ===== Sidebar (for UI components) ===== */
+    --sidebar-background: 25 20% 14%;
+    --sidebar-foreground: 40 25% 95%;
+    --sidebar-primary: 359 66% 25%;
+    --sidebar-primary-foreground: 40 25% 95%;
+    --sidebar-accent: 25 18% 18%;
+    --sidebar-accent-foreground: 40 25% 95%;
+    --sidebar-border: 25 15% 25%;
+    --sidebar-ring: 38 60% 79%;
+  }
+}
+

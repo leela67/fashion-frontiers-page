@@ -2,13 +2,40 @@
 
 ## Overview
 
-This directory contains **3 standalone luxury theme variations** for the Rivaaj Couture fashion e-commerce website. Each theme is a complete, self-contained CSS file with all design tokens (colors, typography, gradients, shadows, etc.).
+This directory contains **4 standalone luxury theme variations** for the Rivaaj Couture fashion e-commerce website. Each theme is a complete, self-contained CSS file with all design tokens (colors, typography, gradients, shadows, etc.).
 
 ---
 
 ## 🎨 Available Themes
 
-### 1. **Midnight Opulence** (Default) [DARK]
+### 1. **Rivaaj Heritage** (Official Brand Theme) [DARK] ⭐
+**File:** `rivaaj-heritage.css`
+
+**Color Palette:**
+- Primary: Deep Burgundy (#691516) - **Official Rivaaj Brand Color**
+- Secondary: Champagne Gold (#E6D7AF) - **Official Luxury Accent**
+- Background: Deep Warm Charcoal (#1F1815)
+
+**Typography:**
+- Headings: Cormorant Garamond (refined elegance with heritage feel)
+- Body: Lora (readable serif with warmth and sophistication)
+
+**Personality:**
+- Authentic, heritage-focused, timeless
+- Represents the rich cultural legacy of South Asian couture
+- Sophisticated elegance with traditional roots
+- **This is the official brand representation theme**
+
+**Best For:**
+- Official brand representation
+- Signature collections
+- Heritage and bridal lines
+- Year-round primary theme
+- When you want to showcase authentic Rivaaj brand identity
+
+---
+
+### 2. **Midnight Opulence** [DARK]
 **File:** `midnight-opulence.css`
 
 **Color Palette:**
@@ -27,7 +54,7 @@ This directory contains **3 standalone luxury theme variations** for the Rivaaj 
 
 ---
 
-### 2. **Saffron Luxe** [LIGHT]
+### 3. **Saffron Luxe** [LIGHT]
 **File:** `saffron-luxe.css`
 
 **Color Palette:**
@@ -46,7 +73,7 @@ This directory contains **3 standalone luxury theme variations** for the Rivaaj 
 
 ---
 
-### 3. **Regal Noir** [DARK]
+### 4. **Regal Noir** [DARK]
 **File:** `regal-noir.css`
 
 **Color Palette:**
@@ -70,21 +97,24 @@ This directory contains **3 standalone luxury theme variations** for the Rivaaj 
 ### Method: Change the Import Statement
 
 1. Open `src/index.css`
-2. Find line 22 (the theme import line):
+2. Find line 23 (the theme import line):
    ```css
    /* Import Active Theme - Change this line to switch themes */
-   @import './themes/midnight-opulence.css';
+   @import './themes/saffron-luxe.css';
    ```
 3. Replace with your desired theme:
    ```css
+   /* For Rivaaj Heritage (Official Brand Theme - RECOMMENDED) */
+   @import './themes/rivaaj-heritage.css';
+
+   /* For Midnight Opulence (Dark) */
+   @import './themes/midnight-opulence.css';
+
    /* For Saffron Luxe (Light) */
    @import './themes/saffron-luxe.css';
-   
+
    /* For Regal Noir (Dark) */
    @import './themes/regal-noir.css';
-   
-   /* For Midnight Opulence (Dark - Default) */
-   @import './themes/midnight-opulence.css';
    ```
 4. Save the file - Vite will hot-reload automatically
 
@@ -125,10 +155,19 @@ Each theme file contains complete definitions for:
 
 ## 🎯 Recommended Usage Strategy
 
-### **Default Theme: Midnight Opulence**
-Use as your primary theme for general browsing and year-round collections.
+### **Default Theme: Rivaaj Heritage** ⭐
+**Use as your primary theme** for official brand representation and year-round collections. This theme uses the official Rivaaj Couture brand colors (Deep Burgundy #691516 and Champagne Gold #E6D7AF) and should be your go-to choice for:
+- Main website presence
+- Signature collections
+- Heritage and bridal lines
+- Official brand communications
 
-### **Seasonal Switching:**
+### **Alternative Themes for Variety:**
+
+**Midnight Opulence** - Use for:
+- Premium evening wear collections
+- VIP customer experiences
+- Luxury showcases
 
 **Saffron Luxe** - Switch during:
 - Wedding season (October-March in India)
@@ -139,7 +178,6 @@ Use as your primary theme for general browsing and year-round collections.
 **Regal Noir** - Use for:
 - Exclusive collection launches
 - High-fashion editorial content
-- VIP customer experiences
 - Evening wear showcases
 - Fall/Winter collections
 
@@ -203,6 +241,7 @@ All fonts are loaded via Google Fonts in `src/index.css`:
 
 | Theme | Mood | Best For | Time of Day | Season |
 |-------|------|----------|-------------|---------|
+| **Rivaaj Heritage** ⭐ | Authentic, Timeless | Official brand, Heritage | All day | Year-round |
 | **Midnight Opulence** | Sophisticated, Exclusive | Premium collections, VIP | Evening | Year-round |
 | **Saffron Luxe** | Warm, Celebratory | Festive wear, Weddings | Daytime | Wedding season |
 | **Regal Noir** | Dramatic, Editorial | Exclusive launches | Evening | Year-round |
@@ -216,7 +255,20 @@ All fonts are loaded via Google Fonts in `src/index.css`:
    npm run dev
    ```
 
-2. **Change the theme import** in `src/index.css`
+2. **Change the theme import** in `src/index.css` (line 23):
+   ```css
+   /* For Rivaaj Heritage (Official Brand - RECOMMENDED) */
+   @import './themes/rivaaj-heritage.css';
+
+   /* For Midnight Opulence */
+   @import './themes/midnight-opulence.css';
+
+   /* For Saffron Luxe (currently active) */
+   @import './themes/saffron-luxe.css';
+
+   /* For Regal Noir */
+   @import './themes/regal-noir.css';
+   ```
 
 3. **View the changes** at http://localhost:8081/fashion-frontiers-page/
 
