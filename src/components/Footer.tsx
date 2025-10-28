@@ -33,9 +33,9 @@ const Footer = () => {
 
   return (
     <footer className="bg-charcoal text-white">
-      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20">
+      <div className="container mx-auto px-4 lg:px-6 py-12 lg:py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand Column */}
           <div>
             <h3 className="font-black-mango text-3xl font-bold mb-4 text-secondary">Rivaaj Couture</h3>

@@ -40,24 +40,24 @@ const collections = [
 
 const CollectionExplorer = () => {
   return (
-    <section id="collections-explore" className="py-28 lg:py-44 bg-pearl">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+    <section id="collections-explore" className="py-16 lg:py-24 bg-pearl">
+      <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Enhanced Luxury Section Header */}
-        <div className="text-center mb-24 lg:mb-32 animate-fade-in">
-          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.35em] uppercase mb-5 font-light">
+        <div className="text-center mb-12 lg:mb-16 animate-fade-in">
+          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.35em] uppercase mb-3 font-light">
             Our Collections
           </p>
-          <h2 className="font-black-mango text-5xl lg:text-7xl xl:text-8xl font-bold mb-8 text-primary tracking-tight leading-tight">
+          <h2 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold mb-5 text-primary tracking-tight leading-tight">
             Explore by Collection
           </h2>
-          <div className="w-28 h-[2px] bg-primary/50 mx-auto mb-10" />
-          <p className="font-darker-grotesque text-muted-foreground text-base lg:text-lg max-w-3xl mx-auto leading-[1.9] font-light">
+          <div className="w-24 h-[2px] bg-primary/50 mx-auto mb-6" />
+          <p className="font-darker-grotesque text-muted-foreground text-base lg:text-lg max-w-3xl mx-auto leading-[1.7] font-light">
             Discover our curated collections, each telling a unique story of elegance, craftsmanship, and timeless beauty
           </p>
         </div>
 
         {/* Premium Collections Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {collections.map((collection, idx) => (
             <div
               key={collection.id}

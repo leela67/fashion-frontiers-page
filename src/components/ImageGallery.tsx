@@ -72,11 +72,11 @@ const ImageGallery = () => {
   };
 
   return (
-    <section id="media-coverage" className="py-20 lg:py-32 bg-white">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+    <section id="media-coverage" className="py-16 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Section Header */}
-        <div className="text-center mb-16 lg:mb-24">
-          <h2 className="font-serif text-5xl lg:text-6xl xl:text-7xl font-light mb-6 text-charcoal tracking-tight leading-tight">
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light mb-4 text-charcoal tracking-tight leading-tight">
             Collection Moodboard
           </h2>
           <p className="font-sans text-muted-foreground text-base lg:text-lg max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
@@ -87,7 +87,7 @@ const ImageGallery = () => {
         {/* Masonry Grid Layout - Pixel-perfect Dolly Jain style */}
         <div
           ref={galleryRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 auto-rows-fr"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 auto-rows-fr"
         >
           {moodboardItems.map((item, index) => (
             <div

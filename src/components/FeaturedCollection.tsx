@@ -105,43 +105,43 @@ const FeaturedCollection = () => {
   };
 
   return (
-    <section id="collections" className="py-24 lg:py-40 bg-background" ref={sectionRef}>
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+    <section id="collections" className="py-16 lg:py-24 bg-background" ref={sectionRef}>
+      <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Section Title - Luxury Centered */}
-        <div className="mb-20 lg:mb-28 text-center animate-fade-in">
-          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.3em] uppercase mb-4 font-light">
+        <div className="mb-12 lg:mb-16 text-center animate-fade-in">
+          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.3em] uppercase mb-3 font-light">
             New Arrivals
           </p>
-          <h2 className="font-black-mango text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-primary mb-6 leading-tight">
+          <h2 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-primary mb-4 leading-tight">
             Latest Collection
           </h2>
-          <div className="w-24 h-[2px] bg-primary/40 mx-auto" />
+          <div className="w-20 h-[2px] bg-primary/40 mx-auto" />
         </div>
 
         {/* Main Layout - Text Left, Image and Video Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
           {/* Left Column - Elegant Text Content */}
-          <div className="flex flex-col justify-start lg:col-span-1 lg:sticky lg:top-32">
-            <div className="space-y-8 mb-16">
+          <div className="flex flex-col justify-start lg:col-span-1 lg:sticky lg:top-24">
+            <div className="space-y-6 mb-10">
               <div>
-                <h3 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-primary mb-8 leading-tight">
+                <h3 className="font-black-mango text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-primary mb-5 leading-tight">
                   Rang Mahal
                 </h3>
-                <div className="w-16 h-[2px] bg-primary/60 mb-8" />
+                <div className="w-14 h-[2px] bg-primary/60 mb-5" />
               </div>
 
-              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.8] text-foreground/80 mb-8">
+              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.7] text-foreground/80 mb-5">
                 Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful.
               </p>
 
-              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.8] text-foreground/80 mb-10">
+              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.7] text-foreground/80 mb-6">
                 Elevate your wedding day with ensembles that add a touch of regal elegance and echo the beauty of your shared journey.
               </p>
             </div>
 
             {/* Luxury CTA Button */}
             <div>
-              <button className="group relative font-darker-grotesque px-10 py-5 bg-primary text-primary-foreground overflow-hidden transition-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm">
+              <button className="group relative font-darker-grotesque px-8 py-4 bg-primary text-primary-foreground overflow-hidden transition-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm">
                 <span className="relative z-10">Explore Collection</span>
                 <div className="absolute inset-0 bg-charcoal transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
               </button>

@@ -8,27 +8,50 @@ import rivaajLogo from "@/assets/rivaaj-logo.png";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState<{[key: string]: boolean}>({});
 
-  // Handle scroll for sticky header behavior
+  // Handle scroll for sticky header behavior with direction detection
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      const currentScrollY = window.scrollY;
+
+      // Determine if scrolling down or up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsScrollingDown(true);
+      } else {
+        setIsScrollingDown(false);
+      }
+
+      setIsScrolled(currentScrollY > 0);
+      setLastScrollY(currentScrollY);
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
+
+  // Toggle mobile dropdown for specific menu item
+  const toggleMobileDropdown = (label: string) => {
+    setIsMobileDropdownOpen(prev => ({
+      ...prev,
+      [label]: !prev[label]
+    }));
+  };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isScrollingDown
+          ? "bg-white/60 backdrop-blur-md shadow-sm"
+          : isScrolled
           ? "bg-white shadow-md"
           : "bg-white/95 backdrop-blur-sm"
       }`}
     >
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-24 lg:h-28">
+      <div className="container mx-auto px-4 lg:px-6">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a
             href="/"
@@ -37,7 +60,7 @@ const Header = () => {
             <img
               src={rivaajLogo}
               alt="Rivaaj Couture"
-              className="h-12 lg:h-16 w-auto object-contain"
+              className="h-10 lg:h-14 w-auto object-contain"
             />
           </a>
 
@@ -45,7 +68,7 @@ const Header = () => {
           <MegaMenu navLinks={megaMenuData} />
 
           {/* Right Side Icons & CTA */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-4">
             {/* Search Icon */}
             <button
               className="p-2 hover:text-accent transition-colors duration-300"
@@ -73,7 +96,7 @@ const Header = () => {
 
             {/* CTA Button */}
             <Button
-              className="ml-4 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase text-sm transition-all duration-300"
+              className="ml-2 px-5 py-2 bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase text-sm transition-all duration-300"
             >
               Book Appointment
             </Button>
@@ -91,33 +114,33 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="lg:hidden py-6 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300">
-            <div className="flex flex-col gap-4">
+          <nav className="lg:hidden py-4 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300 max-h-[calc(100vh-5rem)] overflow-y-auto">
+            <div className="flex flex-col gap-3">
               {megaMenuData.map((link) => (
                 <div key={link.label}>
                   {link.hasDropdown ? (
                     <>
                       <button
-                        onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+                        onClick={() => toggleMobileDropdown(link.label)}
                         className="w-full flex items-center justify-between font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
                       >
                         {link.label}
                         <ChevronDown
                           className={`w-4 h-4 transition-transform ${
-                            isMobileDropdownOpen ? "rotate-180" : ""
+                            isMobileDropdownOpen[link.label] ? "rotate-180" : ""
                           }`}
                         />
                       </button>
-                      {isMobileDropdownOpen && (
-                        <div className="pl-4 flex flex-col gap-2 mt-2 border-l border-gray-200">
+                      {isMobileDropdownOpen[link.label] && (
+                        <div className="pl-4 flex flex-col gap-2 mt-2 border-l-2 border-primary/30">
                           {link.categories.map((item) => (
                             <a
                               key={item.label}
                               href={item.href}
-                              className="font-darker-grotesque text-sm font-medium text-gray-600 hover:text-primary transition-colors py-1"
+                              className="font-darker-grotesque text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-1"
                               onClick={() => {
                                 setIsMenuOpen(false);
-                                setIsMobileDropdownOpen(false);
+                                setIsMobileDropdownOpen({});
                               }}
                             >
                               {item.label}
@@ -129,7 +152,7 @@ const Header = () => {
                   ) : (
                     <a
                       href={link.href}
-                      className="font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
+                      className="font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors block"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.label}
@@ -139,21 +162,21 @@ const Header = () => {
               ))}
 
               {/* Mobile Icons */}
-              <div className="flex gap-4 pt-4 border-t border-border">
-                <button className="p-2 hover:text-accent transition-colors">
+              <div className="flex gap-4 pt-3 border-t border-border">
+                <button className="p-2 hover:text-accent transition-colors" aria-label="Search">
                   <Search className="w-5 h-5" />
                 </button>
-                <button className="p-2 hover:text-accent transition-colors">
+                <button className="p-2 hover:text-accent transition-colors" aria-label="Account">
                   <User className="w-5 h-5" />
                 </button>
-                <button className="p-2 hover:text-accent transition-colors relative">
+                <button className="p-2 hover:text-accent transition-colors relative" aria-label="Shopping bag">
                   <ShoppingBag className="w-5 h-5" />
                   <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
                 </button>
               </div>
 
               <Button
-                className="mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase"
+                className="mt-3 w-full bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase"
               >
                 Book Appointment
               </Button>

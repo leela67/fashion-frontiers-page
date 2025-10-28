@@ -10,6 +10,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Light Theme - Default */
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
@@ -51,86 +52,89 @@ All colors MUST be HSL.
     --pearl: 0 0% 96%;
 
     /* Font Family Tokens - Official Brand Fonts */
-    /* Black Mango: High-contrast editorial serif for headings */
     --font-black-mango: 'Crimson Text', serif;
-    /* Darker Grotesque: Clean sans-serif for body and subheadings */
     --font-darker-grotesque: 'Roboto', sans-serif;
     --font-playfair: 'Playfair Display', serif;
     --font-inter: 'Roboto', sans-serif;
-    
+
     /* Gradients */
     --gradient-luxury: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--charcoal)) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-muted)) 100%);
-    
+    --gradient-gold: linear-gradient(135deg, hsl(38 60% 79%) 0%, hsl(38 50% 65%) 100%);
+
     /* Shadows */
     --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.15);
     --shadow-hover: 0 20px 60px -15px hsl(0 0% 0% / 0.25);
-    
+
     /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --radius: 0.25rem;
+    /* Spacing System - Reduced for better screen real estate */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 4rem;     /* 64px */
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Dark Theme - Midnight Elegance */
   .dark {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 98%;
+    --background: 220 15% 8%;        /* Deep charcoal #121418 */
+    --foreground: 40 20% 95%;        /* Warm white #F5F3EE */
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 220 15% 12%;             /* Elevated surface #1A1D23 */
+    --card-foreground: 40 20% 95%;   /* Warm white */
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 220 15% 12%;          /* Elevated surface */
+    --popover-foreground: 40 20% 95%; /* Warm white */
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    /* Brand colors remain consistent */
+    --primary: 359 66% 25%;          /* Deep burgundy #691516 */
+    --primary-foreground: 40 20% 95%; /* Warm white */
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 38 60% 79%;         /* Champagne gold #E6D7AF */
+    --secondary-foreground: 220 15% 8%; /* Deep charcoal */
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 220 15% 18%;            /* Muted surface #272B33 */
+    --muted-foreground: 40 10% 70%;  /* Muted text #B3AFA5 */
 
-    --accent: 38 65% 55%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 38 70% 65%;            /* Rich gold #D4B574 */
+    --accent-foreground: 220 15% 8%; /* Deep charcoal */
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 40 20% 95%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 0 0% 80%;
-    
-    --charcoal: 0 0% 25%;
-    --pearl: 0 0% 15%;
-    
+    --border: 220 15% 20%;           /* Subtle borders #2E3239 */
+    --input: 220 15% 20%;            /* Input backgrounds */
+    --ring: 38 60% 79%;              /* Focus ring - champagne gold */
+
+    --charcoal: 220 15% 8%;          /* Deep charcoal */
+    --pearl: 220 15% 18%;            /* Pearl surface */
+
+    /* Enhanced shadows for dark theme */
     --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.4);
     --shadow-hover: 0 20px 60px -15px hsl(0 0% 0% / 0.6);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 359 66% 25%;
+    --sidebar-primary-foreground: 40 20% 95%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 38 60% 79%;
   }
 }
 

@@ -17,7 +17,7 @@ const ContactSection = () => {
       {/* Store Image & Info Section - Pixel Perfect Match */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Store Image - Left Side */}
-        <div className="relative w-full h-96 sm:h-[500px] lg:h-[600px] overflow-hidden bg-gray-100">
+        <div className="relative w-full h-80 sm:h-[450px] lg:h-[500px] overflow-hidden bg-gray-100">
           <img
             src={hero1}
             alt="Rivaaj Flagship Store"
@@ -26,15 +26,15 @@ const ContactSection = () => {
         </div>
 
         {/* Store Information - Right Side */}
-        <div className="flex flex-col justify-center px-8 sm:px-10 lg:px-16 py-16 sm:py-20 lg:py-24 bg-white">
+        <div className="flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20 bg-white">
           <div className="max-w-sm">
             {/* Title */}
-            <h2 className="font-black-mango text-3xl sm:text-4xl lg:text-5xl font-bold mb-10 text-primary tracking-tight leading-tight">
+            <h2 className="font-black-mango text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-primary tracking-tight leading-tight">
               {storeInfo.name}
             </h2>
 
             {/* Store Details - Matching Reference Formatting */}
-            <div className="space-y-6 mb-10">
+            <div className="space-y-4 mb-6">
               {/* Address */}
               <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed tracking-wide">
                 {storeInfo.address}
