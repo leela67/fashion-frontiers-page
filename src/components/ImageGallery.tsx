@@ -72,14 +72,14 @@ const ImageGallery = () => {
   };
 
   return (
-    <section id="media-coverage" className="py-16 lg:py-24 bg-white">
+    <section id="media-coverage" className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Section Header */}
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light mb-4 text-charcoal tracking-tight leading-tight">
+          <h2 className="heading-display heading-6xl font-light mb-4 text-charcoal tracking-tight leading-tight">
             Collection Moodboard
           </h2>
-          <p className="font-sans text-muted-foreground text-base lg:text-lg max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
+          <p className="body-text-lg text-muted-foreground max-w-2xl mx-auto font-light tracking-wide">
             A curated glimpse into our creative vision and artistic inspiration
           </p>
         </div>
@@ -92,7 +92,7 @@ const ImageGallery = () => {
           {moodboardItems.map((item, index) => (
             <div
               key={index}
-              className={`gallery-item opacity-0 transition-all duration-500 ${getItemClasses(
+              className={`gallery-item opacity-0 transition-elegant ${getItemClasses(
                 item.size
               )}`}
               style={{ animationDelay: `${item.delay}ms` }}
@@ -105,22 +105,22 @@ const ImageGallery = () => {
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
                   {/* Elegant overlay on hover */}
-                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-elegant" />
                   {/* Plus icon overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-12 h-12 border-2 border-white rounded-full flex items-center justify-center">
-                      <span className="text-white text-3xl font-light leading-none">+</span>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-elegant">
+                    <div className="w-12 h-12 border-2 border-hero rounded-full flex items-center justify-center">
+                      <span className="text-hero text-3xl font-light leading-none">+</span>
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className="h-full flex items-center justify-center p-8 lg:p-12 bg-pearl/30">
                   <div className="text-center">
-                    <p className="font-serif text-xl lg:text-2xl xl:text-3xl font-light text-charcoal leading-relaxed mb-4 italic">
+                    <p className="heading-display heading-3xl font-light text-charcoal leading-relaxed mb-4 italic">
                       "{item.text}"
                     </p>
                     {item.author && (
-                      <p className="font-sans text-sm lg:text-base text-muted-foreground font-light tracking-wider">
+                      <p className="body-text text-muted-foreground font-light tracking-wider">
                         {item.author}
                       </p>
                     )}

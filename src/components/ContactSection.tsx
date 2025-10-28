@@ -17,7 +17,7 @@ const ContactSection = () => {
       {/* Store Image & Info Section - Pixel Perfect Match */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Store Image - Left Side */}
-        <div className="relative w-full h-80 sm:h-[450px] lg:h-[500px] overflow-hidden bg-gray-100">
+        <div className="relative w-full h-80 sm:h-[450px] lg:h-[500px] overflow-hidden bg-muted">
           <img
             src={hero1}
             alt="Rivaaj Flagship Store"
@@ -26,17 +26,17 @@ const ContactSection = () => {
         </div>
 
         {/* Store Information - Right Side */}
-        <div className="flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20 bg-background">
           <div className="max-w-sm">
             {/* Title */}
-            <h2 className="font-black-mango text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-primary tracking-tight leading-tight">
+            <h2 className="heading-luxury heading-4xl mb-6 text-primary tracking-tight leading-tight">
               {storeInfo.name}
             </h2>
 
             {/* Store Details - Matching Reference Formatting */}
             <div className="space-y-4 mb-6">
               {/* Address */}
-              <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed tracking-wide">
+              <p className="body-text text-muted-foreground leading-relaxed tracking-wide">
                 {storeInfo.address}
                 <br />
                 {storeInfo.addressLine2}
@@ -47,13 +47,13 @@ const ContactSection = () => {
               </p>
 
               {/* Hours */}
-              <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground tracking-wide">
+              <p className="body-text text-muted-foreground tracking-wide">
                 {storeInfo.hours}
               </p>
 
               {/* Phone */}
-              <p className="font-darker-grotesque text-xs sm:text-sm lg:text-base text-muted-foreground tracking-wide">
-                Tel: <a href={`tel:${storeInfo.phone1}`} className="hover:text-primary transition-colors">{storeInfo.phone1}</a> / <a href={`tel:${storeInfo.phone2}`} className="hover:text-primary transition-colors">{storeInfo.phone2}</a>
+              <p className="body-text text-muted-foreground tracking-wide">
+                Tel: <a href={`tel:${storeInfo.phone1}`} className="hover:text-primary transition-smooth">{storeInfo.phone1}</a> / <a href={`tel:${storeInfo.phone2}`} className="hover:text-primary transition-smooth">{storeInfo.phone2}</a>
               </p>
             </div>
 
@@ -65,11 +65,11 @@ const ContactSection = () => {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <button className="w-full bg-primary hover:bg-primary/90 text-white px-6 sm:px-8 py-3 sm:py-4 font-darker-grotesque font-bold tracking-widest uppercase text-xs sm:text-sm transition-colors duration-300">
+                <button className="w-full btn-primary px-6 sm:px-8 py-3 sm:py-4 cta-text font-bold tracking-widest">
                   Get Directions
                 </button>
               </a>
-              <button className="w-full bg-white border-2 border-primary text-primary hover:bg-primary/5 px-6 sm:px-8 py-3 sm:py-4 font-darker-grotesque font-bold tracking-widest uppercase text-xs sm:text-sm transition-colors duration-300">
+              <button className="w-full bg-background border-2 border-primary text-primary hover:bg-primary/5 px-6 sm:px-8 py-3 sm:py-4 cta-text font-bold tracking-widest transition-smooth">
                 Explore
               </button>
             </div>

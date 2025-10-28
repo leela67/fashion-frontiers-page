@@ -32,28 +32,28 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-charcoal text-white">
+    <footer className="bg-charcoal text-hero">
       <div className="container mx-auto px-4 lg:px-6 py-12 lg:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand Column */}
           <div>
-            <h3 className="font-black-mango text-3xl font-bold mb-4 text-secondary">Rivaaj Couture</h3>
-            <p className="font-darker-grotesque text-white/70 mb-6">
+            <h3 className="heading-luxury heading-3xl mb-4 text-secondary">Rivaaj Couture</h3>
+            <p className="body-text-sm text-hero/70 mb-6">
               Timeless elegance meets contemporary luxury. Crafting exceptional pieces since 2020.
             </p>
             {/* Newsletter */}
             <div>
-              <p className="text-sm font-medium mb-3 tracking-wider uppercase">
+              <p className="subheading-sm mb-3 tracking-wider">
                 Subscribe to Our Newsletter
               </p>
               <div className="flex gap-2">
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded text-sm focus:outline-none focus:border-gold transition-smooth"
+                  className="flex-1 px-4 py-2 overlay-light-20 border border-hero/20 rounded text-sm focus:outline-none focus:border-secondary transition-smooth text-hero placeholder:text-hero/50"
                 />
-                <button className="px-4 py-2 bg-gold hover:bg-gold-muted text-white font-medium text-sm transition-smooth">
+                <button className="px-4 py-2 btn-secondary font-medium text-sm">
                   Join
                 </button>
               </div>
@@ -62,21 +62,21 @@ const Footer = () => {
 
           {/* Store Location Column */}
           <div>
-            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Store Location</h4>
+            <h4 className="heading-luxury heading-lg font-semibold mb-4 text-secondary">Store Location</h4>
             <div className="space-y-4">
               <div>
-                <p className="font-darker-grotesque text-white/70 text-sm leading-relaxed">
+                <p className="body-text-sm text-hero/70 leading-relaxed">
                   Third Floor, Arafat Complex, Plot No.63 and 66, Banjara Hills Main Rd, nearby Landmark Star Hospital, Gaffar Khan Colony, Banjara Hills, Hyderabad, Telangana 500034
                 </p>
               </div>
               <div>
-                <p className="font-darker-grotesque text-white/70 text-sm">
-                  <span className="font-semibold text-white">Phone:</span> <a href="tel:9949060029" className="hover:text-gold transition-smooth">9949060029</a> / <a href="tel:7673987673" className="hover:text-gold transition-smooth">7673987673</a>
+                <p className="body-text-sm text-hero/70">
+                  <span className="font-semibold text-hero">Phone:</span> <a href="tel:9949060029" className="hover:text-secondary transition-smooth">9949060029</a> / <a href="tel:7673987673" className="hover:text-secondary transition-smooth">7673987673</a>
                 </p>
               </div>
               <div>
-                <p className="font-darker-grotesque text-white/70 text-sm">
-                  <span className="font-semibold text-white">Hours:</span> 11:00 am to 6:00 pm
+                <p className="body-text-sm text-hero/70">
+                  <span className="font-semibold text-hero">Hours:</span> 11:00 am to 6:00 pm
                 </p>
               </div>
             </div>
@@ -84,13 +84,13 @@ const Footer = () => {
 
           {/* Shop Links */}
           <div>
-            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Shop</h4>
+            <h4 className="heading-luxury heading-lg font-semibold mb-4 text-secondary">Shop</h4>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-gold transition-smooth text-sm"
+                    className="body-text-sm text-hero/70 hover:text-secondary transition-smooth"
                   >
                     {link.label}
                   </a>
@@ -101,13 +101,13 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Company</h4>
+            <h4 className="heading-luxury heading-lg font-semibold mb-4 text-secondary">Company</h4>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="font-darker-grotesque text-white/70 hover:text-secondary transition-smooth text-sm"
+                    className="body-text-sm text-hero/70 hover:text-secondary transition-smooth"
                   >
                     {link.label}
                   </a>
@@ -118,13 +118,13 @@ const Footer = () => {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-black-mango text-lg font-semibold mb-4 text-secondary">Support</h4>
+            <h4 className="heading-luxury heading-lg font-semibold mb-4 text-secondary">Support</h4>
             <ul className="space-y-2">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="font-darker-grotesque text-white/70 hover:text-secondary transition-smooth text-sm"
+                    className="body-text-sm text-hero/70 hover:text-secondary transition-smooth"
                   >
                     {link.label}
                   </a>
@@ -135,10 +135,10 @@ const Footer = () => {
         </div>
 
         {/* Bottom Footer */}
-        <div className="pt-8 border-t border-white/10">
+        <div className="pt-8 border-t border-hero/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
-            <p className="font-darker-grotesque text-white/60 text-sm">
+            <p className="body-text-sm text-hero/60">
               © {currentYear} Rivaaj Couture. All rights reserved.
             </p>
 
@@ -150,7 +150,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-gold flex items-center justify-center transition-smooth"
+                  className="w-10 h-10 rounded-full overlay-light-20 hover:bg-secondary flex items-center justify-center transition-smooth"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
@@ -159,11 +159,11 @@ const Footer = () => {
             </div>
 
             {/* Legal Links */}
-            <div className="flex gap-6 text-sm text-white/60">
-              <a href="#privacy" className="font-darker-grotesque hover:text-secondary transition-smooth">
+            <div className="flex gap-6 body-text-sm text-hero/60">
+              <a href="#privacy" className="hover:text-secondary transition-smooth">
                 Privacy Policy
               </a>
-              <a href="#terms" className="font-darker-grotesque hover:text-secondary transition-smooth">
+              <a href="#terms" className="hover:text-secondary transition-smooth">
                 Terms of Service
               </a>
             </div>

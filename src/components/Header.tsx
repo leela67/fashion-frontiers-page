@@ -42,12 +42,12 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
         isScrollingDown
-          ? "bg-white/60 backdrop-blur-md shadow-sm"
+          ? "bg-header-scrolled shadow-soft"
           : isScrolled
-          ? "bg-white shadow-md"
-          : "bg-white/95 backdrop-blur-sm"
+          ? "bg-header shadow-elegant"
+          : "bg-header-transparent"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-6">
@@ -55,7 +55,7 @@ const Header = () => {
           {/* Logo */}
           <a
             href="/"
-            className="transition-all duration-300 hover:opacity-80"
+            className="transition-smooth hover:opacity-80"
           >
             <img
               src={rivaajLogo}
@@ -71,7 +71,7 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-4">
             {/* Search Icon */}
             <button
-              className="p-2 hover:text-accent transition-colors duration-300"
+              className="p-2 text-header hover:text-accent transition-smooth"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
@@ -79,7 +79,7 @@ const Header = () => {
 
             {/* User Account Icon */}
             <button
-              className="p-2 hover:text-accent transition-colors duration-300"
+              className="p-2 text-header hover:text-accent transition-smooth"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
@@ -87,7 +87,7 @@ const Header = () => {
 
             {/* Shopping Bag Icon */}
             <button
-              className="p-2 hover:text-accent transition-colors duration-300 relative"
+              className="p-2 text-header hover:text-accent transition-smooth relative"
               aria-label="Shopping bag"
             >
               <ShoppingBag className="w-5 h-5" />
@@ -96,7 +96,7 @@ const Header = () => {
 
             {/* CTA Button */}
             <Button
-              className="ml-2 px-5 py-2 bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase text-sm transition-all duration-300"
+              className="ml-2 px-5 py-2 btn-primary font-body font-semibold tracking-wider uppercase text-sm"
             >
               Book Appointment
             </Button>
@@ -104,7 +104,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 hover:text-accent transition-colors"
+            className="lg:hidden p-2 text-header hover:text-accent transition-smooth"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -122,11 +122,11 @@ const Header = () => {
                     <>
                       <button
                         onClick={() => toggleMobileDropdown(link.label)}
-                        className="w-full flex items-center justify-between font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors"
+                        className="w-full flex items-center justify-between nav-text py-2 text-header hover:text-primary transition-smooth"
                       >
                         {link.label}
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform ${
+                          className={`w-4 h-4 transition-smooth ${
                             isMobileDropdownOpen[link.label] ? "rotate-180" : ""
                           }`}
                         />
@@ -137,7 +137,7 @@ const Header = () => {
                             <a
                               key={item.label}
                               href={item.href}
-                              className="font-darker-grotesque text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-1"
+                              className="nav-text text-muted-foreground hover:text-primary transition-smooth py-1"
                               onClick={() => {
                                 setIsMenuOpen(false);
                                 setIsMobileDropdownOpen({});
@@ -152,7 +152,7 @@ const Header = () => {
                   ) : (
                     <a
                       href={link.href}
-                      className="font-darker-grotesque text-sm font-medium tracking-wide uppercase py-2 hover:text-primary transition-colors block"
+                      className="nav-text py-2 text-header hover:text-primary transition-smooth block"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.label}
@@ -163,20 +163,20 @@ const Header = () => {
 
               {/* Mobile Icons */}
               <div className="flex gap-4 pt-3 border-t border-border">
-                <button className="p-2 hover:text-accent transition-colors" aria-label="Search">
+                <button className="p-2 text-header hover:text-accent transition-smooth" aria-label="Search">
                   <Search className="w-5 h-5" />
                 </button>
-                <button className="p-2 hover:text-accent transition-colors" aria-label="Account">
+                <button className="p-2 text-header hover:text-accent transition-smooth" aria-label="Account">
                   <User className="w-5 h-5" />
                 </button>
-                <button className="p-2 hover:text-accent transition-colors relative" aria-label="Shopping bag">
+                <button className="p-2 text-header hover:text-accent transition-smooth relative" aria-label="Shopping bag">
                   <ShoppingBag className="w-5 h-5" />
                   <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
                 </button>
               </div>
 
               <Button
-                className="mt-3 w-full bg-primary text-primary-foreground hover:bg-primary/90 font-darker-grotesque font-semibold tracking-wider uppercase"
+                className="mt-3 w-full btn-primary font-body font-semibold tracking-wider uppercase"
               >
                 Book Appointment
               </Button>

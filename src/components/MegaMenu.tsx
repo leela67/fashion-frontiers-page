@@ -33,18 +33,18 @@ const MegaMenu = ({ navLinks }: MegaMenuProps) => {
           {/* Navigation Link */}
           <a
             href={link.href}
-            className="font-darker-grotesque text-sm font-medium tracking-wide uppercase text-foreground relative flex items-center gap-1"
+            className="nav-text text-foreground relative flex items-center gap-1"
           >
             {link.label}
             {link.hasDropdown && (
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-300 ${
+                className={`w-4 h-4 transition-smooth ${
                   activeLink === link.label ? "rotate-180" : ""
                 }`}
               />
             )}
             <span
-              className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+              className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-smooth ${
                 activeLink === link.label ? "w-full" : "w-0"
               }`}
             />
@@ -53,7 +53,7 @@ const MegaMenu = ({ navLinks }: MegaMenuProps) => {
           {/* Mega Menu Dropdown - Fixed positioning relative to viewport */}
           {link.hasDropdown && (
             <div
-              className={`fixed left-1/2 top-16 lg:top-20 w-screen max-w-7xl bg-white shadow-lg rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 ${
+              className={`fixed left-1/2 top-16 lg:top-20 w-screen max-w-7xl bg-background shadow-elegant rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-smooth z-50 ${
                 isDropdownOpen ? "opacity-100 visible" : ""
               }`}
               style={{

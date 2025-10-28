@@ -109,10 +109,10 @@ const FeaturedCollection = () => {
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Section Title - Luxury Centered */}
         <div className="mb-12 lg:mb-16 text-center animate-fade-in">
-          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.3em] uppercase mb-3 font-light">
+          <p className="subheading-sm text-muted-foreground tracking-[0.3em] mb-3 font-light">
             New Arrivals
           </p>
-          <h2 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-primary mb-4 leading-tight">
+          <h2 className="heading-luxury heading-6xl tracking-tight text-primary mb-4 leading-tight">
             Latest Collection
           </h2>
           <div className="w-20 h-[2px] bg-primary/40 mx-auto" />
@@ -124,26 +124,26 @@ const FeaturedCollection = () => {
           <div className="flex flex-col justify-start lg:col-span-1 lg:sticky lg:top-24">
             <div className="space-y-6 mb-10">
               <div>
-                <h3 className="font-black-mango text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-primary mb-5 leading-tight">
+                <h3 className="heading-luxury heading-5xl tracking-tight text-primary mb-5 leading-tight">
                   Rang Mahal
                 </h3>
                 <div className="w-14 h-[2px] bg-primary/60 mb-5" />
               </div>
 
-              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.7] text-foreground/80 mb-5">
+              <p className="body-text-lg font-light text-foreground/80 mb-5">
                 Begin your journey of matrimony with our wedding edit—a poetic ode to your love story. The intricate craftsmanship celebrates your bond, making every detail meaningful.
               </p>
 
-              <p className="font-darker-grotesque text-base lg:text-lg font-light leading-[1.7] text-foreground/80 mb-6">
+              <p className="body-text-lg font-light text-foreground/80 mb-6">
                 Elevate your wedding day with ensembles that add a touch of regal elegance and echo the beauty of your shared journey.
               </p>
             </div>
 
             {/* Luxury CTA Button */}
             <div>
-              <button className="group relative font-darker-grotesque px-8 py-4 bg-primary text-primary-foreground overflow-hidden transition-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm">
+              <button className="group relative btn-primary px-8 py-4 overflow-hidden shadow-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm">
                 <span className="relative z-10">Explore Collection</span>
-                <div className="absolute inset-0 bg-charcoal transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+                <div className="absolute inset-0 bg-charcoal transform scale-x-0 group-hover:scale-x-100 transition-elegant origin-left" />
               </button>
             </div>
           </div>
@@ -154,7 +154,7 @@ const FeaturedCollection = () => {
               {/* Main Carousel Container - Elegant Proportions */}
               <div className="flex gap-6 lg:gap-8 items-center">
                 {/* Image Carousel - Primary (65% width on desktop) */}
-                <div className="relative overflow-hidden bg-muted aspect-[3/4] shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-[65%] group">
+                <div className="relative overflow-hidden bg-muted aspect-portrait shadow-elegant hover:shadow-hover transition-elegant w-full lg:w-[65%] group">
                   {/* Carousel Items with Smooth Transitions */}
                   {carouselItems.map((item, index) => (
                     <div
@@ -182,14 +182,14 @@ const FeaturedCollection = () => {
                       )}
                     </div>
                   ))}
-                  
+
                   {/* Subtle Vignette Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 pointer-events-none" />
+                  <div className="absolute inset-0 overlay-subtle pointer-events-none" />
 
                   {/* Refined Navigation Arrows */}
                   <button
                     onClick={goToPrevious}
-                    className="absolute left-6 top-1/2 -translate-y-1/2 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-elegant hover:shadow-elegant opacity-0 group-hover:opacity-100 z-10 border border-white/30"
+                    className="absolute left-6 top-1/2 -translate-y-1/2 p-3 overlay-light-20 hover:overlay-light-40 backdrop-blur-sm text-hero transition-elegant hover:shadow-elegant opacity-0 group-hover:opacity-100 z-10 border border-hero/30"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft className="w-5 h-5" />
@@ -197,7 +197,7 @@ const FeaturedCollection = () => {
 
                   <button
                     onClick={goToNext}
-                    className="absolute right-6 top-1/2 -translate-y-1/2 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-elegant hover:shadow-elegant opacity-0 group-hover:opacity-100 z-10 border border-white/30"
+                    className="absolute right-6 top-1/2 -translate-y-1/2 p-3 overlay-light-20 hover:overlay-light-40 backdrop-blur-sm text-hero transition-elegant hover:shadow-elegant opacity-0 group-hover:opacity-100 z-10 border border-hero/30"
                     aria-label="Next slide"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -206,7 +206,7 @@ const FeaturedCollection = () => {
 
                 {/* Video Element - Secondary (35% width, 75% height of image, vertically centered) */}
                 <div className="relative w-full lg:w-[35%] flex items-center">
-                  <div className="relative overflow-hidden bg-muted shadow-elegant hover:shadow-hover transition-elegant w-full" style={{ aspectRatio: '3/4', height: '75%' }}>
+                  <div className="relative overflow-hidden bg-muted shadow-elegant hover:shadow-hover transition-elegant w-full aspect-portrait" style={{ height: '75%' }}>
                     <video
                       ref={videoRef}
                       src={videoSrc}
@@ -226,7 +226,7 @@ const FeaturedCollection = () => {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`h-[2px] rounded-full transition-all duration-500 ${
+                    className={`h-[2px] rounded-full transition-elegant ${
                       index === currentIndex
                         ? "bg-primary w-12"
                         : "bg-border w-8 hover:bg-primary/40 hover:w-10"
@@ -242,7 +242,7 @@ const FeaturedCollection = () => {
               <div className="w-8 h-[1px] bg-border" />
               <button
                 onClick={() => setIsAutoPlay(!isAutoPlay)}
-                className="font-darker-grotesque text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-colors duration-300"
+                className="subheading-sm tracking-[0.2em] text-muted-foreground hover:text-primary transition-smooth"
               >
                 {isAutoPlay ? "Pause Carousel" : "Play Carousel"}
               </button>

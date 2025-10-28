@@ -1,16 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
-All colors MUST be HSL.
-*/
+/* ============================================================================
+   RIVAAJ COUTURE - LUXURY DESIGN SYSTEM
+   ============================================================================
+
+   This file contains the complete design system for Rivaaj Couture.
+   All colors, typography, spacing, and design tokens are centralized here.
+
+   THEME STRUCTURE:
+   - Theme 1: Classic Elegance (Default) - Deep burgundy & champagne gold
+   - Theme 2: Modern Luxury (.theme-modern) - Midnight navy & rose gold
+   - Theme 3: Royal Heritage (.theme-royal) - Emerald green & antique gold
+
+   All colors MUST be in HSL format for consistency.
+   ============================================================================ */
 
 @layer base {
+  /* ============================================================================
+     THEME 1: CLASSIC ELEGANCE (DEFAULT)
+     Deep Burgundy & Champagne Gold - Timeless sophistication
+     ============================================================================ */
   :root {
-    /* Light Theme - Default */
+    /* ===== Core Colors ===== */
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
@@ -20,57 +35,102 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    /* Rivaaj Couture Brand Colors - Official Guidelines */
-    /* Primary: #691516 (RGB: 105, 21, 22) - Deep maroon/burgundy */
+    /* Primary: Deep Burgundy #691516 */
     --primary: 359 66% 25%;
     --primary-foreground: 0 0% 100%;
+    --primary-hover: 359 66% 20%;
 
-    /* Secondary: #E6D7AF (RGB: 229, 213, 174) - Champagne gold */
+    /* Secondary: Champagne Gold #E6D7AF */
     --secondary: 38 60% 79%;
     --secondary-foreground: 359 66% 25%;
+    --secondary-hover: 38 60% 75%;
 
+    /* Accent: Rich Gold */
+    --accent: 38 70% 65%;
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 38 70% 60%;
+
+    /* Neutral Colors */
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-
-    --accent: 359 66% 25%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 20%;
-
-    --radius: 0.25rem;
-
-    /* Rivaaj Couture Design Tokens */
-    --rivaaj-primary: 359 66% 25%;
-    --rivaaj-secondary: 38 60% 79%;
-    --rivaaj-neutral: 0 0% 100%;
     --charcoal: 0 0% 15%;
     --pearl: 0 0% 96%;
 
-    /* Font Family Tokens - Official Brand Fonts */
+    /* UI Elements */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 20%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* ===== Overlay Colors ===== */
+    --overlay-light: 0 0% 100%;
+    --overlay-dark: 0 0% 0%;
+    --overlay-primary: 359 66% 25%;
+
+    /* ===== Header Colors ===== */
+    --header-bg: 0 0% 100%;
+    --header-bg-transparent: 0 0% 100%;
+    --header-bg-scrolled: 0 0% 100%;
+    --header-text: 0 0% 5%;
+
+    /* ===== Hero Colors ===== */
+    --hero-overlay: 0 0% 0%;
+    --hero-text: 0 0% 100%;
+
+    /* ===== Button Colors ===== */
+    --button-primary-bg: 359 66% 25%;
+    --button-primary-text: 0 0% 100%;
+    --button-primary-hover: 359 66% 20%;
+    --button-secondary-bg: 38 60% 79%;
+    --button-secondary-text: 359 66% 25%;
+    --button-secondary-hover: 38 60% 75%;
+
+    /* ===== Font Family Tokens ===== */
+    --font-heading: 'Crimson Text', serif;
+    --font-body: 'Roboto', sans-serif;
+    --font-display: 'Playfair Display', serif;
+    --font-accent: 'Roboto', sans-serif;
+
+    /* Legacy font names for backward compatibility */
     --font-black-mango: 'Crimson Text', serif;
     --font-darker-grotesque: 'Roboto', sans-serif;
     --font-playfair: 'Playfair Display', serif;
     --font-inter: 'Roboto', sans-serif;
 
-    /* Gradients */
-    --gradient-luxury: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--charcoal)) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(38 60% 79%) 0%, hsl(38 50% 65%) 100%);
+    /* ===== Typography Scale ===== */
+    --font-size-xs: 0.75rem;      /* 12px */
+    --font-size-sm: 0.875rem;     /* 14px */
+    --font-size-base: 1rem;       /* 16px */
+    --font-size-lg: 1.125rem;     /* 18px */
+    --font-size-xl: 1.25rem;      /* 20px */
+    --font-size-2xl: 1.5rem;      /* 24px */
+    --font-size-3xl: 1.875rem;    /* 30px */
+    --font-size-4xl: 2.25rem;     /* 36px */
+    --font-size-5xl: 3rem;        /* 48px */
+    --font-size-6xl: 3.75rem;     /* 60px */
+    --font-size-7xl: 4.5rem;      /* 72px */
+    --font-size-8xl: 6rem;        /* 96px */
+    --font-size-9xl: 8rem;        /* 128px */
 
-    /* Shadows */
+    /* ===== Gradients ===== */
+    --gradient-luxury: linear-gradient(135deg, hsl(359 66% 25%) 0%, hsl(0 0% 15%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 60% 79%) 0%, hsl(38 50% 65%) 100%);
+    --gradient-hero: linear-gradient(to bottom, hsl(0 0% 0% / 0.6), hsl(0 0% 0% / 0.4), hsl(0 0% 0% / 0.7));
+    --gradient-overlay-light: linear-gradient(to top, hsl(0 0% 0% / 0.75), hsl(0 0% 0% / 0.35), transparent);
+    --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(0 0% 0% / 0.1));
+
+    /* ===== Shadows ===== */
     --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.15);
     --shadow-hover: 0 20px 60px -15px hsl(0 0% 0% / 0.25);
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
 
-    /* Transitions */
+    /* ===== Transitions ===== */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Spacing System - Reduced for better screen real estate */
+    /* ===== Spacing System ===== */
     --space-xs: 0.25rem;   /* 4px */
     --space-sm: 0.5rem;    /* 8px */
     --space-md: 1rem;      /* 16px */
@@ -79,6 +139,15 @@ All colors MUST be HSL.
     --space-2xl: 3rem;     /* 48px */
     --space-3xl: 4rem;     /* 64px */
 
+    /* ===== Border Radius ===== */
+    --radius: 0.25rem;
+    --radius-sm: 0.125rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-full: 9999px;
+
+    /* ===== Sidebar (for UI components) ===== */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -89,8 +158,12 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Dark Theme - Midnight Elegance */
+  /* ============================================================================
+     DARK MODE: MIDNIGHT ELEGANCE
+     Dark variant of Classic Elegance theme
+     ============================================================================ */
   .dark {
+    /* ===== Core Colors ===== */
     --background: 220 15% 8%;        /* Deep charcoal #121418 */
     --foreground: 40 20% 95%;        /* Warm white #F5F3EE */
 
@@ -100,33 +173,70 @@ All colors MUST be HSL.
     --popover: 220 15% 12%;          /* Elevated surface */
     --popover-foreground: 40 20% 95%; /* Warm white */
 
-    /* Brand colors remain consistent */
+    /* Primary: Deep Burgundy (consistent) */
     --primary: 359 66% 25%;          /* Deep burgundy #691516 */
     --primary-foreground: 40 20% 95%; /* Warm white */
+    --primary-hover: 359 66% 30%;
 
+    /* Secondary: Champagne Gold (consistent) */
     --secondary: 38 60% 79%;         /* Champagne gold #E6D7AF */
     --secondary-foreground: 220 15% 8%; /* Deep charcoal */
+    --secondary-hover: 38 60% 85%;
 
-    --muted: 220 15% 18%;            /* Muted surface #272B33 */
-    --muted-foreground: 40 10% 70%;  /* Muted text #B3AFA5 */
-
+    /* Accent: Rich Gold */
     --accent: 38 70% 65%;            /* Rich gold #D4B574 */
     --accent-foreground: 220 15% 8%; /* Deep charcoal */
+    --accent-hover: 38 70% 70%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 40 20% 95%;
-
-    --border: 220 15% 20%;           /* Subtle borders #2E3239 */
-    --input: 220 15% 20%;            /* Input backgrounds */
-    --ring: 38 60% 79%;              /* Focus ring - champagne gold */
-
+    /* Neutral Colors */
+    --muted: 220 15% 18%;            /* Muted surface #272B33 */
+    --muted-foreground: 40 10% 70%;  /* Muted text #B3AFA5 */
     --charcoal: 220 15% 8%;          /* Deep charcoal */
     --pearl: 220 15% 18%;            /* Pearl surface */
 
-    /* Enhanced shadows for dark theme */
+    /* UI Elements */
+    --border: 220 15% 20%;           /* Subtle borders #2E3239 */
+    --input: 220 15% 20%;            /* Input backgrounds */
+    --ring: 38 60% 79%;              /* Focus ring - champagne gold */
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 40 20% 95%;
+
+    /* ===== Overlay Colors ===== */
+    --overlay-light: 220 15% 95%;
+    --overlay-dark: 220 15% 5%;
+    --overlay-primary: 359 66% 25%;
+
+    /* ===== Header Colors ===== */
+    --header-bg: 220 15% 8%;
+    --header-bg-transparent: 220 15% 8%;
+    --header-bg-scrolled: 220 15% 10%;
+    --header-text: 40 20% 95%;
+
+    /* ===== Hero Colors ===== */
+    --hero-overlay: 220 15% 5%;
+    --hero-text: 40 20% 95%;
+
+    /* ===== Button Colors ===== */
+    --button-primary-bg: 359 66% 25%;
+    --button-primary-text: 40 20% 95%;
+    --button-primary-hover: 359 66% 30%;
+    --button-secondary-bg: 38 60% 79%;
+    --button-secondary-text: 220 15% 8%;
+    --button-secondary-hover: 38 60% 85%;
+
+    /* ===== Gradients ===== */
+    --gradient-luxury: linear-gradient(135deg, hsl(359 66% 25%) 0%, hsl(220 15% 8%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 60% 79%) 0%, hsl(38 50% 65%) 100%);
+    --gradient-hero: linear-gradient(to bottom, hsl(220 15% 5% / 0.7), hsl(220 15% 5% / 0.5), hsl(220 15% 5% / 0.8));
+    --gradient-overlay-light: linear-gradient(to top, hsl(220 15% 5% / 0.85), hsl(220 15% 5% / 0.45), transparent);
+    --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(220 15% 5% / 0.2));
+
+    /* ===== Shadows ===== */
     --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.4);
     --shadow-hover: 0 20px 60px -15px hsl(0 0% 0% / 0.6);
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.2);
 
+    /* ===== Sidebar ===== */
     --sidebar-background: 220 15% 10%;
     --sidebar-foreground: 40 20% 95%;
     --sidebar-primary: 359 66% 25%;
@@ -135,6 +245,188 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 40 20% 95%;
     --sidebar-border: 220 15% 20%;
     --sidebar-ring: 38 60% 79%;
+  }
+
+  /* ============================================================================
+     THEME 2: MODERN LUXURY
+     Midnight Navy & Rose Gold - Contemporary sophistication
+     ============================================================================ */
+  .theme-modern {
+    /* ===== Core Colors ===== */
+    --background: 0 0% 100%;
+    --foreground: 220 30% 10%;
+
+    --card: 220 20% 98%;
+    --card-foreground: 220 30% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 10%;
+
+    /* Primary: Midnight Navy #1A2332 */
+    --primary: 220 30% 15%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 220 30% 12%;
+
+    /* Secondary: Rose Gold #D4A574 */
+    --secondary: 30 55% 65%;
+    --secondary-foreground: 220 30% 15%;
+    --secondary-hover: 30 55% 60%;
+
+    /* Accent: Soft Rose Gold */
+    --accent: 30 60% 70%;
+    --accent-foreground: 220 30% 15%;
+    --accent-hover: 30 60% 65%;
+
+    /* Neutral Colors */
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 15% 45%;
+    --charcoal: 220 30% 15%;
+    --pearl: 220 15% 96%;
+
+    /* UI Elements */
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 220 30% 20%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* ===== Overlay Colors ===== */
+    --overlay-light: 0 0% 100%;
+    --overlay-dark: 220 30% 10%;
+    --overlay-primary: 220 30% 15%;
+
+    /* ===== Header Colors ===== */
+    --header-bg: 0 0% 100%;
+    --header-bg-transparent: 0 0% 100%;
+    --header-bg-scrolled: 0 0% 100%;
+    --header-text: 220 30% 10%;
+
+    /* ===== Hero Colors ===== */
+    --hero-overlay: 220 30% 10%;
+    --hero-text: 0 0% 100%;
+
+    /* ===== Button Colors ===== */
+    --button-primary-bg: 220 30% 15%;
+    --button-primary-text: 0 0% 100%;
+    --button-primary-hover: 220 30% 12%;
+    --button-secondary-bg: 30 55% 65%;
+    --button-secondary-text: 220 30% 15%;
+    --button-secondary-hover: 30 55% 60%;
+
+    /* ===== Font Family Tokens ===== */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-accent: 'Montserrat', sans-serif;
+
+    /* Legacy font names */
+    --font-black-mango: 'Cormorant Garamond', serif;
+    --font-darker-grotesque: 'Montserrat', sans-serif;
+    --font-playfair: 'Cormorant Garamond', serif;
+    --font-inter: 'Montserrat', sans-serif;
+
+    /* ===== Gradients ===== */
+    --gradient-luxury: linear-gradient(135deg, hsl(220 30% 15%) 0%, hsl(220 30% 25%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(30 55% 65%) 0%, hsl(30 50% 55%) 100%);
+    --gradient-hero: linear-gradient(to bottom, hsl(220 30% 10% / 0.6), hsl(220 30% 10% / 0.4), hsl(220 30% 10% / 0.7));
+    --gradient-overlay-light: linear-gradient(to top, hsl(220 30% 10% / 0.75), hsl(220 30% 10% / 0.35), transparent);
+    --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(220 30% 10% / 0.1));
+
+    /* ===== Shadows ===== */
+    --shadow-elegant: 0 10px 40px -10px hsl(220 30% 15% / 0.2);
+    --shadow-hover: 0 20px 60px -15px hsl(220 30% 15% / 0.3);
+    --shadow-soft: 0 4px 20px -4px hsl(220 30% 15% / 0.12);
+  }
+
+  /* ============================================================================
+     THEME 3: ROYAL HERITAGE
+     Emerald Green & Antique Gold - Regal elegance
+     ============================================================================ */
+  .theme-royal {
+    /* ===== Core Colors ===== */
+    --background: 0 0% 100%;
+    --foreground: 160 40% 10%;
+
+    --card: 160 15% 98%;
+    --card-foreground: 160 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 40% 10%;
+
+    /* Primary: Deep Emerald #0F4C3A */
+    --primary: 160 65% 18%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 160 65% 15%;
+
+    /* Secondary: Antique Gold #C9A961 */
+    --secondary: 45 50% 60%;
+    --secondary-foreground: 160 65% 18%;
+    --secondary-hover: 45 50% 55%;
+
+    /* Accent: Rich Gold */
+    --accent: 45 60% 65%;
+    --accent-foreground: 160 65% 18%;
+    --accent-hover: 45 60% 60%;
+
+    /* Neutral Colors */
+    --muted: 160 10% 96%;
+    --muted-foreground: 160 10% 45%;
+    --charcoal: 160 40% 12%;
+    --pearl: 160 10% 96%;
+
+    /* UI Elements */
+    --border: 160 10% 88%;
+    --input: 160 10% 88%;
+    --ring: 160 40% 20%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* ===== Overlay Colors ===== */
+    --overlay-light: 0 0% 100%;
+    --overlay-dark: 160 40% 10%;
+    --overlay-primary: 160 65% 18%;
+
+    /* ===== Header Colors ===== */
+    --header-bg: 0 0% 100%;
+    --header-bg-transparent: 0 0% 100%;
+    --header-bg-scrolled: 0 0% 100%;
+    --header-text: 160 40% 10%;
+
+    /* ===== Hero Colors ===== */
+    --hero-overlay: 160 40% 10%;
+    --hero-text: 0 0% 100%;
+
+    /* ===== Button Colors ===== */
+    --button-primary-bg: 160 65% 18%;
+    --button-primary-text: 0 0% 100%;
+    --button-primary-hover: 160 65% 15%;
+    --button-secondary-bg: 45 50% 60%;
+    --button-secondary-text: 160 65% 18%;
+    --button-secondary-hover: 45 50% 55%;
+
+    /* ===== Font Family Tokens ===== */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Roboto', sans-serif;
+    --font-display: 'Playfair Display', serif;
+    --font-accent: 'Roboto', sans-serif;
+
+    /* Legacy font names */
+    --font-black-mango: 'Playfair Display', serif;
+    --font-darker-grotesque: 'Roboto', sans-serif;
+    --font-playfair: 'Playfair Display', serif;
+    --font-inter: 'Roboto', sans-serif;
+
+    /* ===== Gradients ===== */
+    --gradient-luxury: linear-gradient(135deg, hsl(160 65% 18%) 0%, hsl(160 40% 12%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 50% 60%) 0%, hsl(45 45% 50%) 100%);
+    --gradient-hero: linear-gradient(to bottom, hsl(160 40% 10% / 0.6), hsl(160 40% 10% / 0.4), hsl(160 40% 10% / 0.7));
+    --gradient-overlay-light: linear-gradient(to top, hsl(160 40% 10% / 0.75), hsl(160 40% 10% / 0.35), transparent);
+    --gradient-overlay-subtle: linear-gradient(to bottom, transparent, transparent, hsl(160 40% 10% / 0.1));
+
+    /* ===== Shadows ===== */
+    --shadow-elegant: 0 10px 40px -10px hsl(160 40% 10% / 0.2);
+    --shadow-hover: 0 20px 60px -15px hsl(160 40% 10% / 0.3);
+    --shadow-soft: 0 4px 20px -4px hsl(160 40% 10% / 0.12);
   }
 }
 
@@ -166,103 +458,173 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  /* Animation Utilities */
+  /* ============================================================================
+     ANIMATION UTILITIES
+     ============================================================================ */
   .animate-fade-in {
     animation: fade-in 0.6s ease-out forwards;
   }
 
-  /* Font Family Utilities */
+  /* ============================================================================
+     FONT FAMILY UTILITIES
+     ============================================================================ */
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+
+  /* Legacy font utilities for backward compatibility */
   .font-serif {
-    font-family: var(--font-playfair);
+    font-family: var(--font-heading);
   }
 
   .font-sans {
-    font-family: var(--font-inter);
+    font-family: var(--font-body);
   }
 
-  .font-jost {
-    font-family: var(--font-jost);
-  }
-
-  .font-josefin {
-    font-family: var(--font-josefin);
-  }
-
-  /* Typography Styles - Official Brand Guidelines */
-
-  /* LOGO: Black Mango + Darker Grotesque Bold (Serif + Clean Sans) */
-  .logo-text {
+  .font-black-mango {
     font-family: var(--font-black-mango);
+  }
+
+  .font-darker-grotesque {
+    font-family: var(--font-darker-grotesque);
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+
+  /* ============================================================================
+     TYPOGRAPHY STYLES
+     ============================================================================ */
+
+  /* Logo Typography */
+  .logo-text {
+    font-family: var(--font-heading);
     font-weight: 700;
     letter-spacing: 0.05em;
   }
 
-  /* HEADINGS: Black Mango Regular/Bold */
+  /* Heading Styles */
   .heading-luxury {
-    font-family: var(--font-black-mango);
+    font-family: var(--font-heading);
     font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1.2;
   }
 
+  .heading-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+
+  .heading-9xl {
+    font-size: var(--font-size-9xl);
+  }
+
+  .heading-8xl {
+    font-size: var(--font-size-8xl);
+  }
+
+  .heading-7xl {
+    font-size: var(--font-size-7xl);
+  }
+
+  .heading-6xl {
+    font-size: var(--font-size-6xl);
+  }
+
+  .heading-5xl {
+    font-size: var(--font-size-5xl);
+  }
+
+  .heading-4xl {
+    font-size: var(--font-size-4xl);
+  }
+
+  .heading-3xl {
+    font-size: var(--font-size-3xl);
+  }
+
+  .heading-2xl {
+    font-size: var(--font-size-2xl);
+  }
+
+  .heading-xl {
+    font-size: var(--font-size-xl);
+  }
+
   .heading-lg {
-    font-size: 48px;
+    font-size: var(--font-size-5xl);
   }
 
   .heading-md {
-    font-size: 32px;
+    font-size: var(--font-size-4xl);
   }
 
   .heading-sm {
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
   }
 
-  /* SUBHEADINGS: Darker Grotesque Bold/Medium */
+  /* Subheading Styles */
   .subheading {
-    font-family: var(--font-darker-grotesque);
+    font-family: var(--font-body);
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
   .subheading-lg {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     line-height: 1.4;
   }
 
   .subheading-md {
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 1.5;
   }
 
   .subheading-sm {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
   }
 
-  /* BODY TEXT: Darker Grotesque Medium/Regular */
+  /* Body Text Styles */
   .body-text {
-    font-family: var(--font-darker-grotesque);
-    font-size: 16px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.01em;
   }
 
   .body-text-sm {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
   }
 
   .body-text-lg {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     line-height: 1.7;
   }
 
-  /* Typography Styles - Header Navigation */
+  /* Navigation Text */
   .nav-text {
-    font-family: var(--font-darker-grotesque);
-    font-size: 14px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -270,7 +632,7 @@ All colors MUST be HSL.
   }
 
   .nav-text-hover {
-    transition: all 0.3s ease;
+    transition: var(--transition-fast);
   }
 
   .nav-text-hover:hover {
@@ -278,16 +640,95 @@ All colors MUST be HSL.
     text-decoration: underline;
   }
 
-  /* Typography Styles - CTA/Button Text */
+  /* CTA/Button Text */
   .cta-text {
-    font-family: var(--font-darker-grotesque);
-    font-size: 14px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  /* Transition Utilities */
+  /* ============================================================================
+     COLOR UTILITIES
+     ============================================================================ */
+
+  /* Background Colors */
+  .bg-header {
+    background-color: hsl(var(--header-bg));
+  }
+
+  .bg-header-transparent {
+    background-color: hsl(var(--header-bg-transparent) / 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .bg-header-scrolled {
+    background-color: hsl(var(--header-bg-scrolled) / 0.6);
+    backdrop-filter: blur(12px);
+  }
+
+  .bg-overlay-light {
+    background-color: hsl(var(--overlay-light));
+  }
+
+  .bg-overlay-dark {
+    background-color: hsl(var(--overlay-dark));
+  }
+
+  /* Text Colors */
+  .text-header {
+    color: hsl(var(--header-text));
+  }
+
+  .text-hero {
+    color: hsl(var(--hero-text));
+  }
+
+  /* ============================================================================
+     OVERLAY UTILITIES
+     ============================================================================ */
+
+  .overlay-hero {
+    background: var(--gradient-hero);
+  }
+
+  .overlay-light {
+    background: var(--gradient-overlay-light);
+  }
+
+  .overlay-subtle {
+    background: var(--gradient-overlay-subtle);
+  }
+
+  .overlay-dark-20 {
+    background-color: hsl(var(--overlay-dark) / 0.2);
+  }
+
+  .overlay-dark-40 {
+    background-color: hsl(var(--overlay-dark) / 0.4);
+  }
+
+  .overlay-dark-60 {
+    background-color: hsl(var(--overlay-dark) / 0.6);
+  }
+
+  .overlay-light-20 {
+    background-color: hsl(var(--overlay-light) / 0.2);
+  }
+
+  .overlay-light-40 {
+    background-color: hsl(var(--overlay-light) / 0.4);
+  }
+
+  .overlay-light-60 {
+    background-color: hsl(var(--overlay-light) / 0.6);
+  }
+
+  /* ============================================================================
+     TRANSITION UTILITIES
+     ============================================================================ */
+
   .transition-elegant {
     transition: var(--transition-elegant);
   }
@@ -296,7 +737,14 @@ All colors MUST be HSL.
     transition: var(--transition-smooth);
   }
 
-  /* Shadow Utilities */
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+
+  /* ============================================================================
+     SHADOW UTILITIES
+     ============================================================================ */
+
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
@@ -305,12 +753,67 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-hover);
   }
 
-  /* Gradient Utilities */
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ============================================================================
+     GRADIENT UTILITIES
+     ============================================================================ */
+
   .gradient-luxury {
     background: var(--gradient-luxury);
   }
 
   .gradient-gold {
     background: var(--gradient-gold);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  /* ============================================================================
+     BUTTON UTILITIES
+     ============================================================================ */
+
+  .btn-primary {
+    background-color: hsl(var(--button-primary-bg));
+    color: hsl(var(--button-primary-text));
+    transition: var(--transition-smooth);
+  }
+
+  .btn-primary:hover {
+    background-color: hsl(var(--button-primary-hover));
+  }
+
+  .btn-secondary {
+    background-color: hsl(var(--button-secondary-bg));
+    color: hsl(var(--button-secondary-text));
+    transition: var(--transition-smooth);
+  }
+
+  .btn-secondary:hover {
+    background-color: hsl(var(--button-secondary-hover));
+  }
+
+  /* ============================================================================
+     ASPECT RATIO UTILITIES
+     ============================================================================ */
+
+  .aspect-portrait {
+    aspect-ratio: 3/4;
+  }
+
+  .aspect-landscape {
+    aspect-ratio: 4/3;
+  }
+
+  .aspect-square {
+    aspect-ratio: 1/1;
+  }
+
+  .aspect-video {
+    aspect-ratio: 16/9;
   }
 }

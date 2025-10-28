@@ -36,15 +36,15 @@ const MegaMenuCarousel = ({ images, autoPlayInterval = 4000 }: MegaMenuCarouselP
 
   if (images.length === 0) {
     return (
-      <div className="w-full h-48 lg:h-56 bg-gray-200 flex items-center justify-center rounded-sm">
-        <span className="text-gray-400">No images available</span>
+      <div className="w-full h-48 lg:h-56 bg-muted flex items-center justify-center rounded-sm">
+        <span className="text-muted-foreground">No images available</span>
       </div>
     );
   }
 
   return (
     <div
-      className="relative w-full h-48 lg:h-56 overflow-hidden rounded-sm bg-gray-100"
+      className="relative w-full h-48 lg:h-56 overflow-hidden rounded-sm bg-muted"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -55,7 +55,7 @@ const MegaMenuCarousel = ({ images, autoPlayInterval = 4000 }: MegaMenuCarouselP
             key={index}
             src={image}
             alt={`Carousel slide ${index + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            className={`absolute inset-0 w-full h-full object-cover transition-elegant ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -67,7 +67,7 @@ const MegaMenuCarousel = ({ images, autoPlayInterval = 4000 }: MegaMenuCarouselP
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full transition-all duration-300 opacity-0 hover:opacity-100 group-hover:opacity-100"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 overlay-light-80 hover:bg-background p-2 rounded-full transition-smooth opacity-0 hover:opacity-100 group-hover:opacity-100"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
@@ -75,7 +75,7 @@ const MegaMenuCarousel = ({ images, autoPlayInterval = 4000 }: MegaMenuCarouselP
 
           <button
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full transition-all duration-300 opacity-0 hover:opacity-100 group-hover:opacity-100"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 overlay-light-80 hover:bg-background p-2 rounded-full transition-smooth opacity-0 hover:opacity-100 group-hover:opacity-100"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
@@ -90,8 +90,8 @@ const MegaMenuCarousel = ({ images, autoPlayInterval = 4000 }: MegaMenuCarouselP
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-white w-6" : "bg-white/50 hover:bg-white/75"
+              className={`w-2 h-2 rounded-full transition-smooth ${
+                index === currentIndex ? "bg-hero w-6" : "bg-hero/50 hover:bg-hero/75"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

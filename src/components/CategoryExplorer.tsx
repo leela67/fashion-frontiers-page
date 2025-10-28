@@ -44,14 +44,14 @@ const CollectionExplorer = () => {
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Enhanced Luxury Section Header */}
         <div className="text-center mb-12 lg:mb-16 animate-fade-in">
-          <p className="font-darker-grotesque text-xs md:text-sm text-muted-foreground tracking-[0.35em] uppercase mb-3 font-light">
+          <p className="subheading-sm text-muted-foreground tracking-[0.35em] mb-3 font-light">
             Our Collections
           </p>
-          <h2 className="font-black-mango text-4xl lg:text-5xl xl:text-6xl font-bold mb-5 text-primary tracking-tight leading-tight">
+          <h2 className="heading-luxury heading-6xl mb-5 text-primary tracking-tight leading-tight">
             Explore by Collection
           </h2>
           <div className="w-24 h-[2px] bg-primary/50 mx-auto mb-6" />
-          <p className="font-darker-grotesque text-muted-foreground text-base lg:text-lg max-w-3xl mx-auto leading-[1.7] font-light">
+          <p className="body-text-lg text-muted-foreground max-w-3xl mx-auto font-light">
             Discover our curated collections, each telling a unique story of elegance, craftsmanship, and timeless beauty
           </p>
         </div>
@@ -65,7 +65,7 @@ const CollectionExplorer = () => {
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Image Container with Premium Overlay */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+              <div className="relative aspect-portrait overflow-hidden bg-muted">
                 <img
                   src={collection.image}
                   alt={collection.title}
@@ -73,25 +73,25 @@ const CollectionExplorer = () => {
                   loading="lazy"
                 />
                 {/* Sophisticated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent opacity-85 group-hover:opacity-95 transition-opacity duration-600" />
-                
+                <div className="absolute inset-0 overlay-light opacity-85 group-hover:opacity-95 transition-opacity duration-600" />
+
                 {/* Refined decorative border on hover */}
-                <div className="absolute inset-4 border border-white/0 group-hover:border-white/40 transition-all duration-700 pointer-events-none" />
+                <div className="absolute inset-4 border border-hero/0 group-hover:border-hero/40 transition-elegant pointer-events-none" />
               </div>
 
               {/* Collection Title - Premium positioning */}
               <div className="absolute inset-0 flex flex-col justify-end p-9 lg:p-11">
-                <div className="transform transition-transform duration-600 group-hover:-translate-y-3">
-                  <h3 className="font-black-mango text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight tracking-tight mb-4">
+                <div className="transform transition-elegant group-hover:-translate-y-3">
+                  <h3 className="heading-luxury heading-4xl text-hero leading-tight tracking-tight mb-4">
                     {collection.title}
                   </h3>
-                  <div className="w-14 h-[2px] bg-white/70 group-hover:w-24 transition-all duration-600" />
+                  <div className="w-14 h-[2px] bg-hero/70 group-hover:w-24 transition-elegant" />
                 </div>
               </div>
 
               {/* Premium Explore Button - Enhanced sophistication */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-600 bg-black/35 backdrop-blur-[3px]">
-                <button className="relative px-12 py-5 border-2 border-white text-white font-darker-grotesque font-light tracking-[0.25em] uppercase text-xs hover:bg-white hover:text-charcoal transition-elegant overflow-hidden group/btn">
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-elegant overlay-dark-40 backdrop-blur-[3px]">
+                <button className="relative px-12 py-5 border-2 border-hero text-hero cta-text font-light tracking-[0.25em] hover:bg-hero hover:text-charcoal transition-elegant overflow-hidden group/btn">
                   <span className="relative z-10">Explore Collection</span>
                 </button>
               </div>

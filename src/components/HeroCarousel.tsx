@@ -59,16 +59,16 @@ const HeroCarousel = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 overlay-dark-20" />
           </div>
 
           {/* Content */}
           <div className="relative h-full flex items-center justify-center text-center px-4">
             <div className="max-w-4xl animate-fade-in">
-              <h2 className="font-black-mango text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+              <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-hero mb-4 drop-shadow-lg">
                 {slide.title}
               </h2>
-              <p className="font-darker-grotesque text-lg md:text-xl lg:text-2xl text-white/90 tracking-widest uppercase drop-shadow-md">
+              <p className="font-body text-lg md:text-xl lg:text-2xl text-hero/90 tracking-widest uppercase drop-shadow-md">
                 {slide.subtitle}
               </p>
             </div>
@@ -79,14 +79,14 @@ const HeroCarousel = () => {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-smooth text-white"
+        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full overlay-light-20 backdrop-blur-sm hover:overlay-light-40 transition-smooth text-hero"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-smooth text-white"
+        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full overlay-light-20 backdrop-blur-sm hover:overlay-light-40 transition-smooth text-hero"
         aria-label="Next slide"
       >
         <ChevronRight className="w-6 h-6" />
@@ -98,10 +98,10 @@ const HeroCarousel = () => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-smooth ${
               index === currentSlide
-                ? "w-8 bg-white"
-                : "bg-white/50 hover:bg-white/70"
+                ? "w-8 bg-hero"
+                : "bg-hero/50 hover:bg-hero/70"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

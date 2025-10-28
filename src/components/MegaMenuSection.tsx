@@ -16,7 +16,7 @@ const MegaMenuSection = ({
 }: MegaMenuSectionProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="font-darker-grotesque text-sm font-semibold tracking-wide uppercase text-foreground">
+      <h3 className="subheading-sm font-semibold tracking-wide text-foreground">
         {title}
       </h3>
       <ul className="flex flex-col gap-3">
@@ -24,7 +24,7 @@ const MegaMenuSection = ({
           <li key={item.label}>
             <a
               href={item.href}
-              className="font-darker-grotesque text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300"
+              className="body-text-sm font-medium text-foreground/80 hover:text-primary transition-smooth"
             >
               - {item.label}
             </a>
@@ -34,7 +34,7 @@ const MegaMenuSection = ({
       {showViewAll && (
         <a
           href={viewAllHref}
-          className="font-darker-grotesque text-xs font-bold tracking-widest uppercase text-primary hover:text-primary/80 transition-colors duration-300 mt-2"
+          className="cta-text font-bold tracking-widest text-primary hover:text-primary/80 transition-smooth mt-2"
         >
           VIEW ALL →
         </a>
