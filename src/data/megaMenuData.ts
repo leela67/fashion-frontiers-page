@@ -124,14 +124,6 @@ export const megaMenuData: MegaMenuCategory[] = [
     collections: [],
   },
   {
-    label: "Book Appointment",
-    href: "/book-appointment",
-    hasDropdown: false,
-    carouselImages: [],
-    categories: [],
-    collections: [],
-  },
-  {
     label: "Contact",
     href: "#contact",
     hasDropdown: false,

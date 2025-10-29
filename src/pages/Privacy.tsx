@@ -8,8 +8,16 @@ const Privacy = () => {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="relative py-20 md:py-32 bg-gradient-to-br from-primary/10 via-background to-background">
-          <div className="container mx-auto px-4 lg:px-6">
+        <section className="relative py-20 md:py-32 overflow-hidden">
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1558769132-cb1aea3c8565?w=1920&h=1080&fit=crop&q=80"
+              alt="Privacy and Policies"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-background/90 to-background/80"></div>
+          <div className="container mx-auto px-4 lg:px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8">
                 <Shield className="w-10 h-10 text-secondary" />

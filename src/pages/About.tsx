@@ -32,8 +32,14 @@ const About = () => {
       <main>
         {/* Hero Section */}
         <section className="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-luxury opacity-40"></div>
-          <div className="absolute inset-0 bg-background/60"></div>
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1920&h=1080&fit=crop&q=80"
+              alt="Rivaaj Couture Heritage"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-background/80 to-primary/70"></div>
           <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
             <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 animate-fade-in-up">
               <span className="text-secondary">Our Story</span>
