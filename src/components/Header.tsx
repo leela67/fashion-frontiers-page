@@ -95,11 +95,13 @@ const Header = () => {
             </button>
 
             {/* CTA Button */}
-            <Button
-              className="ml-2 px-5 py-2 btn-primary font-body font-semibold tracking-wider uppercase text-sm"
-            >
-              Book Appointment
-            </Button>
+            <a href="/book-appointment">
+              <Button
+                className="ml-2 px-5 py-2 btn-primary font-body font-semibold tracking-wider uppercase text-sm"
+              >
+                Book Appointment
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -175,11 +177,13 @@ const Header = () => {
                 </button>
               </div>
 
-              <Button
-                className="mt-3 w-full btn-primary font-body font-semibold tracking-wider uppercase"
-              >
-                Book Appointment
-              </Button>
+              <a href="/book-appointment" className="block">
+                <Button
+                  className="mt-3 w-full btn-primary font-body font-semibold tracking-wider uppercase"
+                >
+                  Book Appointment
+                </Button>
+              </a>
             </div>
           </nav>
         )}

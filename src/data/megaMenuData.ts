@@ -111,7 +111,21 @@ export const megaMenuData: MegaMenuCategory[] = [
   },
   {
     label: "About",
-    href: "#about",
+    href: "/about",
+    hasDropdown: true,
+    carouselImages: [categoryCollection, collectionImg1, collectionImg2],
+    categories: [
+      { label: "About Us", href: "/about" },
+      { label: "Designer's Note", href: "/designers-note" },
+      { label: "Sustainability", href: "/sustainability" },
+      { label: "Atelier", href: "/atelier" },
+      { label: "Press", href: "/press" },
+    ],
+    collections: [],
+  },
+  {
+    label: "Book Appointment",
+    href: "/book-appointment",
     hasDropdown: false,
     carouselImages: [],
     categories: [],

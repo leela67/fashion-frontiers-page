@@ -11,15 +11,17 @@ const Footer = () => {
       { label: "Sale", href: "#sale" },
     ],
     company: [
-      { label: "About Us", href: "#about" },
-      { label: "Careers", href: "#careers" },
-      { label: "Sustainability", href: "#sustainability" },
-      { label: "Press", href: "#press" },
+      { label: "About Us", href: "/about" },
+      { label: "Designer's Note", href: "/designers-note" },
+      { label: "Sustainability", href: "/sustainability" },
+      { label: "Atelier", href: "/atelier" },
+      { label: "Press", href: "/press" },
     ],
     support: [
+      { label: "Book Appointment", href: "/book-appointment" },
       { label: "Contact Us", href: "#contact" },
-      { label: "Shipping Info", href: "#shipping" },
-      { label: "Returns", href: "#returns" },
+      { label: "Shipping Info", href: "/privacy#shipping-returns" },
+      { label: "Returns", href: "/privacy#shipping-returns" },
       { label: "Size Guide", href: "#size-guide" },
     ],
   };
@@ -160,10 +162,10 @@ const Footer = () => {
 
             {/* Legal Links */}
             <div className="flex gap-6 body-text-sm text-hero/60">
-              <a href="#privacy" className="hover:text-secondary transition-smooth">
+              <a href="/privacy#privacy-policy" className="hover:text-secondary transition-smooth">
                 Privacy Policy
               </a>
-              <a href="#terms" className="hover:text-secondary transition-smooth">
+              <a href="/privacy#terms-conditions" className="hover:text-secondary transition-smooth">
                 Terms of Service
               </a>
             </div>
