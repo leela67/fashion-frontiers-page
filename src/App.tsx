@@ -13,6 +13,7 @@ import Press from "./pages/Press";
 import Privacy from "./pages/Privacy";
 import BookAppointment from "./pages/BookAppointment";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import LoadingAnimation from "./components/LoadingAnimation";
 
@@ -27,7 +28,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         {isLoading && <LoadingAnimation onComplete={() => setIsLoading(false)} />}
-        <BrowserRouter basename="/fashion-frontiers-page">
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
@@ -37,7 +38,8 @@ const App = () => {
             <Route path="/press" element={<Press />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/book-appointment" element={<BookAppointment />} />
-        <Route path="/products" element={<Products />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:handle" element={<ProductDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

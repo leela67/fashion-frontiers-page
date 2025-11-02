@@ -61,9 +61,9 @@ const ImageGallery = () => {
   const getItemClasses = (size: string) => {
     switch (size) {
       case "large":
-        return "col-span-1 sm:col-span-2 row-span-2";
+        return "col-span-1 sm:col-span-2 row-span-1";
       case "medium":
-        return "col-span-1 row-span-2";
+        return "col-span-1 row-span-1";
       case "small":
         return "col-span-1 row-span-1";
       default:
@@ -76,10 +76,10 @@ const ImageGallery = () => {
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Section Header */}
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="heading-display heading-6xl font-light mb-4 text-charcoal tracking-tight leading-tight">
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-light mb-4 text-foreground tracking-tight leading-tight">
             Collection Moodboard
           </h2>
-          <p className="body-text-lg text-muted-foreground max-w-2xl mx-auto font-light tracking-wide">
+          <p className="font-body text-base md:text-lg text-muted-foreground max-w-2xl mx-auto font-light tracking-wide">
             A curated glimpse into our creative vision and artistic inspiration
           </p>
         </div>
@@ -114,13 +114,13 @@ const ImageGallery = () => {
                   </div>
                 </div>
               ) : (
-                <div className="h-full flex items-center justify-center p-8 lg:p-12 bg-pearl/30">
+                <div className="h-full flex items-center justify-center p-8 lg:p-12 bg-primary/10 border border-border">
                   <div className="text-center">
-                    <p className="heading-display heading-3xl font-light text-charcoal leading-relaxed mb-4 italic">
+                    <p className="font-heading text-xl md:text-2xl font-light text-foreground leading-relaxed mb-4 italic">
                       "{item.text}"
                     </p>
                     {item.author && (
-                      <p className="body-text text-muted-foreground font-light tracking-wider">
+                      <p className="font-body text-sm text-muted-foreground font-light tracking-wider">
                         {item.author}
                       </p>
                     )}
