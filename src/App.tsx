@@ -12,6 +12,7 @@ import Atelier from "./pages/Atelier";
 import Press from "./pages/Press";
 import Privacy from "./pages/Privacy";
 import BookAppointment from "./pages/BookAppointment";
+import Products from "./pages/Products";
 import NotFound from "./pages/NotFound";
 import LoadingAnimation from "./components/LoadingAnimation";
 
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/press" element={<Press />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/book-appointment" element={<BookAppointment />} />
+        <Route path="/products" element={<Products />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
