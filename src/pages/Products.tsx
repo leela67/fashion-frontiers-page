@@ -1,58 +1,119 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { products, formatPrice } from "@/data/products";
-import { Product, SortOption } from "@/types/product";
-import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
+import { useProducts } from "@/hooks/useProducts";
+import {
+  ApiProduct,
+  formatPrice,
+  filterProductsByCategory,
+  getUniqueSizes,
+  getUniqueColors,
+  calculateDiscountedPrice,
+  isProductInStock
+} from "@/services/api";
+import { ChevronDown, SlidersHorizontal, Loader2 } from "lucide-react";
+
+type SortOption =
+  | "featured"
+  | "best-selling"
+  | "title-asc"
+  | "title-desc"
+  | "price-asc"
+  | "price-desc";
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState<SortOption>("featured");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
 
+  // Get category from URL params
+  const categoryIdParam = searchParams.get("category");
+  const categoryId = categoryIdParam ? parseInt(categoryIdParam) : null;
+
+  // Fetch products from API
+  const { products: apiProducts, loading, error } = useProducts();
+
+  // Filter by category if specified in URL
+  const categoryFilteredProducts = useMemo(() => {
+    if (!apiProducts) return [];
+    if (!categoryId) return apiProducts;
+    return filterProductsByCategory(apiProducts, categoryId);
+  }, [apiProducts, categoryId]);
+
   // Sort products
-  const sortedProducts = [...products].sort((a, b) => {
-    switch (sortBy) {
-      case "price-asc":
-        return a.price - b.price;
-      case "price-desc":
-        return b.price - a.price;
-      case "title-asc":
-        return a.title.localeCompare(b.title);
-      case "title-desc":
-        return b.title.localeCompare(a.title);
-      default:
-        return 0;
-    }
-  });
+  const sortedProducts = useMemo(() => {
+    if (!categoryFilteredProducts) return [];
 
-  // Filter products
-  const filteredProducts = sortedProducts.filter((product) => {
-    // Price filter
-    if (product.price < priceRange[0] || product.price > priceRange[1]) {
-      return false;
-    }
+    return [...categoryFilteredProducts].sort((a, b) => {
+      switch (sortBy) {
+        case "price-asc":
+          return calculateDiscountedPrice(a) - calculateDiscountedPrice(b);
+        case "price-desc":
+          return calculateDiscountedPrice(b) - calculateDiscountedPrice(a);
+        case "title-asc":
+          return a.name.localeCompare(b.name);
+        case "title-desc":
+          return b.name.localeCompare(a.name);
+        case "best-selling":
+          return b.review_count - a.review_count;
+        default:
+          return a.sort_order - b.sort_order;
+      }
+    });
+  }, [categoryFilteredProducts, sortBy]);
 
-    // Size filter
-    if (selectedSizes.length > 0) {
-      const productSizes = product.variants.map((v) => v.size);
-      if (!selectedSizes.some((size) => productSizes.includes(size))) {
+  // Filter products by user selections
+  const filteredProducts = useMemo(() => {
+    return sortedProducts.filter((product) => {
+      const discountedPrice = calculateDiscountedPrice(product);
+
+      // Price filter
+      if (discountedPrice < priceRange[0] || discountedPrice > priceRange[1]) {
         return false;
       }
-    }
 
-    // Color filter
-    if (selectedColors.length > 0) {
-      const productColors = product.variants.map((v) => v.color);
-      if (!selectedColors.some((color) => productColors.includes(color))) {
-        return false;
+      // Size filter
+      if (selectedSizes.length > 0) {
+        const productSizes = getUniqueSizes(product.variants);
+        if (!selectedSizes.some((size) => productSizes.includes(size))) {
+          return false;
+        }
       }
-    }
 
-    return true;
-  });
+      // Color filter
+      if (selectedColors.length > 0) {
+        const productColors = getUniqueColors(product.variants);
+        if (!selectedColors.some((color) => productColors.includes(color))) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }, [sortedProducts, priceRange, selectedSizes, selectedColors]);
+
+  // Get all available sizes and colors from all products
+  const allSizes = useMemo(() => {
+    if (!apiProducts) return [];
+    const sizes = new Set<string>();
+    apiProducts.forEach((product) => {
+      getUniqueSizes(product.variants).forEach((size) => sizes.add(size));
+    });
+    return Array.from(sizes).sort();
+  }, [apiProducts]);
+
+  const allColors = useMemo(() => {
+    if (!apiProducts) return [];
+    const colors = new Set<string>();
+    apiProducts.forEach((product) => {
+      getUniqueColors(product.variants).forEach((color) => colors.add(color));
+    });
+    return Array.from(colors).sort();
+  }, [apiProducts]);
 
   const toggleSize = (size: string) => {
     setSelectedSizes((prev) =>
@@ -71,9 +132,6 @@ const Products = () => {
     setSelectedColors([]);
     setPriceRange([0, 500000]);
   };
-
-  const allSizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  const allColors = ["Royal Blue", "Ivory", "Jade Green", "Pink", "Red", "Gold"];
 
   return (
     <div className="min-h-screen">
@@ -96,6 +154,32 @@ const Products = () => {
         {/* Filters and Products */}
         <section className="py-12 md:py-16 bg-background">
           <div className="container mx-auto px-4 lg:px-6">
+            {/* Loading State */}
+            {loading && (
+              <div className="flex flex-col items-center justify-center py-16">
+                <Loader2 className="w-12 h-12 text-secondary animate-spin mb-4" />
+                <p className="font-body text-lg text-muted-foreground">Loading products...</p>
+              </div>
+            )}
+
+            {/* Error State */}
+            {error && !loading && (
+              <div className="text-center py-16">
+                <p className="font-body text-lg text-red-500 mb-4">
+                  {error}
+                </p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="inline-flex items-center justify-center px-6 py-3 btn-secondary font-body font-semibold"
+                >
+                  Try Again
+                </button>
+              </div>
+            )}
+
+            {/* Products Content */}
+            {!loading && !error && (
+              <>
             {/* Filter Bar */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-border">
               <div className="flex items-center gap-4">
@@ -238,6 +322,8 @@ const Products = () => {
                 )}
               </div>
             </div>
+            </>
+            )}
           </div>
         </section>
       </main>
@@ -247,7 +333,7 @@ const Products = () => {
 };
 
 // Product Card Component
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product }: { product: ApiProduct }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -263,31 +349,53 @@ const ProductCard = ({ product }: { product: Product }) => {
     setCurrentImageIndex(0);
   };
 
+  const inStock = isProductInStock(product);
+  const discountedPrice = calculateDiscountedPrice(product);
+  const hasDiscount = discountedPrice < product.price;
+
   return (
     <a
-      href={`/products/${product.handle}`}
+      href={`/products/${product.id}`}
       className="group block"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-card mb-4">
         <img
-          src={product.images[currentImageIndex]?.src || product.featuredImage.src}
-          alt={product.images[currentImageIndex]?.alt || product.title}
+          src={product.images[currentImageIndex]?.image_url || product.images[0]?.image_url}
+          alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {!product.available && (
+        {!inStock && (
           <div className="absolute inset-0 bg-background/80 flex items-center justify-center">
             <span className="font-heading text-lg font-semibold text-foreground">Sold Out</span>
+          </div>
+        )}
+        {hasDiscount && (
+          <div className="absolute top-4 right-4 bg-secondary text-background px-3 py-1 font-body text-sm font-semibold">
+            {product.discount_type === "PERCENTAGE"
+              ? `-${product.discount_value}%`
+              : `-${formatPrice(product.discount_value || 0)}`}
           </div>
         )}
       </div>
       <div className="space-y-2">
         <h3 className="font-heading text-lg md:text-xl font-semibold text-foreground group-hover:text-secondary transition-smooth">
-          {product.title}
+          {product.name}
         </h3>
-        <p className="font-body text-sm text-muted-foreground line-clamp-2">{product.description}</p>
-        <p className="font-body text-base font-semibold text-secondary">{formatPrice(product.price)}</p>
+        <p className="font-body text-sm text-muted-foreground line-clamp-2">
+          {product.short_description || product.long_description}
+        </p>
+        <div className="flex items-center gap-2">
+          <p className="font-body text-base font-semibold text-secondary">
+            {formatPrice(discountedPrice)}
+          </p>
+          {hasDiscount && (
+            <p className="font-body text-sm text-muted-foreground line-through">
+              {formatPrice(product.price)}
+            </p>
+          )}
+        </div>
       </div>
     </a>
   );

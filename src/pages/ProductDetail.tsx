@@ -2,52 +2,65 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { getProductByHandle, formatPrice, products } from "@/data/products";
-import { Product } from "@/types/product";
-import { ChevronLeft, ChevronRight, Minus, Plus, Share2, Heart } from "lucide-react";
+import { useProduct } from "@/hooks/useProduct";
+import { useProducts } from "@/hooks/useProducts";
+import {
+  formatPrice,
+  getUniqueSizes,
+  getUniqueColors,
+  calculateDiscountedPrice,
+  isProductInStock,
+  ApiProduct
+} from "@/services/api";
+import { ChevronLeft, ChevronRight, Minus, Plus, Share2, Heart, Loader2 } from "lucide-react";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<Product | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [showSizeChart, setShowSizeChart] = useState(false);
 
+  // Parse product ID from handle (assuming handle is the product ID)
+  const productId = handle ? parseInt(handle) : null;
+
+  // Fetch product from API
+  const { product, loading, error } = useProduct(productId);
+
+  // Fetch all products for related products
+  const { products: allProducts } = useProducts();
+
+  // Set default selections when product loads
   useEffect(() => {
-    if (handle) {
-      const foundProduct = getProductByHandle(handle);
-      if (foundProduct) {
-        setProduct(foundProduct);
-        // Set default selections
-        if (foundProduct.options.length > 0) {
-          const sizeOption = foundProduct.options.find((opt) => opt.name === "Size");
-          const colorOption = foundProduct.options.find((opt) => opt.name === "Color");
-          if (sizeOption && sizeOption.values.length > 0) {
-            setSelectedSize(sizeOption.values[0]);
-          }
-          if (colorOption && colorOption.values.length > 0) {
-            setSelectedColor(colorOption.values[0]);
-          }
-        }
-      } else {
-        // Product not found, redirect to products page
-        navigate("/products");
+    if (product) {
+      const sizes = getUniqueSizes(product.variants);
+      const colors = getUniqueColors(product.variants);
+
+      if (sizes.length > 0 && !selectedSize) {
+        setSelectedSize(sizes[0]);
+      }
+      if (colors.length > 0 && !selectedColor) {
+        setSelectedColor(colors[0]);
       }
     }
-  }, [handle, navigate]);
+  }, [product]);
 
-  if (!product) {
-    return null;
-  }
+  // Redirect if product not found
+  useEffect(() => {
+    if (error && error.includes("not found")) {
+      navigate("/products");
+    }
+  }, [error, navigate]);
 
   const handlePrevImage = () => {
+    if (!product) return;
     setSelectedImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
   };
 
   const handleNextImage = () => {
+    if (!product) return;
     setSelectedImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
   };
 
@@ -56,21 +69,62 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
+    if (!product) return;
     // TODO: Implement cart functionality
-    alert(`Added ${quantity} x ${product.title} (${selectedSize}, ${selectedColor}) to cart`);
+    alert(`Added ${quantity} x ${product.name} (${selectedSize}, ${selectedColor}) to cart`);
   };
 
   // Get related products (exclude current product)
-  const relatedProducts = products.filter((p) => p.id !== product.id).slice(0, 3);
+  const relatedProducts = allProducts
+    ? allProducts.filter((p) => p.id !== product?.id).slice(0, 3)
+    : [];
 
-  const sizeOption = product.options.find((opt) => opt.name === "Size");
-  const colorOption = product.options.find((opt) => opt.name === "Color");
+  // Get available sizes and colors
+  const availableSizes = product ? getUniqueSizes(product.variants) : [];
+  const availableColors = product ? getUniqueColors(product.variants) : [];
+
+  // Calculate prices
+  const inStock = product ? isProductInStock(product) : false;
+  const discountedPrice = product ? calculateDiscountedPrice(product) : 0;
+  const hasDiscount = product ? discountedPrice < product.price : false;
 
   return (
     <div className="min-h-screen">
       <Header />
       <main className="pt-24 md:pt-32">
+        {/* Loading State */}
+        {loading && (
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4 lg:px-6">
+              <div className="flex flex-col items-center justify-center py-16">
+                <Loader2 className="w-12 h-12 text-secondary animate-spin mb-4" />
+                <p className="font-body text-lg text-muted-foreground">Loading product...</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4 lg:px-6">
+              <div className="text-center py-16">
+                <p className="font-body text-lg text-red-500 mb-4">
+                  {error}
+                </p>
+                <button
+                  onClick={() => navigate("/products")}
+                  className="inline-flex items-center justify-center px-6 py-3 btn-secondary font-body font-semibold"
+                >
+                  Back to Products
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Product Section */}
+        {!loading && !error && product && (
         <section className="py-8 md:py-12 bg-background">
           <div className="container mx-auto px-4 lg:px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -79,8 +133,8 @@ const ProductDetail = () => {
                 {/* Main Image */}
                 <div className="relative aspect-[3/4] bg-card overflow-hidden group">
                   <img
-                    src={product.images[selectedImageIndex]?.src || product.featuredImage.src}
-                    alt={product.images[selectedImageIndex]?.alt || product.title}
+                    src={product.images[selectedImageIndex]?.image_url || product.images[0]?.image_url}
+                    alt={product.name}
                     className="w-full h-full object-cover"
                   />
                   {/* Navigation Arrows */}
@@ -116,8 +170,8 @@ const ProductDetail = () => {
                         }`}
                       >
                         <img
-                          src={image.src}
-                          alt={image.alt}
+                          src={image.image_url}
+                          alt={product.name}
                           className="w-full h-full object-cover"
                         />
                       </button>
@@ -130,18 +184,30 @@ const ProductDetail = () => {
               <div className="space-y-6">
                 <div>
                   <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-                    {product.title}
+                    {product.name}
                   </h1>
-                  <p className="font-body text-2xl md:text-3xl font-semibold text-secondary mb-6">
-                    {formatPrice(product.price)}
-                  </p>
+                  <div className="flex items-center gap-3 mb-6">
+                    <p className="font-body text-2xl md:text-3xl font-semibold text-secondary">
+                      {formatPrice(discountedPrice)}
+                    </p>
+                    {hasDiscount && (
+                      <p className="font-body text-xl text-muted-foreground line-through">
+                        {formatPrice(product.price)}
+                      </p>
+                    )}
+                  </div>
                   <p className="font-body text-base text-muted-foreground leading-relaxed">
-                    {product.description}
+                    {product.long_description || product.short_description}
                   </p>
+                  {!inStock && (
+                    <div className="mt-4 px-4 py-2 bg-red-500/10 border border-red-500/20 text-red-500 font-body text-sm font-semibold">
+                      Out of Stock
+                    </div>
+                  )}
                 </div>
 
                 {/* Size Selection */}
-                {sizeOption && sizeOption.values.length > 0 && (
+                {availableSizes.length > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <label className="font-body text-sm font-semibold text-foreground">
@@ -155,7 +221,7 @@ const ProductDetail = () => {
                       </button>
                     </div>
                     <div className="grid grid-cols-4 gap-2">
-                      {sizeOption.values.map((size) => (
+                      {availableSizes.map((size) => (
                         <button
                           key={size}
                           onClick={() => setSelectedSize(size)}
@@ -173,13 +239,13 @@ const ProductDetail = () => {
                 )}
 
                 {/* Color Selection */}
-                {colorOption && colorOption.values.length > 0 && (
+                {availableColors.length > 0 && (
                   <div>
                     <label className="font-body text-sm font-semibold text-foreground mb-3 block">
                       Color: <span className="text-secondary">{selectedColor}</span>
                     </label>
                     <div className="flex flex-wrap gap-2">
-                      {colorOption.values.map((color) => (
+                      {availableColors.map((color) => (
                         <button
                           key={color}
                           onClick={() => setSelectedColor(color)}
@@ -226,10 +292,10 @@ const ProductDetail = () => {
                 <div className="space-y-3">
                   <button
                     onClick={handleAddToCart}
-                    disabled={!product.available}
+                    disabled={!inStock}
                     className="w-full px-8 py-4 btn-primary font-body text-base font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {product.available ? "Add to Cart" : "Sold Out"}
+                    {inStock ? "Add to Cart" : "Sold Out"}
                   </button>
                   <div className="flex gap-3">
                     <button className="flex-1 px-6 py-3 border border-border hover:border-secondary transition-smooth flex items-center justify-center gap-2">
@@ -245,28 +311,28 @@ const ProductDetail = () => {
 
                 {/* Product Details */}
                 <div className="border-t border-border pt-6 space-y-4">
-                  {product.fabricDescription && (
+                  {product.fabric_description && (
                     <div>
                       <h3 className="font-body text-sm font-semibold text-foreground mb-2">
                         Fabric Description
                       </h3>
-                      <p className="font-body text-sm text-muted-foreground">{product.fabricDescription}</p>
+                      <p className="font-body text-sm text-muted-foreground">{product.fabric_description}</p>
                     </div>
                   )}
-                  {product.embroideryDescription && (
+                  {product.embroidery_description && (
                     <div>
                       <h3 className="font-body text-sm font-semibold text-foreground mb-2">
                         Embroidery Details
                       </h3>
-                      <p className="font-body text-sm text-muted-foreground">{product.embroideryDescription}</p>
+                      <p className="font-body text-sm text-muted-foreground">{product.embroidery_description}</p>
                     </div>
                   )}
-                  {product.washingCare && (
+                  {product.washing_care && (
                     <div>
                       <h3 className="font-body text-sm font-semibold text-foreground mb-2">
                         Washing Care
                       </h3>
-                      <p className="font-body text-sm text-muted-foreground">{product.washingCare}</p>
+                      <p className="font-body text-sm text-muted-foreground">{product.washing_care}</p>
                     </div>
                   )}
                 </div>
@@ -274,6 +340,7 @@ const ProductDetail = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
@@ -283,29 +350,41 @@ const ProductDetail = () => {
                 You May Also Like
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {relatedProducts.map((relatedProduct) => (
-                  <a
-                    key={relatedProduct.id}
-                    href={`/products/${relatedProduct.handle}`}
-                    className="group block"
-                  >
-                    <div className="relative aspect-[3/4] overflow-hidden bg-background mb-4">
-                      <img
-                        src={relatedProduct.featuredImage.src}
-                        alt={relatedProduct.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="font-heading text-lg md:text-xl font-semibold text-foreground group-hover:text-secondary transition-smooth">
-                        {relatedProduct.title}
-                      </h3>
-                      <p className="font-body text-base font-semibold text-secondary">
-                        {formatPrice(relatedProduct.price)}
-                      </p>
-                    </div>
-                  </a>
-                ))}
+                {relatedProducts.map((relatedProduct) => {
+                  const relatedDiscountedPrice = calculateDiscountedPrice(relatedProduct);
+                  const relatedHasDiscount = relatedDiscountedPrice < relatedProduct.price;
+
+                  return (
+                    <a
+                      key={relatedProduct.id}
+                      href={`/products/${relatedProduct.id}`}
+                      className="group block"
+                    >
+                      <div className="relative aspect-[3/4] overflow-hidden bg-background mb-4">
+                        <img
+                          src={relatedProduct.images[0]?.image_url}
+                          alt={relatedProduct.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className="font-heading text-lg md:text-xl font-semibold text-foreground group-hover:text-secondary transition-smooth">
+                          {relatedProduct.name}
+                        </h3>
+                        <div className="flex items-center gap-2">
+                          <p className="font-body text-base font-semibold text-secondary">
+                            {formatPrice(relatedDiscountedPrice)}
+                          </p>
+                          {relatedHasDiscount && (
+                            <p className="font-body text-sm text-muted-foreground line-through">
+                              {formatPrice(relatedProduct.price)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </section>

@@ -3,6 +3,8 @@ import { Menu, X, Search, ShoppingBag, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MegaMenu from "@/components/MegaMenu";
 import { megaMenuData } from "@/data/megaMenuData";
+import { useCategories } from "@/hooks/useCategories";
+import { buildMegaMenuFromCategories, getFallbackMenu } from "@/utils/menuBuilder";
 import rivaajLogo from "@/assets/rivaaj-logo.png";
 
 const Header = () => {
@@ -11,6 +13,17 @@ const Header = () => {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState<{[key: string]: boolean}>({});
+
+  // Fetch categories from API
+  const { categories, loading: categoriesLoading, error: categoriesError } = useCategories();
+
+  // Build dynamic menu or use fallback
+  const dynamicMenuData = categoriesError || categories.length === 0
+    ? getFallbackMenu()
+    : buildMegaMenuFromCategories(categories);
+
+  // Use dynamic menu if available, otherwise use static menu
+  const menuData = categoriesLoading ? megaMenuData : dynamicMenuData;
 
   // Handle scroll for sticky header behavior with direction detection
   useEffect(() => {
@@ -65,7 +78,7 @@ const Header = () => {
           </a>
 
           {/* Desktop Navigation with Mega Menu */}
-          <MegaMenu navLinks={megaMenuData} />
+          <MegaMenu navLinks={menuData} />
 
           {/* Right Side Icons & CTA */}
           <div className="hidden lg:flex items-center gap-4">
@@ -118,7 +131,7 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="lg:hidden py-4 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300 max-h-[calc(100vh-5rem)] overflow-y-auto">
             <div className="flex flex-col gap-3">
-              {megaMenuData.map((link) => (
+              {menuData.map((link) => (
                 <div key={link.label}>
                   {link.hasDropdown ? (
                     <>
