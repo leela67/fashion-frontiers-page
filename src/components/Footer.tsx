@@ -1,14 +1,19 @@
-import { Instagram, Facebook, Twitter, Youtube } from "lucide-react";
+import { Instagram, Facebook, Twitter, Youtube, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { subscribeToNewsletter } from "@/services/api";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const footerLinks = {
     shop: [
-      { label: "Women's Collection", href: "#women" },
-      { label: "Men's Collection", href: "#men" },
-      { label: "New Arrivals", href: "#collections" },
-      { label: "Sale", href: "#sale" },
+      { label: "Women's Collection", href: "/products?gender=WOMEN" },
+      { label: "Men's Collection", href: "/products?gender=MEN" },
+      { label: "New Arrivals", href: "/products" },
+      { label: "Sale", href: "/products" },
     ],
     company: [
       { label: "About Us", href: "/about" },
@@ -19,11 +24,37 @@ const Footer = () => {
     ],
     support: [
       { label: "Book Appointment", href: "/book-appointment" },
-      { label: "Contact Us", href: "#contact" },
+      { label: "Contact Us", href: "/book-appointment" },
       { label: "Shipping Info", href: "/privacy#shipping-returns" },
       { label: "Returns", href: "/privacy#shipping-returns" },
       { label: "Size Guide", href: "#size-guide" },
     ],
+  };
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate email
+    if (!email || !email.includes("@")) {
+      setMessage({ type: "error", text: "Please enter a valid email address" });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      await subscribeToNewsletter(email, "dummy");
+      setMessage({ type: "success", text: "Successfully subscribed to our newsletter!" });
+      setEmail("");
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text: error instanceof Error ? error.message : "Failed to subscribe. Please try again."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -49,16 +80,30 @@ const Footer = () => {
               <p className="subheading-sm mb-3 tracking-wider">
                 Subscribe to Our Newsletter
               </p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-4 py-2 overlay-light-20 border border-hero/20 rounded text-sm focus:outline-none focus:border-secondary transition-smooth text-hero placeholder:text-hero/50"
-                />
-                <button className="px-4 py-2 btn-secondary font-medium text-sm">
-                  Join
-                </button>
-              </div>
+              <form onSubmit={handleNewsletterSubmit} className="space-y-2">
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
+                    className="flex-1 px-4 py-2 overlay-light-20 border border-hero/20 rounded text-sm focus:outline-none focus:border-secondary transition-smooth text-hero placeholder:text-hero/50 disabled:opacity-50"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-4 py-2 btn-secondary font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "..." : "Join"}
+                  </button>
+                </div>
+                {message && (
+                  <p className={`text-xs ${message.type === "success" ? "text-green-400" : "text-red-400"}`}>
+                    {message.text}
+                  </p>
+                )}
+              </form>
             </div>
           </div>
 

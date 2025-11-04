@@ -6,7 +6,7 @@ import { useProducts } from "@/hooks/useProducts";
 import {
   ApiProduct,
   formatPrice,
-  filterProductsByCategory,
+  FetchProductsParams,
   getUniqueSizes,
   getUniqueColors,
   calculateDiscountedPrice,
@@ -30,25 +30,51 @@ const Products = () => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
 
-  // Get category from URL params
+  // Get category and type from URL params
   const categoryIdParam = searchParams.get("category");
+  const categoryType = searchParams.get("type"); // "clothing", "occasion", or "collection"
+  const genderParam = searchParams.get("gender");
+
   const categoryId = categoryIdParam ? parseInt(categoryIdParam) : null;
 
-  // Fetch products from API
-  const { products: apiProducts, loading, error } = useProducts();
+  // Build API params based on URL parameters
+  const apiParams = useMemo((): FetchProductsParams => {
+    const params: FetchProductsParams = {};
 
-  // Filter by category if specified in URL
-  const categoryFilteredProducts = useMemo(() => {
-    if (!apiProducts) return [];
-    if (!categoryId) return apiProducts;
-    return filterProductsByCategory(apiProducts, categoryId);
-  }, [apiProducts, categoryId]);
+    // Add gender filter if present
+    if (genderParam && (genderParam === "MEN" || genderParam === "WOMEN" || genderParam === "UNISEX")) {
+      params.gender = genderParam;
+    }
 
-  // Sort products
+    // Add category filter based on type
+    if (categoryId && categoryType) {
+      if (categoryType === "clothing") {
+        params.clothing_category_id = categoryId;
+        console.log(`Filtering by clothing category: ${categoryId}`);
+      } else if (categoryType === "occasion") {
+        params.occasion_category_id = categoryId;
+        console.log(`Filtering by occasion category: ${categoryId}`);
+      } else if (categoryType === "collection") {
+        params.collection_category_id = categoryId;
+        console.log(`Filtering by collection category: ${categoryId}`);
+      }
+    }
+
+    console.log("API Params:", params);
+    return params;
+  }, [categoryId, categoryType, genderParam]);
+
+  // Fetch products from API with filters
+  const { products: apiProducts, loading, error } = useProducts(apiParams);
+
+  // Sort products (server already filtered by category)
   const sortedProducts = useMemo(() => {
-    if (!categoryFilteredProducts) return [];
+    // Ensure apiProducts is always an array
+    if (!apiProducts || !Array.isArray(apiProducts) || apiProducts.length === 0) {
+      return [];
+    }
 
-    return [...categoryFilteredProducts].sort((a, b) => {
+    return [...apiProducts].sort((a, b) => {
       switch (sortBy) {
         case "price-asc":
           return calculateDiscountedPrice(a) - calculateDiscountedPrice(b);
@@ -64,7 +90,7 @@ const Products = () => {
           return a.sort_order - b.sort_order;
       }
     });
-  }, [categoryFilteredProducts, sortBy]);
+  }, [apiProducts, sortBy]);
 
   // Filter products by user selections
   const filteredProducts = useMemo(() => {
@@ -339,7 +365,7 @@ const ProductCard = ({ product }: { product: ApiProduct }) => {
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    if (product.images.length > 1) {
+    if (product.images && product.images.length > 1) {
       setCurrentImageIndex(1);
     }
   };
@@ -353,6 +379,14 @@ const ProductCard = ({ product }: { product: ApiProduct }) => {
   const discountedPrice = calculateDiscountedPrice(product);
   const hasDiscount = discountedPrice < product.price;
 
+  // Get image URL with fallback
+  const getImageUrl = () => {
+    if (!product.images || product.images.length === 0) {
+      return "https://via.placeholder.com/400x600?text=No+Image";
+    }
+    return product.images[currentImageIndex]?.image_url || product.images[0]?.image_url;
+  };
+
   return (
     <a
       href={`/products/${product.id}`}
@@ -362,9 +396,9 @@ const ProductCard = ({ product }: { product: ApiProduct }) => {
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-card mb-4">
         <img
-          src={product.images[currentImageIndex]?.image_url || product.images[0]?.image_url}
+          src={getImageUrl()}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
         {!inStock && (
           <div className="absolute inset-0 bg-background/80 flex items-center justify-center">

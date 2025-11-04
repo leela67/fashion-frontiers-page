@@ -26,7 +26,7 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=clothing`,
     }));
 
   const womenOccasions = occasionCategories
@@ -34,7 +34,7 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=occasion`,
     }));
 
   const womenCollections = collectionCategories
@@ -42,7 +42,7 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=collection`,
     }));
 
   // Men's categories
@@ -51,7 +51,7 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=clothing`,
     }));
 
   const menOccasions = occasionCategories
@@ -59,7 +59,7 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=occasion`,
     }));
 
   const menCollections = collectionCategories
@@ -67,7 +67,7 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=collection`,
     }));
 
   // All collections (for Collections menu)
@@ -75,14 +75,14 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=collection`,
     }));
 
   const allOccasions = occasionCategories
     .sort((a, b) => a.sort_order - b.sort_order)
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}`,
+      href: `/products?category=${cat.id}&type=occasion`,
     }));
 
   // Build the mega menu structure

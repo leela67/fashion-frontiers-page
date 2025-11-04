@@ -52,7 +52,7 @@ export interface ApiProduct {
   rating: number;
   review_count: number;
   is_active: boolean;
-  discount_type: "PERCENTAGE" | "FIXED" | null;
+  discount_type: "PERCENTAGE" | "FIXED" | "NONE" | null;
   discount_value: number | null;
   gender: "MEN" | "WOMEN" | "UNISEX";
   sort_order: number;
@@ -60,9 +60,13 @@ export interface ApiProduct {
   brand_name: string;
   categories: ApiProductCategories;
   images: ApiProductImage[];
-  variants: ApiProductVariant[];
+  variants: ApiProductVariant[] | null;  // Can be null in API response
   created_at: string;
   updated_at: string;
+  // Optional fields that may not be in the API response
+  fabric_description?: string | null;
+  embroidery_description?: string | null;
+  washing_care?: string | null;
 }
 
 // ============================================================================
@@ -140,6 +144,19 @@ export interface FetchProductsParams {
   id?: number;
   gender?: "MEN" | "WOMEN" | "UNISEX";
   brand_id?: number;
+  clothing_category_id?: number;
+  occasion_category_id?: number;
+  collection_category_id?: number;
+}
+
+/**
+ * API Response wrapper for paginated products
+ */
+interface ApiProductsResponse {
+  limit: number;
+  page: number;
+  results: ApiProduct[];
+  total: number;
 }
 
 /**
@@ -152,11 +169,14 @@ export async function fetchProducts(
 ): Promise<ApiProduct[]> {
   try {
     const queryParams = new URLSearchParams();
-    
+
     if (params?.search) queryParams.append("search", params.search);
     if (params?.id) queryParams.append("id", params.id.toString());
     if (params?.gender) queryParams.append("gender", params.gender);
     if (params?.brand_id) queryParams.append("brand_id", params.brand_id.toString());
+    if (params?.clothing_category_id) queryParams.append("clothing_category_id", params.clothing_category_id.toString());
+    if (params?.occasion_category_id) queryParams.append("occasion_category_id", params.occasion_category_id.toString());
+    if (params?.collection_category_id) queryParams.append("collection_category_id", params.collection_category_id.toString());
 
     const url = `${API_BASE_URL}/products${
       queryParams.toString() ? `?${queryParams.toString()}` : ""
@@ -174,8 +194,23 @@ export async function fetchProducts(
       }
     }
 
-    const data: ApiProduct[] = await response.json();
-    return data;
+    const data = await response.json();
+
+    // Check if response is wrapped in pagination object
+    if (data && typeof data === 'object' && 'results' in data && Array.isArray(data.results)) {
+      console.log(`Fetched ${data.results.length} products (total: ${data.total})`);
+      return data.results as ApiProduct[];
+    }
+
+    // Fallback: check if it's a direct array (for backward compatibility)
+    if (Array.isArray(data)) {
+      console.log(`Fetched ${data.length} products (direct array)`);
+      return data as ApiProduct[];
+    }
+
+    // If neither format matches, log error and return empty array
+    console.error("API returned unexpected data format:", data);
+    return [];
   } catch (error) {
     console.error("Error fetching products:", error);
     throw error;
@@ -240,7 +275,8 @@ export function filterProductsByCategory(
  * @returns Discounted price or original price
  */
 export function calculateDiscountedPrice(product: ApiProduct): number {
-  if (!product.discount_type || !product.discount_value) {
+  // No discount if type is NONE, null, or value is 0/null
+  if (!product.discount_type || product.discount_type === "NONE" || !product.discount_value || product.discount_value === 0) {
     return product.price;
   }
 
@@ -267,20 +303,22 @@ export function formatPrice(price: number): string {
 
 /**
  * Get all unique sizes from product variants
- * @param variants - Array of product variants
+ * @param variants - Array of product variants (can be null)
  * @returns Array of unique sizes
  */
-export function getUniqueSizes(variants: ApiProductVariant[]): string[] {
+export function getUniqueSizes(variants: ApiProductVariant[] | null): string[] {
+  if (!variants || variants.length === 0) return [];
   const sizes = variants.map((v) => v.size);
   return Array.from(new Set(sizes));
 }
 
 /**
  * Get all unique colors from product variants
- * @param variants - Array of product variants
+ * @param variants - Array of product variants (can be null)
  * @returns Array of unique colors
  */
-export function getUniqueColors(variants: ApiProductVariant[]): string[] {
+export function getUniqueColors(variants: ApiProductVariant[] | null): string[] {
+  if (!variants || variants.length === 0) return [];
   const colors = variants.map((v) => v.color);
   return Array.from(new Set(colors));
 }
@@ -291,6 +329,117 @@ export function getUniqueColors(variants: ApiProductVariant[]): string[] {
  * @returns True if any variant has stock
  */
 export function isProductInStock(product: ApiProduct): boolean {
+  // If no variants, consider product as in stock (default behavior)
+  if (!product.variants || product.variants.length === 0) return true;
   return product.variants.some((v) => v.stock_quantity > 0 && v.is_active);
+}
+
+// ============================================================================
+// NEWSLETTER SUBSCRIPTION API
+// ============================================================================
+
+export interface NewsletterSubscriptionRequest {
+  email_id: string;
+  recaptcha_token: string;
+}
+
+export interface NewsletterSubscriptionResponse {
+  message: string;
+}
+
+/**
+ * Subscribe to newsletter
+ * @param email - Email address to subscribe
+ * @param recaptchaToken - reCAPTCHA token (use "dummy" for now)
+ * @returns Success message
+ */
+export async function subscribeToNewsletter(
+  email: string,
+  recaptchaToken: string = "dummy"
+): Promise<NewsletterSubscriptionResponse> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/newsletter`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email_id: email,
+        recaptcha_token: recaptchaToken,
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 400) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Invalid email address");
+      }
+      if (response.status === 409) {
+        throw new Error("This email is already subscribed");
+      }
+      throw new Error("Failed to subscribe to newsletter");
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Failed to subscribe to newsletter");
+  }
+}
+
+// ============================================================================
+// VISITOR QUERIES API (Book Appointment / Contact Us)
+// ============================================================================
+
+export interface VisitorQueryRequest {
+  full_name: string;
+  mobile_no: string;
+  email_address: string;
+  message: string;
+  recaptcha_token: string;
+  appointment_type?: "IN_PERSON" | "VIRTUAL";
+  preferred_date?: string;
+  preferred_time?: string;
+  occasion?: string;
+}
+
+export interface VisitorQueryResponse {
+  message: string;
+}
+
+/**
+ * Submit visitor query (Book Appointment / Contact Us)
+ * @param data - Visitor query data
+ * @returns Success message
+ */
+export async function submitVisitorQuery(
+  data: VisitorQueryRequest
+): Promise<VisitorQueryResponse> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/visitor-queries`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      if (response.status === 400) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Invalid form data");
+      }
+      throw new Error("Failed to submit your request");
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Failed to submit your request");
+  }
 }
 

@@ -12,7 +12,7 @@ import {
   isProductInStock,
   ApiProduct
 } from "@/services/api";
-import { ChevronLeft, ChevronRight, Minus, Plus, Share2, Heart, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Minus, Plus, Share2, Heart, Loader2, X, ZoomIn } from "lucide-react";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -22,6 +22,8 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [showSizeChart, setShowSizeChart] = useState(false);
+  const [showImageZoom, setShowImageZoom] = useState(false);
+  const [zoomedImageIndex, setZoomedImageIndex] = useState(0);
 
   // Parse product ID from handle (assuming handle is the product ID)
   const productId = handle ? parseInt(handle) : null;
@@ -73,6 +75,37 @@ const ProductDetail = () => {
     // TODO: Implement cart functionality
     alert(`Added ${quantity} x ${product.name} (${selectedSize}, ${selectedColor}) to cart`);
   };
+
+  const handleImageClick = () => {
+    setZoomedImageIndex(selectedImageIndex);
+    setShowImageZoom(true);
+  };
+
+  const handleZoomPrevImage = () => {
+    if (!product) return;
+    setZoomedImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
+  };
+
+  const handleZoomNextImage = () => {
+    if (!product) return;
+    setZoomedImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleCloseZoom = () => {
+    setShowImageZoom(false);
+  };
+
+  // Close zoom modal on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && showImageZoom) {
+        handleCloseZoom();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [showImageZoom]);
 
   // Get related products (exclude current product)
   const relatedProducts = allProducts
@@ -131,23 +164,36 @@ const ProductDetail = () => {
               {/* Image Gallery */}
               <div className="space-y-4">
                 {/* Main Image */}
-                <div className="relative aspect-[3/4] bg-card overflow-hidden group">
+                <div
+                  className="relative aspect-[3/4] bg-card overflow-hidden group cursor-pointer"
+                  onClick={handleImageClick}
+                >
                   <img
                     src={product.images[selectedImageIndex]?.image_url || product.images[0]?.image_url}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
+                  {/* Zoom Icon */}
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-background/80 hover:bg-background flex items-center justify-center transition-smooth opacity-0 group-hover:opacity-100">
+                    <ZoomIn className="w-5 h-5" />
+                  </div>
                   {/* Navigation Arrows */}
                   {product.images.length > 1 && (
                     <>
                       <button
-                        onClick={handlePrevImage}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePrevImage();
+                        }}
                         className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 hover:bg-background flex items-center justify-center transition-smooth opacity-0 group-hover:opacity-100"
                       >
                         <ChevronLeft className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={handleNextImage}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleNextImage();
+                        }}
                         className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 hover:bg-background flex items-center justify-center transition-smooth opacity-0 group-hover:opacity-100"
                       >
                         <ChevronRight className="w-5 h-5" />
@@ -172,7 +218,7 @@ const ProductDetail = () => {
                         <img
                           src={image.image_url}
                           alt={product.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-center"
                         />
                       </button>
                     ))}
@@ -388,6 +434,72 @@ const ProductDetail = () => {
               </div>
             </div>
           </section>
+        )}
+
+        {/* Image Zoom Modal */}
+        {showImageZoom && product && (
+          <div
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+            onClick={handleCloseZoom}
+          >
+            <div className="relative w-full h-full max-w-7xl max-h-screen flex items-center justify-center">
+              {/* Close Button */}
+              <button
+                onClick={handleCloseZoom}
+                className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center transition-smooth z-10"
+                aria-label="Close zoom"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Navigation Arrows */}
+              {product.images.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleZoomPrevImage();
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center transition-smooth z-10"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-white" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleZoomNextImage();
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center transition-smooth z-10"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-6 h-6 text-white" />
+                  </button>
+                </>
+              )}
+
+              {/* Zoomed Image */}
+              <div
+                className="relative w-full h-full flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={product.images[zoomedImageIndex]?.image_url || product.images[0]?.image_url}
+                  alt={product.name}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              {/* Image Counter */}
+              {product.images.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/10 px-4 py-2 rounded-full">
+                  <p className="font-body text-sm text-white">
+                    {zoomedImageIndex + 1} / {product.images.length}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
         )}
       </main>
       <Footer />

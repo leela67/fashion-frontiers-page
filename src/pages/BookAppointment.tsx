@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Calendar, Clock, MapPin, Video, CheckCircle } from "lucide-react";
+import { Calendar, Clock, MapPin, Video, CheckCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { submitVisitorQuery } from "@/services/api";
 
 const BookAppointment = () => {
   const [formData, setFormData] = useState({
@@ -15,11 +16,66 @@ const BookAppointment = () => {
     occasion: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Appointment request:", formData);
-    alert("Thank you! We'll confirm your appointment shortly.");
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
+    try {
+      // Combine first and last name
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+
+      // Validate required fields
+      if (!fullName || !formData.email || !formData.phone || !formData.preferredDate || !formData.preferredTime) {
+        setSubmitMessage({ type: "error", text: "Please fill in all required fields" });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Submit to API
+      await submitVisitorQuery({
+        full_name: fullName,
+        mobile_no: formData.phone,
+        email_address: formData.email,
+        message: formData.message || "Appointment request",
+        recaptcha_token: "dummy",
+        appointment_type: formData.appointmentType === "in-person" ? "IN_PERSON" : "VIRTUAL",
+        preferred_date: formData.preferredDate,
+        preferred_time: formData.preferredTime,
+        occasion: formData.occasion || undefined,
+      });
+
+      setSubmitMessage({
+        type: "success",
+        text: "Thank you! We'll confirm your appointment within 24 hours via email."
+      });
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        appointmentType: "in-person",
+        preferredDate: "",
+        preferredTime: "",
+        occasion: "",
+        message: "",
+      });
+
+      // Scroll to top to show success message
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setSubmitMessage({
+        type: "error",
+        text: error instanceof Error ? error.message : "Failed to submit your request. Please try again."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -155,6 +211,17 @@ const BookAppointment = () => {
                   Fill out the form below and we'll confirm your appointment within 24 hours
                 </p>
               </div>
+
+              {/* Success/Error Message */}
+              {submitMessage && (
+                <div className={`mb-8 p-4 rounded border ${
+                  submitMessage.type === "success"
+                    ? "bg-green-50 border-green-200 text-green-800"
+                    : "bg-red-50 border-red-200 text-red-800"
+                }`}>
+                  <p className="font-body text-sm">{submitMessage.text}</p>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -313,10 +380,20 @@ const BookAppointment = () => {
                 <div className="text-center pt-4">
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2 px-12 py-4 btn-primary font-heading text-lg font-semibold transition-smooth"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center gap-2 px-12 py-4 btn-primary font-heading text-lg font-semibold transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Calendar className="w-5 h-5" />
-                    Request Appointment
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <Calendar className="w-5 h-5" />
+                        Request Appointment
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
