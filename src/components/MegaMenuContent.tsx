@@ -22,10 +22,14 @@ const MegaMenuContent = ({ menuItem }: MegaMenuContentProps) => {
     genderFilter ? { gender: genderFilter as "MEN" | "WOMEN" } : undefined
   );
 
-  // Get dynamic images from categories where is_marketing_visible is true
+  // Get dynamic images from categories based on menu type
   const dynamicImages = useMemo(() => {
-    const marketingCategories = categories.filter(cat => cat.is_marketing_visible && cat.image_url);
-    const images = marketingCategories.map(cat => cat.image_url!);
+    let filteredCategories = categories.filter(cat => cat.is_marketing_visible && cat.image_url);
+
+    // For Collections menu, show all marketing visible categories (no gender filter)
+    // For Shop Women/Mens, the categories are already filtered by gender via the hook
+
+    const images = filteredCategories.map(cat => cat.image_url!);
 
     // If no dynamic images, fall back to static images
     return images.length > 0 ? images : menuItem.carouselImages;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MegaMenu from "@/components/MegaMenu";
 import { megaMenuData } from "@/data/megaMenuData";
@@ -104,7 +104,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="lg:hidden py-4 border-t border-border animate-in fade-in slide-in-from-top-2 duration-300 max-h-[calc(100vh-5rem)] overflow-y-auto">
+          <nav className="lg:hidden py-4 border-t border-border bg-header animate-in fade-in slide-in-from-top-2 duration-300 max-h-[calc(100vh-5rem)] overflow-y-auto">
             <div className="flex flex-col gap-3">
               {menuData.map((link) => (
                 <div key={link.label}>
@@ -112,7 +112,7 @@ const Header = () => {
                     <>
                       <button
                         onClick={() => toggleMobileDropdown(link.label)}
-                        className="w-full flex items-center justify-between nav-text py-2 text-header hover:text-primary transition-smooth"
+                        className="w-full flex items-center justify-between nav-text py-2 text-header hover:text-secondary transition-smooth"
                       >
                         {link.label}
                         <ChevronDown
@@ -122,12 +122,38 @@ const Header = () => {
                         />
                       </button>
                       {isMobileDropdownOpen[link.label] && (
-                        <div className="pl-4 flex flex-col gap-2 mt-2 border-l-2 border-primary/30">
+                        <div className="pl-4 flex flex-col gap-2 mt-2 border-l-2 border-secondary/30">
                           {link.categories.map((item) => (
                             <a
                               key={item.label}
                               href={item.href}
-                              className="nav-text text-muted-foreground hover:text-primary transition-smooth py-1"
+                              className="nav-text text-muted-foreground hover:text-secondary transition-smooth py-1"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setIsMobileDropdownOpen({});
+                              }}
+                            >
+                              {item.label}
+                            </a>
+                          ))}
+                          {link.occasions && link.occasions.length > 0 && link.occasions.map((item) => (
+                            <a
+                              key={item.label}
+                              href={item.href}
+                              className="nav-text text-muted-foreground hover:text-secondary transition-smooth py-1"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setIsMobileDropdownOpen({});
+                              }}
+                            >
+                              {item.label}
+                            </a>
+                          ))}
+                          {link.collections && link.collections.length > 0 && link.collections.map((item) => (
+                            <a
+                              key={item.label}
+                              href={item.href}
+                              className="nav-text text-muted-foreground hover:text-secondary transition-smooth py-1"
                               onClick={() => {
                                 setIsMenuOpen(false);
                                 setIsMobileDropdownOpen({});
@@ -142,7 +168,7 @@ const Header = () => {
                   ) : (
                     <a
                       href={link.href}
-                      className="nav-text py-2 text-header hover:text-primary transition-smooth block"
+                      className="nav-text py-2 text-header hover:text-secondary transition-smooth block"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.label}

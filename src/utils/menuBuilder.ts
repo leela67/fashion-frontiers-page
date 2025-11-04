@@ -70,19 +70,32 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
       href: `/products?category=${cat.id}&type=collection`,
     }));
 
-  // All collections (for Collections menu)
-  const allCollections = collectionCategories
+  // All collections (for Collections menu) - no gender filter
+  const allClothingCategories = clothingCategories
+    .filter((cat) => cat.is_active)
     .sort((a, b) => a.sort_order - b.sort_order)
+    .slice(0, 6) // Limit to 6 items
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}&type=collection`,
+      href: `/products?category=${cat.id}`,
     }));
 
-  const allOccasions = occasionCategories
+  const allOccasionCategories = occasionCategories
+    .filter((cat) => cat.is_active)
     .sort((a, b) => a.sort_order - b.sort_order)
+    .slice(0, 6) // Limit to 6 items
     .map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.id}&type=occasion`,
+      href: `/products?category=${cat.id}`,
+    }));
+
+  const allCollectionCategories = collectionCategories
+    .filter((cat) => cat.is_active)
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .slice(0, 6) // Limit to 6 items
+    .map((cat) => ({
+      label: cat.name,
+      href: `/products?category=${cat.id}`,
     }));
 
   // Build the mega menu structure
@@ -92,13 +105,9 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
       href: "/products",
       hasDropdown: true,
       carouselImages: [collectionImg1, collectionImg2, collectionImg3, collectionImg4],
-      categories: [
-        { label: "Entire Collection", href: "/products" },
-        { label: "Men's Collection", href: "/products?gender=MEN" },
-        { label: "Women's Collection", href: "/products?gender=WOMEN" },
-      ],
-      occasions: [],
-      collections: [],
+      categories: allClothingCategories,
+      occasions: allOccasionCategories,
+      collections: allCollectionCategories,
     },
     {
       label: "Shop Women",
@@ -121,15 +130,9 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
     {
       label: "About",
       href: "/about",
-      hasDropdown: true,
-      carouselImages: [categoryCollection, collectionImg1, collectionImg2],
-      categories: [
-        { label: "About Us", href: "/about" },
-        { label: "Designer's Note", href: "/designers-note" },
-        { label: "Sustainability", href: "/sustainability" },
-        { label: "Atelier", href: "/atelier" },
-        { label: "Press", href: "/press" },
-      ],
+      hasDropdown: false,
+      carouselImages: [],
+      categories: [],
       collections: [],
     },
   ];
@@ -149,12 +152,19 @@ export function getFallbackMenu(): MegaMenuCategory[] {
       hasDropdown: true,
       carouselImages: [collectionImg1, collectionImg2, collectionImg3, collectionImg4],
       categories: [
-        { label: "Entire Collection", href: "/products" },
-        { label: "Men's Collection", href: "/products?gender=MEN" },
-        { label: "Women's Collection", href: "/products?gender=WOMEN" },
+        { label: "Lehenga", href: "/products?category=1" },
+        { label: "Saree", href: "/products?category=2" },
+        { label: "Drape Saree", href: "/products?category=3" },
       ],
-      occasions: [],
-      collections: [],
+      occasions: [
+        { label: "Cocktail / Sangeet", href: "/products?category=8" },
+        { label: "Haldi", href: "/products?category=9" },
+        { label: "Festive / Pooja", href: "/products?category=10" },
+      ],
+      collections: [
+        { label: "Raasleela 2025", href: "/products?category=11" },
+        { label: "Moh Mohram", href: "/products?category=12" },
+      ],
     },
     {
       label: "Shop Women",
@@ -191,15 +201,9 @@ export function getFallbackMenu(): MegaMenuCategory[] {
     {
       label: "About",
       href: "/about",
-      hasDropdown: true,
-      carouselImages: [categoryCollection, collectionImg1, collectionImg2],
-      categories: [
-        { label: "About Us", href: "/about" },
-        { label: "Designer's Note", href: "/designers-note" },
-        { label: "Sustainability", href: "/sustainability" },
-        { label: "Atelier", href: "/atelier" },
-        { label: "Press", href: "/press" },
-      ],
+      hasDropdown: false,
+      carouselImages: [],
+      categories: [],
       collections: [],
     },
   ];
