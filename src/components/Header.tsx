@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, User, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MegaMenu from "@/components/MegaMenu";
 import { megaMenuData } from "@/data/megaMenuData";
@@ -80,20 +80,12 @@ const Header = () => {
           {/* Desktop Navigation with Mega Menu */}
           <MegaMenu navLinks={menuData} />
 
-          {/* Right Side Icons & CTA */}
+          {/* Right Side CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            {/* User Account Icon */}
-            <button
-              className="p-2 text-header hover:text-accent transition-smooth"
-              aria-label="Account"
-            >
-              <User className="w-5 h-5" />
-            </button>
-
             {/* CTA Button */}
             <a href="/book-appointment">
               <Button
-                className="ml-2 px-5 py-2 btn-primary font-body font-semibold tracking-wider uppercase text-sm"
+                className="px-5 py-2 btn-primary font-body font-semibold tracking-wider uppercase text-sm"
               >
                 Book Appointment
               </Button>

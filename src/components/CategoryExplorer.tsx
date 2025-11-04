@@ -7,8 +7,11 @@ const CollectionExplorer = () => {
   const { categories, loading, error } = useCategories();
   const navigate = useNavigate();
 
-  // Filter categories where is_marketing_visible is true
-  const marketingCategories = categories.filter(cat => cat.is_marketing_visible);
+  // Filter categories where is_marketing_visible is true, sort by sort_order, and take top 6
+  const marketingCategories = categories
+    .filter(cat => cat.is_marketing_visible)
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .slice(0, 6);
 
   // Handle category click - navigate to products page with appropriate filters
   const handleCategoryClick = (category: typeof categories[0]) => {
@@ -94,7 +97,7 @@ const CollectionExplorer = () => {
                 <img
                   src={category.image_url || collection1}
                   alt={category.name}
-                  className="w-full h-full object-cover object-center transition-transform duration-[900ms] ease-out group-hover:scale-[1.12]"
+                  className="w-full h-94% object-cover object-center transition-transform duration-[900ms] ease-out group-hover:scale-[1.12]"
                   loading="lazy"
                 />
                 {/* Sophisticated gradient overlay */}
@@ -108,7 +111,7 @@ const CollectionExplorer = () => {
               <div className="absolute inset-0 flex flex-col justify-end p-9 lg:p-11">
                 <div className="transform transition-elegant group-hover:-translate-y-3">
                   <h3 className="heading-luxury heading-4xl text-hero leading-tight tracking-tight mb-4">
-                    {category.name}
+                    {category.description || category.name}
                   </h3>
                   <div className="w-14 h-[2px] bg-hero/70 group-hover:w-24 transition-elegant" />
                 </div>

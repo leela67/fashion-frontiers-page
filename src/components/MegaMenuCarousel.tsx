@@ -55,7 +55,7 @@ const MegaMenuCarousel = ({ images, autoPlayInterval = 4000 }: MegaMenuCarouselP
             key={index}
             src={image}
             alt={`Carousel slide ${index + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-elegant ${
+            className={`absolute inset-0 w-full h-93% object-cover object-center  transition-elegant ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
           />

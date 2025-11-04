@@ -119,7 +119,7 @@ const Products = () => {
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const matchesName = product.name.toLowerCase().includes(query);
-        const matchesDescription = product.description?.toLowerCase().includes(query);
+        const matchesDescription = (product.short_description || product.long_description || "").toLowerCase().includes(query);
         if (!matchesName && !matchesDescription) {
           return false;
         }
@@ -270,9 +270,8 @@ const Products = () => {
             {/* Products Content */}
             {!loading && !error && (
               <>
-            {/* Search and Top Filters */}
-            <div className="mb-6 space-y-4">
-              {/* Search Bar */}
+            {/* Search Bar Only */}
+            <div className="mb-6">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
@@ -291,41 +290,6 @@ const Products = () => {
                   </button>
                 )}
               </div>
-
-              {/* Category and Gender Filters */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Category Filter */}
-                <div className="relative">
-                  <select
-                    value={selectedCategoryId || ""}
-                    onChange={(e) => handleCategoryChange(e.target.value ? parseInt(e.target.value) : null)}
-                    className="appearance-none w-full px-4 py-3 pr-10 border border-border bg-background font-body text-sm hover:border-secondary transition-smooth cursor-pointer"
-                  >
-                    <option value="">All Categories</option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name} ({category.category_type})
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" />
-                </div>
-
-                {/* Gender Filter */}
-                <div className="relative">
-                  <select
-                    value={selectedGender}
-                    onChange={(e) => handleGenderChange(e.target.value as "MEN" | "WOMEN" | "UNISEX" | "")}
-                    className="appearance-none w-full px-4 py-3 pr-10 border border-border bg-background font-body text-sm hover:border-secondary transition-smooth cursor-pointer"
-                  >
-                    <option value="">All Genders</option>
-                    <option value="WOMEN">Women</option>
-                    <option value="MEN">Men</option>
-                    <option value="UNISEX">Unisex</option>
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" />
-                </div>
-              </div>
             </div>
 
             {/* Filter Bar */}
@@ -336,7 +300,7 @@ const Products = () => {
                   className="flex items-center gap-2 px-4 py-2 border border-border hover:border-secondary transition-smooth"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
-                  <span className="font-body text-sm">More Filters</span>
+                  <span className="font-body text-sm">Filters</span>
                   {(selectedSizes.length > 0 || selectedColors.length > 0 || searchQuery || selectedCategoryId || selectedGender) && (
                     <span className="w-5 h-5 rounded-full bg-secondary text-background text-xs flex items-center justify-center">
                       {selectedSizes.length + selectedColors.length + (searchQuery ? 1 : 0) + (selectedCategoryId ? 1 : 0) + (selectedGender ? 1 : 0)}
@@ -380,6 +344,44 @@ const Products = () => {
               {showFilters && (
                 <aside className="lg:w-64 flex-shrink-0">
                   <div className="sticky top-24 space-y-6">
+                    {/* Category Filter */}
+                    <div className="border-b border-border pb-6">
+                      <h3 className="font-heading text-lg font-semibold text-foreground mb-4">Category</h3>
+                      <div className="relative">
+                        <select
+                          value={selectedCategoryId || ""}
+                          onChange={(e) => handleCategoryChange(e.target.value ? parseInt(e.target.value) : null)}
+                          className="appearance-none w-full px-4 py-3 pr-10 border border-border bg-background font-body text-sm hover:border-secondary transition-smooth cursor-pointer"
+                        >
+                          <option value="">All Categories</option>
+                          {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.name} ({category.category_type})
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* Gender Filter */}
+                    <div className="border-b border-border pb-6">
+                      <h3 className="font-heading text-lg font-semibold text-foreground mb-4">Gender</h3>
+                      <div className="relative">
+                        <select
+                          value={selectedGender}
+                          onChange={(e) => handleGenderChange(e.target.value as "MEN" | "WOMEN" | "UNISEX" | "")}
+                          className="appearance-none w-full px-4 py-3 pr-10 border border-border bg-background font-body text-sm hover:border-secondary transition-smooth cursor-pointer"
+                        >
+                          <option value="">All Genders</option>
+                          <option value="WOMEN">Women</option>
+                          <option value="MEN">Men</option>
+                          <option value="UNISEX">Unisex</option>
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" />
+                      </div>
+                    </div>
+
                     {/* Size Filter */}
                     <div className="border-b border-border pb-6">
                       <h3 className="font-heading text-lg font-semibold text-foreground mb-4">Size</h3>

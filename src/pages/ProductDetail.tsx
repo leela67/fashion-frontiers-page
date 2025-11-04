@@ -400,7 +400,7 @@ const ProductDetail = () => {
                         <img
                           src={relatedProduct.images[0]?.image_url}
                           alt={relatedProduct.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
                       <div className="space-y-2">

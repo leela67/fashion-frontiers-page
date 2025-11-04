@@ -92,9 +92,13 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
       href: "/products",
       hasDropdown: true,
       carouselImages: [collectionImg1, collectionImg2, collectionImg3, collectionImg4],
-      categories: allCollections.slice(0, 7), // Limit to 7 for UI
-      occasions: allOccasions.slice(0, 5), // Limit to 5 for UI
-      collections: allCollections.slice(7, 14), // Next 7 collections
+      categories: [
+        { label: "Entire Collection", href: "/products" },
+        { label: "Men's Collection", href: "/products?gender=MEN" },
+        { label: "Women's Collection", href: "/products?gender=WOMEN" },
+      ],
+      occasions: [],
+      collections: [],
     },
     {
       label: "Shop Women",
@@ -128,14 +132,6 @@ export function buildMegaMenuFromCategories(categories: ApiCategory[]): MegaMenu
       ],
       collections: [],
     },
-    {
-      label: "Contact",
-      href: "#contact",
-      hasDropdown: false,
-      carouselImages: [],
-      categories: [],
-      collections: [],
-    },
   ];
 
   return megaMenu;
@@ -153,19 +149,12 @@ export function getFallbackMenu(): MegaMenuCategory[] {
       hasDropdown: true,
       carouselImages: [collectionImg1, collectionImg2, collectionImg3, collectionImg4],
       categories: [
-        { label: "Bridal Collection", href: "/products?collection=bridal" },
-        { label: "Festive Collection", href: "/products?collection=festive" },
-        { label: "Heritage Collection", href: "/products?collection=heritage" },
+        { label: "Entire Collection", href: "/products" },
+        { label: "Men's Collection", href: "/products?gender=MEN" },
+        { label: "Women's Collection", href: "/products?gender=WOMEN" },
       ],
-      occasions: [
-        { label: "Wedding", href: "/products?occasion=wedding" },
-        { label: "Festive", href: "/products?occasion=festive" },
-        { label: "Casual", href: "/products?occasion=casual" },
-      ],
-      collections: [
-        { label: "New Arrivals", href: "/products?new=true" },
-        { label: "Best Sellers", href: "/products?bestseller=true" },
-      ],
+      occasions: [],
+      collections: [],
     },
     {
       label: "Shop Women",
@@ -211,14 +200,6 @@ export function getFallbackMenu(): MegaMenuCategory[] {
         { label: "Atelier", href: "/atelier" },
         { label: "Press", href: "/press" },
       ],
-      collections: [],
-    },
-    {
-      label: "Contact",
-      href: "#contact",
-      hasDropdown: false,
-      carouselImages: [],
-      categories: [],
       collections: [],
     },
   ];
