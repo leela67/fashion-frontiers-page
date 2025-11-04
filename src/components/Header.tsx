@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Search, ShoppingBag, User, ChevronDown } from "lucide-react";
+import { Menu, X, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MegaMenu from "@/components/MegaMenu";
 import { megaMenuData } from "@/data/megaMenuData";
@@ -82,29 +82,12 @@ const Header = () => {
 
           {/* Right Side Icons & CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            {/* Search Icon */}
-            <button
-              className="p-2 text-header hover:text-accent transition-smooth"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
-
             {/* User Account Icon */}
             <button
               className="p-2 text-header hover:text-accent transition-smooth"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
-            </button>
-
-            {/* Shopping Bag Icon */}
-            <button
-              className="p-2 text-header hover:text-accent transition-smooth relative"
-              aria-label="Shopping bag"
-            >
-              <ShoppingBag className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
             </button>
 
             {/* CTA Button */}
@@ -178,15 +161,8 @@ const Header = () => {
 
               {/* Mobile Icons */}
               <div className="flex gap-4 pt-3 border-t border-border">
-                <button className="p-2 text-header hover:text-accent transition-smooth" aria-label="Search">
-                  <Search className="w-5 h-5" />
-                </button>
                 <button className="p-2 text-header hover:text-accent transition-smooth" aria-label="Account">
                   <User className="w-5 h-5" />
-                </button>
-                <button className="p-2 text-header hover:text-accent transition-smooth relative" aria-label="Shopping bag">
-                  <ShoppingBag className="w-5 h-5" />
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
                 </button>
               </div>
 

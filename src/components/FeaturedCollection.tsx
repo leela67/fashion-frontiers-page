@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import collection1 from "@/assets/collection-1.jpg";
 import collection2 from "@/assets/collection-2.jpg";
 import collection3 from "@/assets/collection-3.jpg";
@@ -41,6 +42,7 @@ const FeaturedCollection = () => {
   const [videoAutoplay, setVideoAutoplay] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // Intersection Observer for video autoplay on scroll
   useEffect(() => {
@@ -141,7 +143,10 @@ const FeaturedCollection = () => {
 
             {/* Luxury CTA Button */}
             <div>
-              <button className="group relative btn-primary px-8 py-4 overflow-hidden shadow-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm">
+              <button
+                onClick={() => navigate("/products")}
+                className="group relative btn-primary px-8 py-4 overflow-hidden shadow-elegant hover:shadow-hover font-medium tracking-[0.15em] uppercase text-sm"
+              >
                 <span className="relative z-10">Explore Collection</span>
                 <div className="absolute inset-0 bg-charcoal transform scale-x-0 group-hover:scale-x-100 transition-elegant origin-left" />
               </button>

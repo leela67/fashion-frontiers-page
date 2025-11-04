@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useProducts } from "@/hooks/useProducts";
+import { useCategories } from "@/hooks/useCategories";
 import {
   ApiProduct,
   formatPrice,
@@ -12,7 +13,7 @@ import {
   calculateDiscountedPrice,
   isProductInStock
 } from "@/services/api";
-import { ChevronDown, SlidersHorizontal, Loader2 } from "lucide-react";
+import { ChevronDown, SlidersHorizontal, Loader2, Search, X } from "lucide-react";
 
 type SortOption =
   | "featured"
@@ -23,12 +24,19 @@ type SortOption =
   | "price-desc";
 
 const Products = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [sortBy, setSortBy] = useState<SortOption>("featured");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+  const [selectedGender, setSelectedGender] = useState<"MEN" | "WOMEN" | "UNISEX" | "">("");
+
+  // Fetch categories for filter dropdown
+  const { categories } = useCategories();
 
   // Get category and type from URL params
   const categoryIdParam = searchParams.get("category");
@@ -36,6 +44,16 @@ const Products = () => {
   const genderParam = searchParams.get("gender");
 
   const categoryId = categoryIdParam ? parseInt(categoryIdParam) : null;
+
+  // Initialize filters from URL params
+  useEffect(() => {
+    if (categoryId) {
+      setSelectedCategoryId(categoryId);
+    }
+    if (genderParam && (genderParam === "MEN" || genderParam === "WOMEN" || genderParam === "UNISEX")) {
+      setSelectedGender(genderParam);
+    }
+  }, [categoryId, genderParam]);
 
   // Build API params based on URL parameters
   const apiParams = useMemo((): FetchProductsParams => {
@@ -97,6 +115,16 @@ const Products = () => {
     return sortedProducts.filter((product) => {
       const discountedPrice = calculateDiscountedPrice(product);
 
+      // Search filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const matchesName = product.name.toLowerCase().includes(query);
+        const matchesDescription = product.description?.toLowerCase().includes(query);
+        if (!matchesName && !matchesDescription) {
+          return false;
+        }
+      }
+
       // Price filter
       if (discountedPrice < priceRange[0] || discountedPrice > priceRange[1]) {
         return false;
@@ -120,7 +148,7 @@ const Products = () => {
 
       return true;
     });
-  }, [sortedProducts, priceRange, selectedSizes, selectedColors]);
+  }, [sortedProducts, priceRange, selectedSizes, selectedColors, searchQuery]);
 
   // Get all available sizes and colors from all products
   const allSizes = useMemo(() => {
@@ -157,6 +185,42 @@ const Products = () => {
     setSelectedSizes([]);
     setSelectedColors([]);
     setPriceRange([0, 500000]);
+    setSearchQuery("");
+    setSelectedCategoryId(null);
+    setSelectedGender("");
+    // Clear URL params
+    setSearchParams({});
+  };
+
+  // Handle category filter change
+  const handleCategoryChange = (categoryId: number | null) => {
+    setSelectedCategoryId(categoryId);
+    if (categoryId) {
+      const category = categories.find(c => c.id === categoryId);
+      if (category) {
+        const params = new URLSearchParams(searchParams);
+        params.set("category", categoryId.toString());
+        params.set("type", category.category_type.toLowerCase());
+        setSearchParams(params);
+      }
+    } else {
+      const params = new URLSearchParams(searchParams);
+      params.delete("category");
+      params.delete("type");
+      setSearchParams(params);
+    }
+  };
+
+  // Handle gender filter change
+  const handleGenderChange = (gender: "MEN" | "WOMEN" | "UNISEX" | "") => {
+    setSelectedGender(gender);
+    const params = new URLSearchParams(searchParams);
+    if (gender) {
+      params.set("gender", gender);
+    } else {
+      params.delete("gender");
+    }
+    setSearchParams(params);
   };
 
   return (
@@ -206,6 +270,64 @@ const Products = () => {
             {/* Products Content */}
             {!loading && !error && (
               <>
+            {/* Search and Top Filters */}
+            <div className="mb-6 space-y-4">
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Search products by name or description..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-12 py-3 border border-border bg-background font-body text-sm hover:border-secondary focus:border-secondary focus:outline-none transition-smooth"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-secondary transition-smooth"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Category and Gender Filters */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Category Filter */}
+                <div className="relative">
+                  <select
+                    value={selectedCategoryId || ""}
+                    onChange={(e) => handleCategoryChange(e.target.value ? parseInt(e.target.value) : null)}
+                    className="appearance-none w-full px-4 py-3 pr-10 border border-border bg-background font-body text-sm hover:border-secondary transition-smooth cursor-pointer"
+                  >
+                    <option value="">All Categories</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name} ({category.category_type})
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" />
+                </div>
+
+                {/* Gender Filter */}
+                <div className="relative">
+                  <select
+                    value={selectedGender}
+                    onChange={(e) => handleGenderChange(e.target.value as "MEN" | "WOMEN" | "UNISEX" | "")}
+                    className="appearance-none w-full px-4 py-3 pr-10 border border-border bg-background font-body text-sm hover:border-secondary transition-smooth cursor-pointer"
+                  >
+                    <option value="">All Genders</option>
+                    <option value="WOMEN">Women</option>
+                    <option value="MEN">Men</option>
+                    <option value="UNISEX">Unisex</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" />
+                </div>
+              </div>
+            </div>
+
             {/* Filter Bar */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-border">
               <div className="flex items-center gap-4">
@@ -214,14 +336,14 @@ const Products = () => {
                   className="flex items-center gap-2 px-4 py-2 border border-border hover:border-secondary transition-smooth"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
-                  <span className="font-body text-sm">Filters</span>
-                  {(selectedSizes.length > 0 || selectedColors.length > 0) && (
+                  <span className="font-body text-sm">More Filters</span>
+                  {(selectedSizes.length > 0 || selectedColors.length > 0 || searchQuery || selectedCategoryId || selectedGender) && (
                     <span className="w-5 h-5 rounded-full bg-secondary text-background text-xs flex items-center justify-center">
-                      {selectedSizes.length + selectedColors.length}
+                      {selectedSizes.length + selectedColors.length + (searchQuery ? 1 : 0) + (selectedCategoryId ? 1 : 0) + (selectedGender ? 1 : 0)}
                     </span>
                   )}
                 </button>
-                {(selectedSizes.length > 0 || selectedColors.length > 0) && (
+                {(selectedSizes.length > 0 || selectedColors.length > 0 || searchQuery || selectedCategoryId || selectedGender) && (
                   <button
                     onClick={clearFilters}
                     className="font-body text-sm text-muted-foreground hover:text-secondary transition-smooth"

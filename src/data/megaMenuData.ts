@@ -123,13 +123,5 @@ export const megaMenuData: MegaMenuCategory[] = [
     ],
     collections: [],
   },
-  {
-    label: "Contact",
-    href: "#contact",
-    hasDropdown: false,
-    carouselImages: [],
-    categories: [],
-    collections: [],
-  },
 ];
 

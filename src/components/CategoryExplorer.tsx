@@ -1,44 +1,68 @@
+import { useCategories } from "@/hooks/useCategories";
+import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 import collection1 from "@/assets/collection-1.jpg";
-import collection2 from "@/assets/collection-2.jpg";
-import collection3 from "@/assets/collection-3.jpg";
-import collection4 from "@/assets/collection-4.jpg";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-
-const collections = [
-  {
-    id: "kashmir",
-    title: "A Poème By The Lake: Kashmir",
-    image: collection1,
-  },
-  {
-    id: "couture-2024",
-    title: "India Couture Week 2024",
-    image: collection2,
-  },
-  {
-    id: "love-always",
-    title: "Love Always",
-    image: collection3,
-  },
-  {
-    id: "love-is",
-    title: "Love Is",
-    image: collection4,
-  },
-  {
-    id: "mon-amour",
-    title: "Mon Amour Jag Niwas",
-    image: hero1,
-  },
-  {
-    id: "rang-mahal",
-    title: "Rang Mahal",
-    image: hero2,
-  },
-];
 
 const CollectionExplorer = () => {
+  const { categories, loading, error } = useCategories();
+  const navigate = useNavigate();
+
+  // Filter categories where is_marketing_visible is true
+  const marketingCategories = categories.filter(cat => cat.is_marketing_visible);
+
+  // Handle category click - navigate to products page with appropriate filters
+  const handleCategoryClick = (category: typeof categories[0]) => {
+    let url = "/products";
+    const params = new URLSearchParams();
+
+    // Add gender filter
+    if (category.gender === "MEN") {
+      params.append("gender", "MEN");
+    } else if (category.gender === "WOMEN") {
+      params.append("gender", "WOMEN");
+    }
+    // For UNISEX, don't add gender filter (show all products)
+
+    // Add category ID and type
+    params.append("category", category.id.toString());
+    params.append("type", category.category_type.toLowerCase());
+
+    const queryString = params.toString();
+    if (queryString) {
+      url += `?${queryString}`;
+    }
+
+    navigate(url);
+  };
+
+  // Handle "Explore Collection" button click
+  const handleExploreAllClick = () => {
+    navigate("/products");
+  };
+
+  if (loading) {
+    return (
+      <section id="collections-explore" className="py-16 lg:py-24 bg-pearl">
+        <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="collections-explore" className="py-16 lg:py-24 bg-pearl">
+        <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
+          <div className="text-center text-muted-foreground">
+            <p>Unable to load collections. Please try again later.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="collections-explore" className="py-16 lg:py-24 bg-pearl">
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
@@ -58,18 +82,19 @@ const CollectionExplorer = () => {
 
         {/* Premium Collections Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {collections.map((collection, idx) => (
+          {marketingCategories.map((category, idx) => (
             <div
-              key={collection.id}
+              key={category.id}
+              onClick={() => handleCategoryClick(category)}
               className="group relative overflow-hidden cursor-pointer transition-elegant hover:shadow-hover animate-fade-in"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Image Container with Premium Overlay */}
               <div className="relative aspect-portrait overflow-hidden bg-muted">
                 <img
-                  src={collection.image}
-                  alt={collection.title}
-                  className="w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.12]"
+                  src={category.image_url || collection1}
+                  alt={category.name}
+                  className="w-full h-full object-cover object-center transition-transform duration-[900ms] ease-out group-hover:scale-[1.12]"
                   loading="lazy"
                 />
                 {/* Sophisticated gradient overlay */}
@@ -83,7 +108,7 @@ const CollectionExplorer = () => {
               <div className="absolute inset-0 flex flex-col justify-end p-9 lg:p-11">
                 <div className="transform transition-elegant group-hover:-translate-y-3">
                   <h3 className="heading-luxury heading-4xl text-hero leading-tight tracking-tight mb-4">
-                    {collection.title}
+                    {category.name}
                   </h3>
                   <div className="w-14 h-[2px] bg-hero/70 group-hover:w-24 transition-elegant" />
                 </div>
@@ -97,6 +122,16 @@ const CollectionExplorer = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Explore All Collections Button */}
+        <div className="flex justify-center mt-12">
+          <button
+            onClick={handleExploreAllClick}
+            className="px-12 py-5 border-2 border-primary text-primary cta-text font-light tracking-[0.25em] hover:bg-primary hover:text-background transition-elegant"
+          >
+            Explore All Collections
+          </button>
         </div>
       </div>
     </section>
