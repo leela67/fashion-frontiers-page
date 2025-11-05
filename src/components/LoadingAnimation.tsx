@@ -48,9 +48,9 @@ const LoadingAnimation = ({ onComplete }: { onComplete: () => void }) => {
       {/* Main Content */}
       <div className="relative z-10 text-center px-6">
         {/* Logo and Brand Name */}
-        <div className="mb-8 overflow-hidden flex items-center justify-center gap-2 md:gap-4">
+        <div className="mb-8 overflow-hidden text-center">
           {/* R Logo SVG */}
-          <div className="animate-logo-scale">
+          <div className="animate-logo-scale mb-6 flex justify-center">
             <svg
               width="120"
               height="140"

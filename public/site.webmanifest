@@ -1,0 +1,22 @@
+{
+  "name": "Rivaaj Couture",
+  "short_name": "Rivaaj",
+  "description": "Luxury Fashion House - Where Heritage Meets Luxury",
+  "icons": [
+    {
+      "src": "/rivaaj-favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/rivaaj-favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#691516",
+  "background_color": "#1F1815",
+  "display": "standalone",
+  "start_url": "/"
+}
+

@@ -33,6 +33,11 @@ const ProductDetail = () => {
   // Fetch all products for related products
   const { products: allProducts } = useProducts();
 
+  // Scroll to top when component mounts or product ID changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [productId]);
+
   // Set default selections when product loads
   useEffect(() => {
     if (product) {
@@ -167,7 +172,7 @@ const ProductDetail = () => {
                       <ZoomOut className="w-5 h-5" />
                     </div>
                   )}
-                  {/* Navigation Arrows */}
+                  {/* Navigation Arrows - Desktop Only */}
                   {product.images.length > 1 && !isImageZoomed && (
                     <>
                       <button
@@ -175,7 +180,7 @@ const ProductDetail = () => {
                           e.stopPropagation();
                           handlePrevImage();
                         }}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 hover:bg-background flex items-center justify-center transition-smooth opacity-0 group-hover:opacity-100"
+                        className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 hover:bg-background items-center justify-center transition-smooth opacity-0 group-hover:opacity-100"
                       >
                         <ChevronLeft className="w-5 h-5" />
                       </button>
@@ -184,7 +189,7 @@ const ProductDetail = () => {
                           e.stopPropagation();
                           handleNextImage();
                         }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 hover:bg-background flex items-center justify-center transition-smooth opacity-0 group-hover:opacity-100"
+                        className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 hover:bg-background items-center justify-center transition-smooth opacity-0 group-hover:opacity-100"
                       >
                         <ChevronRight className="w-5 h-5" />
                       </button>
@@ -194,25 +199,54 @@ const ProductDetail = () => {
 
                 {/* Thumbnail Images */}
                 {product.images.length > 1 && (
-                  <div className="grid grid-cols-5 gap-2">
-                    {product.images.map((image, index) => (
-                      <button
-                        key={image.id}
-                        onClick={() => setSelectedImageIndex(index)}
-                        className={`aspect-square overflow-hidden border-2 transition-smooth ${
-                          selectedImageIndex === index
-                            ? "border-secondary"
-                            : "border-border hover:border-secondary/50"
-                        }`}
-                      >
-                        <img
-                          src={image.image_url}
-                          alt={product.name}
-                          className="w-full h-full object-cover object-center"
-                        />
-                      </button>
-                    ))}
-                  </div>
+                  <>
+                    {/* Mobile: Horizontal Scroll */}
+                    <div
+                      className="sm:hidden overflow-x-auto pb-2 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide"
+                      style={{ WebkitOverflowScrolling: 'touch' }}
+                    >
+                      <div className="flex gap-2" style={{ width: 'max-content' }}>
+                        {product.images.map((image, index) => (
+                          <button
+                            key={image.id}
+                            onClick={() => setSelectedImageIndex(index)}
+                            className={`w-20 h-20 flex-shrink-0 snap-start overflow-hidden border-2 transition-smooth ${
+                              selectedImageIndex === index
+                                ? "border-secondary"
+                                : "border-border hover:border-secondary/50"
+                            }`}
+                          >
+                            <img
+                              src={image.image_url}
+                              alt={product.name}
+                              className="w-full h-full object-cover object-center"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tablet and Desktop: Grid */}
+                    <div className="hidden sm:grid sm:grid-cols-5 gap-2">
+                      {product.images.map((image, index) => (
+                        <button
+                          key={image.id}
+                          onClick={() => setSelectedImageIndex(index)}
+                          className={`aspect-square overflow-hidden border-2 transition-smooth ${
+                            selectedImageIndex === index
+                              ? "border-secondary"
+                              : "border-border hover:border-secondary/50"
+                          }`}
+                        >
+                          <img
+                            src={image.image_url}
+                            alt={product.name}
+                            className="w-full h-full object-cover object-center"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
 

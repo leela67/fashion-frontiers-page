@@ -45,6 +45,11 @@ const Products = () => {
 
   const categoryId = categoryIdParam ? parseInt(categoryIdParam) : null;
 
+  // Scroll to top when component mounts or when URL params change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [categoryId, genderParam, categoryType]);
+
   // Initialize filters from URL params
   useEffect(() => {
     if (categoryId) {
